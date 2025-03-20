@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'planner_page.dart'; // Import the Planner Page
+import 'moodTrack_page.dart'; // import mood tracker page
+
 
 class HomePage extends StatelessWidget {
   @override
@@ -10,6 +12,8 @@ class HomePage extends StatelessWidget {
         children: [
           // Main content of the home page
           Center(child: Text('Welcome to the Home Page!')),
+
+
 
           // Planner button positioned at the top-right
           Positioned(
@@ -30,4 +34,8 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+
+
+  
+
 }
