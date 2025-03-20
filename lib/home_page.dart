@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'planner_page.dart'; // Import the Planner Page
 
+//class to help create buttons
 class Button extends StatelessWidget{
   const Button({
     super.key,
@@ -13,7 +14,9 @@ class Button extends StatelessWidget{
   final String label;
   final double? height;
 
-
+  //takes in a icon, label, and height and creates a button with it.
+  //currently all buttons go to the planner page, but this will change as
+  //more pages are finished.
   @override
   Widget build(BuildContext context){
     return Positioned(
@@ -42,12 +45,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home Page')),
+      appBar: AppBar(title: Text('Placeholder App Title')),
       body: Stack(
+        // Main content of the home page
         children: [
-          // Main content of the home page
+          //placeholder title
           Center(child: Text('Welcome to the Home Page!')),
-          // Planner button positioned at the top-right
+          //creates 3 buttons that navigate to 3 different pages.
           Button(icon: Icons.calendar_month_outlined, label: 'Planner', height: 400),
           Button(icon: Icons.tag_faces, label: 'Mood Tracker', height: 500),
           Button(icon: Icons.timer, label: 'Activity History', height: 600),
