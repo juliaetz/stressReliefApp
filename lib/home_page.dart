@@ -7,17 +7,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Home Page')),
-
       body: Stack(
         children: [
           // Main content of the home page
           Center(child: Text('Welcome to the Home Page!')),
-
           // Planner button positioned at the top-right
           Positioned(
             top: 400, // Distance from the top
-            right: 150, // Distance from the right
-            child: ElevatedButton(
+            right: 125,
+            // Distance from the right
+            child: ElevatedButton.icon(
               onPressed: () {
                 // Navigate to PlannerPage
                 Navigator.push(
@@ -25,7 +24,11 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => PlannerPage()),
                 );
               },
-              child: Text('Planner'),
+              icon: const Icon(Icons.calendar_month_outlined),
+              label: const Text('Planner'),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(150,75),
+              ),
             ),
           ),
         ],
