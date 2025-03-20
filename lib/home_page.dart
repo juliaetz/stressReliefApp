@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'planner_page.dart'; // Import the Planner Page
 
+
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Home Page')),
+
       body: Stack(
         children: [
           // Main content of the home page
@@ -13,8 +15,8 @@ class HomePage extends StatelessWidget {
 
           // Planner button positioned at the top-right
           Positioned(
-            top: 20, // Distance from the top
-            right: 20, // Distance from the right
+            top: 400, // Distance from the top
+            right: 150, // Distance from the right
             child: ElevatedButton(
               onPressed: () {
                 // Navigate to PlannerPage
