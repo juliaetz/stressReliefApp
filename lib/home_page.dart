@@ -38,7 +38,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Placeholder App Title')),
+      appBar: AppBar(
+          title: Text('Placeholder App Title'),
+          backgroundColor: Colors.deepPurple.shade200,
+      ),
       body: Center(
         // Main content of the home page
         child: Column(
