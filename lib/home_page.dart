@@ -43,7 +43,16 @@ class HomePage extends StatelessWidget {
         // Main content of the home page
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
+            Text(
+              'Placeholder Title',
+              style: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 40,),
             Button(icon: Icons.calendar_month_outlined, label: 'Planner'),
             SizedBox(height: 20), // Space between buttons
             Button(icon: Icons.tag_faces, label: 'Mood Tracker'),
