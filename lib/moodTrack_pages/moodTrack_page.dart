@@ -10,7 +10,6 @@ class MoodtrackPage extends StatefulWidget{
 }
 
 
-
 class _MoodtrackPageState extends State<MoodtrackPage> {
   @override
   Widget build(BuildContext context){
@@ -31,7 +30,7 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
       ),
 
 
-      // COLUMNS
+      // MOOD TRACKER FACE BUTTONS
       body: ListView(
         children: [
           MoodtrackTile(),

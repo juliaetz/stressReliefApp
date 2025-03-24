@@ -46,7 +46,7 @@ class MoodtrackTile extends StatelessWidget {
         ),
 
 
-        // STRAIGHT-FACE ICON
+        // NEUTRAL ICON
         SizedBox(
           child: Image.asset(
             height: 60,
@@ -66,8 +66,6 @@ class MoodtrackTile extends StatelessWidget {
             color: Colors.lightGreen[700],
           ),
         ),
-
-        // GRAPH
 
       ],
     );
