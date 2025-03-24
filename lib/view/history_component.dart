@@ -22,7 +22,18 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     this.widget.presenter.historyView = this;
   }
 
-  String dropdownvalue = 'Activity History';
+  String _dropdownValue = 'Activity History';
+  String _history = "";
+
+  @override
+  void updateHistory(String option){
+    if(option == 'Activity History'){
+      _history = 'This will give your daily activity history';
+    } else if (option == 'Mood History'){
+      _history = 'This will give your daily mood history';
+    }
+  }
+
 
   @override
   Widget build(BuildContext Context) {
@@ -56,7 +67,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
             historySelectionRow(),
             Padding(padding: EdgeInsets.all(10)),
             Container(
-
+              child: Text(_history),
             )
           ],
         )
@@ -72,7 +83,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
               Padding(padding: EdgeInsets.all(8)),
               Text('Daily History:  ', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
               DropdownButton<String>(
-                value: dropdownvalue,
+                value: _dropdownValue,
                 icon: const Icon(Icons.keyboard_arrow_down),
                 underline: Container(height: 2, color: Colors.amber),
                 items: <String>['Activity History', 'Mood History'].map((String value) {
@@ -83,7 +94,8 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
                 }).toList(),
                 onChanged: (String? newValue) {
                   setState(() {
-                    dropdownvalue = newValue!;
+                    _dropdownValue = newValue!;
+                    updateHistory(newValue);
                   });
                 },
               ),
