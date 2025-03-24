@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9500cdde-e24d-4128-ad6b-ae686bc498b9" name="Changes" comment="Added a title to the main screen">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="9500cdde-e24d-4128-ad6b-ae686bc498b9" name="Changes" comment="Changed the background color of the appBar">
       <change beforePath="$PROJECT_DIR$/lib/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/home_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -177,7 +176,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742859105440</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Changed the background color of the appBar">
+      <option name="closed" value="true" />
+      <created>1742859574733</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1742859574733</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -191,6 +198,7 @@
     <MESSAGE value="Added comments" />
     <MESSAGE value="Changed the button positioning logic so they are not tied to positions." />
     <MESSAGE value="Added a title to the main screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a title to the main screen" />
+    <MESSAGE value="Changed the background color of the appBar" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed the background color of the appBar" />
   </component>
 </project>

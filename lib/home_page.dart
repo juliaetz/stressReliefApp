@@ -12,9 +12,8 @@ class Button extends StatelessWidget{
   final IconData icon;
   final String label;
 
-  //takes in a icon, label, and height and creates a button with it.
-  //currently all buttons go to the planner page, but this will change as
-  //more pages are finished.
+  //creates a button using an icon and a label as a
+  //currently all buttons go to the planner page as a placeholder
   @override
   Widget build(BuildContext context){
     return ElevatedButton.icon(
@@ -27,6 +26,7 @@ class Button extends StatelessWidget{
         },
         icon: Icon(icon),
         label: Text(label),
+        //dictates the size of the button
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(150,75),
         ),
@@ -38,6 +38,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //Formats the appBar at the top of the screen
       appBar: AppBar(
           title: Text('Placeholder App Title'),
           backgroundColor: Colors.deepPurple.shade200,
@@ -46,7 +47,6 @@ class HomePage extends StatelessWidget {
         // Main content of the home page
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-
           children: [
             Text(
               'Placeholder Title',
@@ -55,7 +55,8 @@ class HomePage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 40,),
+            SizedBox(height: 40,), //space between title and buttons
+            //creates the 3 buttons
             Button(icon: Icons.calendar_month_outlined, label: 'Planner'),
             SizedBox(height: 20), // Space between buttons
             Button(icon: Icons.tag_faces, label: 'Mood Tracker'),
