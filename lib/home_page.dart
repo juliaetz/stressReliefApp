@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'planner_page.dart'; // Import the Planner Page
-import 'moodTrack_page.dart'; // import mood tracker page
+import 'moodTrack_pages/moodTrack_page.dart'; // Import Mood Tracker Page
 
 
 class HomePage extends StatelessWidget {
@@ -34,8 +34,4 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
-
-  
-
 }

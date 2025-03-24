@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart'; // Import the new home page file
 
-
-
-
-
 // since we are using the MVP model, the main.dart file should ONLY contain the calls to the
 //functionality in other files, i.e create files with the actual functionality and call them here
 //like is done with HomePage()
