@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9500cdde-e24d-4128-ad6b-ae686bc498b9" name="Changes" comment="Created a class to handle button creation">
+    <list default="true" id="9500cdde-e24d-4128-ad6b-ae686bc498b9" name="Changes" comment="Added comments">
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/24a8d7718b8e03d100de17dda5ded3da/.filecache" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/24a8d7718b8e03d100de17dda5ded3da/.filecache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/24a8d7718b8e03d100de17dda5ded3da/app.dill" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/24a8d7718b8e03d100de17dda5ded3da/app.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -31,6 +31,32 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="frontpage" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -141,7 +167,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742501275829</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added comments">
+      <option name="closed" value="true" />
+      <created>1742501719205</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1742501719205</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -152,6 +186,7 @@
     <MESSAGE value="Created branch for the home page and added the Google services JSON" />
     <MESSAGE value="Changed the look of the Planner button" />
     <MESSAGE value="Created a class to handle button creation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created a class to handle button creation" />
+    <MESSAGE value="Added comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added comments" />
   </component>
 </project>

@@ -7,23 +7,17 @@ class Button extends StatelessWidget{
     super.key,
     required this.icon,
     required this.label,
-    required this.height,
   });
 
   final IconData icon;
   final String label;
-  final double? height;
 
   //takes in a icon, label, and height and creates a button with it.
   //currently all buttons go to the planner page, but this will change as
   //more pages are finished.
   @override
   Widget build(BuildContext context){
-    return Positioned(
-      top: height, // Distance from the top
-      right: 125,
-      // Distance from the right
-      child: ElevatedButton.icon(
+    return ElevatedButton.icon(
         onPressed: () {
           // Navigate to PlannerPage
           Navigator.push(
@@ -36,8 +30,7 @@ class Button extends StatelessWidget{
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(150,75),
         ),
-      ),
-    );
+      );
   }
 }
 
@@ -46,17 +39,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Placeholder App Title')),
-      body: Stack(
+      body: Center(
         // Main content of the home page
-        children: [
-          //placeholder title
-          Center(child: Text('Welcome to the Home Page!')),
-          //creates 3 buttons that navigate to 3 different pages.
-          Button(icon: Icons.calendar_month_outlined, label: 'Planner', height: 400),
-          Button(icon: Icons.tag_faces, label: 'Mood Tracker', height: 500),
-          Button(icon: Icons.timer, label: 'Activity History', height: 600),
-
-        ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Button(icon: Icons.calendar_month_outlined, label: 'Planner'),
+            SizedBox(height: 20), // Space between buttons
+            Button(icon: Icons.tag_faces, label: 'Mood Tracker'),
+            SizedBox(height: 20), // Space between buttons
+            Button(icon: Icons.timer, label: 'Activity History'),
+          ],
+        ),
       ),
     );
   }
