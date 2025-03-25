@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 
-
-
-
-
 // since we are using the MVP model, the main.dart file should ONLY contain the calls to the
 //functionality in other files, i.e create files with the actual functionality and call them here
 //like is done with HomePage()
@@ -19,6 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Planner',
       theme: ThemeData(
         primarySwatch: Colors.blue,

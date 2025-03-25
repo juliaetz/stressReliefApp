@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'calendar_view.dart';
 import 'calendar_model.dart';
 import 'calendar_presenter.dart';
+import 'moodTrack_pages/moodTrack_page.dart'; // Import Mood Tracker Page
 
 class HomePage extends StatelessWidget {
   @override
@@ -16,6 +17,8 @@ class HomePage extends StatelessWidget {
         children: [
           // Main content of the home page
           Center(child: Text('Welcome to the Home Page!')),
+
+
 
           // Planner button positioned at the top-right
           Positioned(
@@ -33,6 +36,8 @@ class HomePage extends StatelessWidget {
               child: Text('Planner'),
             ),
           ),
+
+          
         ],
       ),
     );
