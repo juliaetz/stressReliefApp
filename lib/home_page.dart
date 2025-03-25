@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'planner_page.dart'; // Import the Planner Page
+import 'calendar_view.dart';
+import 'calendar_model.dart';
+import 'calendar_presenter.dart';
 import 'moodTrack_pages/moodTrack_page.dart'; // Import Mood Tracker Page
-
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final model = CalendarModel({}); //creating an instance of calender model
+
+    final calPresenter = CalendarPresenter(model); //
+
     return Scaffold(
       appBar: AppBar(title: Text('Home Page')),
       body: Stack(
@@ -24,7 +29,8 @@ class HomePage extends StatelessWidget {
                 // Navigate to PlannerPage
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PlannerPage()),
+                  MaterialPageRoute(
+                      builder: (context) => CalendarView(presenter: calPresenter)),
                 );
               },
               child: Text('Planner'),
