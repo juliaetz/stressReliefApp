@@ -90,14 +90,25 @@ class _CalendarViewState extends State<CalendarView> {
             Expanded(
               child: ListView(
                 children: widget.presenter.getEventsForDay(_selectedDay ?? DateTime.now()).map((event) {
+
                   TimeOfDay time = event['time'];
                   String description = event['description'];
 
                   return ListTile(
-                    title: Text("$description"),
-                    subtitle: Text("${time.format(context)}"), // Show all events for that date
+                    title: Text(description),
+                    subtitle: Text(time.format(context)), // Show the event's time
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        if (_selectedDay != null) { // Ensure _selectedDay is not null
+                          setState(() {
+                            widget.presenter.deleteEvent(_selectedDay!, description);
+                          });
+                        }
+                      },
+                    ),
                   );
-                }).toList(),
+                                }).toList(),
               ),
             ),
 

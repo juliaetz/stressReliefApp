@@ -10,6 +10,11 @@ class CalendarPresenter {
 
   CalendarPresenter(this.model); //constructor for model
 
+
+  void deleteEvent(DateTime date, String event){
+    model.deleteEvent(date, event);
+  }
+
   bool isSameDay(DateTime? selectedDay, DateTime day) {
     return selectedDay != null &&
         selectedDay.year == day.year &&

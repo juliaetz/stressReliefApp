@@ -12,6 +12,19 @@ class CalendarModel {
   final Map<DateTime, List<Map<String, dynamic>>> _events = {};
 
 
+  //method for remving an event from a day in the calendar
+  void deleteEvent(DateTime date, String event){
+    //look for the event we want to delete
+    if(_events.containsKey(date)){
+
+      _events[date]!.removeWhere((e) => e['description'] == event);
+      if(_events[date]!.isEmpty){
+        _events.remove(date);
+      }
+    }
+  }
+
+
   //Method for add events to a specific day
   void addEvent(DateTime date, String event, TimeOfDay time){
 
@@ -19,8 +32,8 @@ class CalendarModel {
       _events[date] = [];   // if date not in map, initialize the map for that date
     }
 
-    _events[date]!.add({'time': time, 'description': event});
     //if already in map, add it to the string list for that date
+    _events[date]!.add({'time': time, 'description': event});
 
 
     _events[date]!.sort((a,b) {
