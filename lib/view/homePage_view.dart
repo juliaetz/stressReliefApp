@@ -43,9 +43,6 @@ class Button extends StatelessWidget{
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final model = CalendarModel({}); //creating an instance of calender model
-    final calPresenter = CalendarPresenter(model); //
-
     return Scaffold(
       appBar: AppBar(
           title: Text('Home Page'),
