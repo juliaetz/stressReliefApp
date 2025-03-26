@@ -46,34 +46,31 @@ class HomePage extends StatelessWidget {
     final model = CalendarModel({}); //creating an instance of calender model
     final calPresenter = CalendarPresenter(model); //
 
-
     return Scaffold(
-      appBar: AppBar(title: Text('Home Page')),
-      body: Stack(
-        children: [
-          // Main content of the home page
-          Center(child: Text('Welcome to the Home Page!')),
-          Button(icon: Icons.calendar_month_outlined, label: 'Planner'),
-
-          // Planner button positioned at the top-right
-          Positioned(
-            top: 20, // Distance from the top
-            right: 20, // Distance from the right
-            child: ElevatedButton(
-              onPressed: () {
-                // Navigate to PlannerPage
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CalendarView(presenter: calPresenter)),
-                );
-              },
-              child: Text('Planner'),
+      appBar: AppBar(
+          title: Text('Home Page'),
+          backgroundColor: Colors.deepPurple.shade200,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Placeholder Title',
+              style: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-
-          
-        ],
+            SizedBox(height: 40,), //space between title and buttons
+            //creates the 3 buttons
+            Button(icon: Icons.calendar_month_outlined, label: 'Planner'),
+            SizedBox(height: 20), // Space between buttons
+            Button(icon: Icons.tag_faces, label: 'Mood Tracker'),
+            SizedBox(height: 20), // Space between buttons
+            Button(icon: Icons.timer, label: 'Activity History'),
+          ],
+        ),
       ),
     );
   }
