@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'calendar_presenter.dart';
-//this is the view, ideally rename this to planner_view
 
 class CalendarView extends StatefulWidget {
   //The calender updates based on selection (stateful widget)
@@ -94,7 +93,20 @@ class _CalendarViewState extends State<CalendarView> {
                 }
               ),
 
-              )
+              ),
+            Expanded(
+              child: ListView(
+                children: widget.presenter.model.allEvents.entries.map((entry) {
+                  return ListTile(
+                    title: Text(
+                      "${entry.key.toLocal()}".split(' ')[0], // Display the date
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(entry.value.join(", ")), // Show all events for that date
+                  );
+                }).toList(),
+              ),
+            ),
 
 
           ],
@@ -103,6 +115,10 @@ class _CalendarViewState extends State<CalendarView> {
 
 
   }
+
+
+  //ADD SOME FUNCTIoNLAITY THAT CHECKS THAT THE EVENTS ARE PROPERLY BEING SAVED
+  //idk print the date and event value pairs ?
 
   void _showAddEventDialog(DateTime selectedDate) {
     TextEditingController eventController = TextEditingController();

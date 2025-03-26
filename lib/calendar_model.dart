@@ -23,5 +23,7 @@ class CalendarModel {
     return _events[date] ?? [];
   }
 
+  Map<DateTime, List<String>> get allEvents => _events;
+
 
 }
