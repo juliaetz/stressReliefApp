@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// MOOD TRACKER PRESENTER
+
+
 class MoodtrackTile extends StatefulWidget {
   @override
   _MoodTrackTileState createState() => _MoodTrackTileState();
@@ -74,17 +77,17 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           borderRadius: BorderRadius.circular(10),
           onTapDown: (_) {
             setState(() {
-              _scale = 0.9; // scale down when clicked
+              _scale = 0.9;
             });
           },
           onTapUp: (_) {
             setState(() {
-              _scale = 1.0; // scale to normal
+              _scale = 1.0;
             });
           },
           onTapCancel: () {
             setState(() {
-              _scale = 1.0; // reset scale
+              _scale = 1.0;
             });
           },
           child: Transform.scale(
@@ -108,17 +111,17 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           borderRadius: BorderRadius.circular(10),
           onTapDown: (_) {
             setState(() {
-              _scale = 0.9; // scale down when clicked
+              _scale = 0.9;
             });
           },
           onTapUp: (_) {
             setState(() {
-              _scale = 1.0; // scale to normal
+              _scale = 1.0;
             });
           },
           onTapCancel: () {
             setState(() {
-              _scale = 1.0; // reset scale
+              _scale = 1.0;
             });
           },
           child: Transform.scale(
@@ -142,17 +145,17 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           borderRadius: BorderRadius.circular(10),
           onTapDown: (_) {
             setState(() {
-              _scale = 0.9; // scale down when clicked
+              _scale = 0.9;
             });
           },
           onTapUp: (_) {
             setState(() {
-              _scale = 1.0; // scale to normal
+              _scale = 1.0;
             });
           },
           onTapCancel: () {
             setState(() {
-              _scale = 1.0; // reset scale
+              _scale = 1.0;
             });
           },
           child: Transform.scale(

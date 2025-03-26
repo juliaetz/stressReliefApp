@@ -1,6 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+
+// TEMPORARY PIE CHART TEMPLATE TO ADD DATA LATER
+
 class Moodpie extends StatelessWidget{
   const Moodpie({super.key});
 
