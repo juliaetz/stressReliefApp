@@ -25,14 +25,16 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   String _dropdownValue = 'Activity History';
   String _history = "";
 
-  @override
-  void updateHistory(String option){
-    if(option == 'Activity History'){
-      _history = 'This will give your daily activity history';
-    } else if (option == 'Mood History'){
-      _history = 'This will give your daily mood history';
-    }
+  void handleHistoryValueChanged(String? value){
+    this.widget.presenter.onOptionChanged(value!);
   }
+
+  @override
+  void updateHistory(String value){
+      setState(() {
+        _history = "This is the $value page";
+      });
+    }
 
 
   @override
@@ -95,7 +97,8 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
                 onChanged: (String? newValue) {
                   setState(() {
                     _dropdownValue = newValue!;
-                    updateHistory(newValue);
+                    handleHistoryValueChanged(newValue);
+                    //updateHistory(newValue);
                   });
                 },
               ),

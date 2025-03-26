@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
 class HistoryView{
-  void updateHistory(String option){}
+  void updateHistory(String value){}
 }
