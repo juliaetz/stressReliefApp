@@ -25,16 +25,9 @@ class _CalendarViewState extends State<CalendarView> {
   @override
   Widget build(BuildContext Context) {
 
-
-
-
-
     return Scaffold(
         appBar: AppBar(title: Text('Planner')),
         body: Column(
-
-
-
           children: [
             TableCalendar(
                 focusedDay: _focusedDay,
@@ -96,13 +89,13 @@ class _CalendarViewState extends State<CalendarView> {
               ),
             Expanded(
               child: ListView(
-                children: widget.presenter.model.allEvents.entries.map((entry) {
+                children: widget.presenter.getEventsForDay(_selectedDay ?? DateTime.now()).map((event) {
+                  TimeOfDay time = event['time'];
+                  String description = event['description'];
+
                   return ListTile(
-                    title: Text(
-                      "${entry.key.toLocal()}".split(' ')[0], // Display the date
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(entry.value.join(", ")), // Show all events for that date
+                    title: Text("$description"),
+                    subtitle: Text("${time.format(context)}"), // Show all events for that date
                   );
                 }).toList(),
               ),
@@ -122,31 +115,52 @@ class _CalendarViewState extends State<CalendarView> {
 
   void _showAddEventDialog(DateTime selectedDate) {
     TextEditingController eventController = TextEditingController();
+    TimeOfDay selectedTime = TimeOfDay.now();
 
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-      title: Text("Add Note for ${selectedDate.toLocal()}".split(' ')[0]),
-      content: TextField(
-        controller: eventController,
-        decoration: InputDecoration(hintText: "Enter event or note"),
+     showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text("Add Event for ${selectedDate.toLocal()}".split(' ')[0]),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: eventController,
+            decoration: InputDecoration(hintText: "Enter event description"),
+          ),
+          SizedBox(height: 10),
+          TextButton(
+            onPressed: () async {
+              TimeOfDay? pickedTime = await showTimePicker(
+                context: context,
+                initialTime: selectedTime,
+              );
+              if (pickedTime != null) {
+                setState(() {
+                  selectedTime = pickedTime;
+                });
+              }
+            },
+            child: Text("Select Time: ${selectedTime.format(context)}"),
+          ),
+        ],
       ),
       actions: [
         TextButton(
-            onPressed: () {
-              Navigator.pop(context); //close dialog without saving
-            },
-            child: Text("Cancel")
+          onPressed: () {
+            Navigator.pop(context); // Close dialog without saving
+          },
+          child: Text("Cancel"),
         ),
         TextButton(
-            onPressed: () {
-              setState(() {
-                widget.presenter.addEvent(selectedDate, eventController.text);
-              });
-              Navigator.pop(context); //closes dialog after saving
-            },
-            child: Text("save"),
-        )
+          onPressed: () {
+            setState(() {
+              widget.presenter.addEvent(selectedDate, eventController.text, selectedTime);
+            });
+            Navigator.pop(context); // Close dialog after saving
+          },
+          child: Text("Save"),
+        ),
       ],
     ));
 

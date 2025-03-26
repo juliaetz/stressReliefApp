@@ -1,6 +1,8 @@
 //the presenter acts as a middle man between view and model
 //it contains logic for handling user interactions and fetching data
 
+import 'package:flutter/material.dart';
+
 import 'calendar_model.dart';
 
 class CalendarPresenter {
@@ -20,17 +22,17 @@ class CalendarPresenter {
     print("Selected Day: $selectedDay ");
   }
 
-  void addEvent(DateTime date, String event) {
-    model.addEvent(date, event);
+  void addEvent(DateTime date, String event, TimeOfDay time) {
+    model.addEvent(date, event, time);
   }
 
-  List<String> getEventsForDay(DateTime day) {
+  List<Map<String, dynamic>> getEventsForDay(DateTime day) {
     return model.getEventsForDay(day); //gets events from the model
 
 
   }
 }
-
+  
 
 
 
