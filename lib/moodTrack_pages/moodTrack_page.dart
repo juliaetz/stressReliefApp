@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/moodTrack_components/moodTrack_tile.dart';
-
+import 'package:stress_managment_app/moodTrack_pages/moodPie.dart';
 
 class MoodtrackPage extends StatefulWidget{
   const MoodtrackPage({super.key});
@@ -34,9 +34,10 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
       body: ListView(
         children: [
           MoodtrackTile(),
+          Moodpie(),
         ]
       )
-      
+
 
     );
   }
