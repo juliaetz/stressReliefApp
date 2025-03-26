@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+class MoodtrackTile extends StatefulWidget {
+  @override
+  _MoodTrackTileState createState() => _MoodTrackTileState();
+}
 
-class MoodtrackTile extends StatelessWidget {
-  const MoodtrackTile({super.key});
+class _MoodTrackTileState extends State<MoodtrackTile> {
+  double _scale = 1.0;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +14,8 @@ class MoodtrackTile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
 
-        // "SELECT YOUR MOOD"
+
+        // TEXT "SELECT YOUR MOOD:"
         Container(
           padding: EdgeInsets.all(5),
           child: Text(
@@ -24,48 +29,144 @@ class MoodtrackTile extends StatelessWidget {
         ),
 
 
-        // ANGRY ICON
-        SizedBox(
-          child: Image.asset(
-            height: 65,
-            width: 65,
-            'lib/moodTrack_components/face_icons/angry.png',
-            color: Colors.red[600],
+
+        // ANGRY ICON BUTTON WITH RIPPLE EFFECT
+        InkWell(
+          onTap: () {
+            // will add function when pressed
+          },
+          splashColor: Colors.red[900],
+          borderRadius: BorderRadius.circular(10),
+          onTapDown: (_) {
+            setState(() {
+              _scale = 0.9; // scale down when clicked
+            });
+          },
+          onTapUp: (_) {
+            setState(() {
+              _scale = 1.0; // scale to normal
+            });
+          },
+          onTapCancel: () {
+            setState(() {
+              _scale = 1.0; // reset scale
+            });
+          },
+          child: Transform.scale(
+            scale: _scale,
+            child: Image.asset(
+              'lib/moodTrack_components/face_icons/angry.png',
+              width: 65,
+              height: 65,
+              color: Colors.red[700],
+            ),
           ),
         ),
 
 
-        // SAD ICON
-        SizedBox(
-          child: Image.asset(
-            height: 60,
-            width: 60,
-            'lib/moodTrack_components/face_icons/sad-face.png',
-            color: Colors.blue[700],
+
+        // SAD ICON BUTTON WITH RIPPLE EFFECT
+        InkWell(
+          onTap: () {
+            // will add function when pressed
+          },
+          splashColor: Colors.blue[900],
+          borderRadius: BorderRadius.circular(10),
+          onTapDown: (_) {
+            setState(() {
+              _scale = 0.9; // scale down when clicked
+            });
+          },
+          onTapUp: (_) {
+            setState(() {
+              _scale = 1.0; // scale to normal
+            });
+          },
+          onTapCancel: () {
+            setState(() {
+              _scale = 1.0; // reset scale
+            });
+          },
+          child: Transform.scale(
+            scale: _scale,
+            child: Image.asset(
+              'lib/moodTrack_components/face_icons/sad-face.png',
+              width: 60,
+              height: 60,
+              color: Colors.blue[700],
+            ),
           ),
         ),
 
 
-        // NEUTRAL ICON
-        SizedBox(
-          child: Image.asset(
-            height: 60,
-            width: 60,
-            'lib/moodTrack_components/face_icons/neutral-face.png',
-            color: Colors.amber[700],
+        // NEUTRAL ICON BUTTON WITH RIPPLE EFFECT
+        InkWell(
+          onTap: () {
+            // will add function when pressed
+          },
+          splashColor: Colors.yellow[900],
+          borderRadius: BorderRadius.circular(10),
+          onTapDown: (_) {
+            setState(() {
+              _scale = 0.9; // scale down when clicked
+            });
+          },
+          onTapUp: (_) {
+            setState(() {
+              _scale = 1.0; // scale to normal
+            });
+          },
+          onTapCancel: () {
+            setState(() {
+              _scale = 1.0; // reset scale
+            });
+          },
+          child: Transform.scale(
+            scale: _scale,
+            child: Image.asset(
+              'lib/moodTrack_components/face_icons/neutral-face.png',
+              width: 60,
+              height: 60,
+              color: Colors.amber[700],
+            ),
           ),
         ),
 
 
-        // HAPPY ICON
-        SizedBox(
-          child: Image.asset(
-            height: 60,
-            width: 60,
-            'lib/moodTrack_components/face_icons/happiness.png',
-            color: Colors.lightGreen[700],
+        // HAPPY ICON BUTTON WITH RIPPLE EFFECT
+        InkWell(
+          onTap: () {
+            // will add function when pressed
+          },
+          splashColor: Colors.green[900],
+          borderRadius: BorderRadius.circular(10),
+          onTapDown: (_) {
+            setState(() {
+              _scale = 0.9; // scale down when clicked
+            });
+          },
+          onTapUp: (_) {
+            setState(() {
+              _scale = 1.0; // scale to normal
+            });
+          },
+          onTapCancel: () {
+            setState(() {
+              _scale = 1.0; // reset scale
+            });
+          },
+          child: Transform.scale(
+            scale: _scale,
+            child: Image.asset(
+              'lib/moodTrack_components/face_icons/happiness.png',
+              width: 60,
+              height: 60,
+              color: Colors.green[700],
+            ),
           ),
         ),
+
+
 
       ],
     );
