@@ -20,8 +20,14 @@ class CalendarPresenter {
     print("Selected Day: $selectedDay ");
   }
 
+  void addEvent(DateTime date, String event) {
+    model.addEvent(date, event);
+  }
+
   List<String> getEventsForDay(DateTime day) {
     return model.getEventsForDay(day); //gets events from the model
+
+
   }
 }
 
