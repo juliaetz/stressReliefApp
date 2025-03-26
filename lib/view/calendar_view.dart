@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'calendar_presenter.dart';
+import '../presenter/calendar_presenter.dart';
 //this is the view, ideally rename this to planner_view
 
 class CalendarView extends StatefulWidget {
