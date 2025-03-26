@@ -121,7 +121,7 @@ class _CalendarViewState extends State<CalendarView> {
   }
 
 
-  //ADD SOME FUNCTIoNLAITY THAT CHECKS THAT THE EVENTS ARE PROPERLY BEING SAVED
+  //ADD SOME FUNCTIONLAITY THAT CHECKS THAT THE EVENTS ARE PROPERLY BEING SAVED
   //idk print the date and event value pairs ?
 
   void _showAddEventDialog(DateTime selectedDate) {
