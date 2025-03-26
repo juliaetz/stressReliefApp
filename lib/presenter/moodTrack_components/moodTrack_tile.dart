@@ -58,7 +58,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           child: Transform.scale(
             scale: _scale,
             child: Image.asset(
-              'lib/moodTrack_components/face_icons/angry.png',
+              'lib/presenter/moodTrack_components/face_icons/angry.png',
               width: 65,
               height: 65,
               color: Colors.red[700],
@@ -93,7 +93,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           child: Transform.scale(
             scale: _scale,
             child: Image.asset(
-              'lib/moodTrack_components/face_icons/sad-face.png',
+              'lib/presenter/moodTrack_components/face_icons/sad-face.png',
               width: 60,
               height: 60,
               color: Colors.blue[700],
@@ -127,7 +127,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           child: Transform.scale(
             scale: _scale,
             child: Image.asset(
-              'lib/moodTrack_components/face_icons/neutral-face.png',
+              'lib/presenter/moodTrack_components/face_icons/neutral-face.png',
               width: 60,
               height: 60,
               color: Colors.amber[700],
@@ -161,7 +161,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           child: Transform.scale(
             scale: _scale,
             child: Image.asset(
-              'lib/moodTrack_components/face_icons/happiness.png',
+              'lib/presenter/moodTrack_components/face_icons/happiness.png',
               width: 60,
               height: 60,
               color: Colors.green[700],
