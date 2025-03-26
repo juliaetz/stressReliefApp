@@ -1,7 +1,7 @@
 //the presenter acts as a middle man between view and model
 //it contains logic for handling user interactions and fetching data
 
-import 'calendar_model.dart';
+import '../model/calendar_model.dart';
 
 class CalendarPresenter {
   final CalendarModel model; //model object

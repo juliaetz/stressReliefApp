@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'calendar_view.dart';
-import 'calendar_model.dart';
-import 'calendar_presenter.dart';
-import 'moodTrack_pages/moodTrack_page.dart'; // Import Mood Tracker Page
+import '../model/calendar_model.dart';
+import '../presenter/calendar_presenter.dart';
+import '../view/moodTrack_view.dart'; // Import Mood Tracker Page
 
 class HomePage extends StatelessWidget {
   @override
