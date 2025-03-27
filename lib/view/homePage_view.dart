@@ -39,7 +39,14 @@ class Button extends StatelessWidget{
               builder: (context) => MoodtrackPage()
           );
         }else if(pageID == 3){
-          //placeholder
+          //UNCOMMENT WHEN HISTORYPAGE IS IMPLEMENTED
+          //Placeholder for now
+          /*
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HistoryPage()),     // UPDATE THIS LINE SO BUTTON CAN NAVIGATE TO PAGE
+          );
+           */
         }
 
 
@@ -83,31 +90,7 @@ class HomePage extends StatelessWidget {
             //Mood Tracker Button
             Button(icon: Icons.tag_faces, label: 'Mood Tracker', pageID: 2),
             SizedBox(height: 20), // Space between buttons
-
-
-
-            // CAN UN-COMMENT THIS WHEN READY TO USE
-            /*
-            // Navigate to Activity History Page
-            ElevatedButton.icon(
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HistoryPage()),     // UPDATE THIS LINE SO BUTTON CAN NAVIGATE TO PAGE
-                );
-              }, 
-              icon: Icon(Icons.timer), 
-              label: Text('Activity History'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(150,75),
-              ),
-            ),
-            */
-
-
-            // Activity History Button 
-            Button(icon: Icons.timer, label: 'Activity History'),
-
+            Button(icon: Icons.timer, label: 'Activity History', pageID: 3),
           ],
         ),
       ),
