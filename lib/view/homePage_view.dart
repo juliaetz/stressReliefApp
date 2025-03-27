@@ -12,26 +12,34 @@ class Button extends StatelessWidget{
     super.key,
     required this.icon,
     required this.label,
+    required this.pageID,
   });
 
   final IconData icon;
   final String label;
-
+  final int pageID;
   //creates a button using an icon and a label as a
   //currently all buttons go to the planner page as a placeholder
   @override
   Widget build(BuildContext context){
     return ElevatedButton.icon(
       onPressed: () {
+        //check the given page id, and move to the page corresponding to the id.
+        if(pageID == 1){
+          // Navigate to PlannerPage
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CalendarView(presenter: CalendarPresenter(CalendarModel({}))),
+              )
+          );
+        }else if(pageID == 2){
+          //placeholder
+        }else if(pageID == 3){
+          //placeholder
+        }
 
 
-        // Navigate to PlannerPage
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => CalendarView(presenter: CalendarPresenter(CalendarModel({}))),
-          )
-        );
 
       },
       icon: Icon(icon),
