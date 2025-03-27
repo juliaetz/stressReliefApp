@@ -1,0 +1,2 @@
+C:/Users/julia/StudioProjects/under_staffed/android/app/.cxx/Debug/v4jc5v5s/x86/CMakeFiles/edit_cache.dir
+C:/Users/julia/StudioProjects/under_staffed/android/app/.cxx/Debug/v4jc5v5s/x86/CMakeFiles/rebuild_cache.dir
