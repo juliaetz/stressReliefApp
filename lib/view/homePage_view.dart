@@ -35,8 +35,11 @@ class Button extends StatelessWidget{
           );
         }else if(pageID == 2){
           // Navigate to Mood Tracker Page
-          MaterialPageRoute(
-              builder: (context) => MoodtrackPage()
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MoodtrackPage()
+              )
           );
         }else if(pageID == 3){
           //UNCOMMENT WHEN HISTORYPAGE IS IMPLEMENTED
