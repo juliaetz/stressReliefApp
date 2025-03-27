@@ -31,10 +31,10 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
 
 
       // MOOD TRACKER FACE BUTTONS
-      body: ListView(
+      body: Column(
         children: [
           MoodtrackTile(),
-          Moodpie(),
+          //Moodpie(),
         ]
       )
 
