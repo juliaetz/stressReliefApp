@@ -1,6 +1,7 @@
 //import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
+import 'package:stress_managment_app/view/history_component.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
@@ -98,13 +99,13 @@ class HomePage extends StatelessWidget {
 
 
             // CAN UN-COMMENT THIS WHEN READY TO USE
-            /*
+
             // Navigate to Activity History Page
             ElevatedButton.icon(
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HistoryPage()),     // UPDATE THIS LINE SO BUTTON CAN NAVIGATE TO PAGE
+                  MaterialPageRoute(builder: (context) => HistoryPage(BasicHistoryPresenter(), title:'HISTORY',key: const Key('HISTORY'))),     // UPDATE THIS LINE SO BUTTON CAN NAVIGATE TO PAGE
                 );
               }, 
               icon: Icon(Icons.timer), 
@@ -113,11 +114,11 @@ class HomePage extends StatelessWidget {
                 minimumSize: const Size(150,75),
               ),
             ),
-            */
+
 
 
             // Activity History Button 
-            Button(icon: Icons.timer, label: 'Activity History'),
+            //Button(icon: Icons.timer, label: 'Activity History'),
 
           ],
         ),

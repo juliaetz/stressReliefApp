@@ -1,0 +1,2392 @@
+Index: lib/home_page.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'package:flutter/material.dart';\r\nimport 'calendar_view.dart';\r\nimport 'calendar_model.dart';\r\nimport 'calendar_presenter.dart';\r\nimport 'moodTrack_pages/moodTrack_page.dart'; // Import Mood Tracker Page\r\n\r\nclass HomePage extends StatelessWidget {\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    final model = CalendarModel({}); //creating an instance of calender model\r\n\r\n    final calPresenter = CalendarPresenter(model); //\r\n\r\n    return Scaffold(\r\n      appBar: AppBar(title: Text('Home Page')),\r\n      body: Stack(\r\n        children: [\r\n          // Main content of the home page\r\n          Center(child: Text('Welcome to the Home Page!')),\r\n\r\n\r\n\r\n          // Planner button positioned at the top-right\r\n          Positioned(\r\n            top: 20, // Distance from the top\r\n            right: 20, // Distance from the right\r\n            child: ElevatedButton(\r\n              onPressed: () {\r\n                // Navigate to PlannerPage\r\n                Navigator.push(\r\n                  context,\r\n                  MaterialPageRoute(\r\n                      builder: (context) => CalendarView(presenter: calPresenter)),\r\n                );\r\n              },\r\n              child: Text('Planner'),\r\n            ),\r\n          ),\r\n\r\n          \r\n        ],\r\n      ),\r\n    );\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lib/home_page.dart b/lib/home_page.dart
+--- a/lib/home_page.dart	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ b/lib/home_page.dart	(date 1743016427889)
+@@ -3,6 +3,8 @@
+ import 'calendar_model.dart';
+ import 'calendar_presenter.dart';
+ import 'moodTrack_pages/moodTrack_page.dart'; // Import Mood Tracker Page
++import 'view/history_component.dart';
++import 'presenter/history_presenter.dart';
+ 
+ class HomePage extends StatelessWidget {
+   @override
+@@ -10,6 +12,7 @@
+     final model = CalendarModel({}); //creating an instance of calender model
+ 
+     final calPresenter = CalendarPresenter(model); //
++    final histPresenter = BasicHistoryPresenter();
+ 
+     return Scaffold(
+       appBar: AppBar(title: Text('Home Page')),
+@@ -37,6 +40,23 @@
+             ),
+           ),
+ 
++          // Planner button positioned at the top-right
++          Positioned(
++            top: 100, // Distance from the top
++            right: 20, // Distance from the right
++            child: ElevatedButton(
++              onPressed: () {
++                // Navigate to PlannerPage
++                Navigator.push(
++                  context,
++                  MaterialPageRoute(
++                      builder: (context) => HistoryPage(histPresenter,title: 'UNITS', key: const Key("UNITS"),)),
++                );
++              },
++              child: Text('History'),
++            ),
++          ),
++
+           
+         ],
+       ),
+Index: build/windows/x64/install_manifest.txt
+===================================================================
+diff --git a/build/windows/x64/install_manifest.txt b/build/windows/x64/install_manifest.txt
+deleted file mode 100644
+--- a/build/windows/x64/install_manifest.txt	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,10 +0,0 @@
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/icudtl.dat
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/flutter_windows.dll
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.bin
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.json
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/flutter_assets/FontManifest.json
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/flutter_assets/kernel_blob.bin
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/flutter_assets/NOTICES.Z
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/flutter_assets/shaders/ink_sparkle.frag
+\ No newline at end of file
+Index: build/windows/x64/runner/cmake_install.cmake
+===================================================================
+diff --git a/build/windows/x64/runner/cmake_install.cmake b/build/windows/x64/runner/cmake_install.cmake
+deleted file mode 100644
+--- a/build/windows/x64/runner/cmake_install.cmake	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,34 +0,0 @@
+-# Install script for directory: C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows/runner
+-
+-# Set the install prefix
+-if(NOT DEFINED CMAKE_INSTALL_PREFIX)
+-  set(CMAKE_INSTALL_PREFIX "$<TARGET_FILE_DIR:stress_managment_app>")
+-endif()
+-string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+-
+-# Set the install configuration name.
+-if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
+-  if(BUILD_TYPE)
+-    string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
+-           CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
+-  else()
+-    set(CMAKE_INSTALL_CONFIG_NAME "Release")
+-  endif()
+-  message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
+-endif()
+-
+-# Set the component getting installed.
+-if(NOT CMAKE_INSTALL_COMPONENT)
+-  if(COMPONENT)
+-    message(STATUS "Install component: \"${COMPONENT}\"")
+-    set(CMAKE_INSTALL_COMPONENT "${COMPONENT}")
+-  else()
+-    set(CMAKE_INSTALL_COMPONENT)
+-  endif()
+-endif()
+-
+-# Is this installation the result of a crosscompile?
+-if(NOT DEFINED CMAKE_CROSSCOMPILING)
+-  set(CMAKE_CROSSCOMPILING "FALSE")
+-endif()
+-
+Index: build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.json
+===================================================================
+diff --git a/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.json b/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.json
+deleted file mode 100644
+--- a/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.json	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,1 +0,0 @@
+-{"packages/cupertino_icons/assets/CupertinoIcons.ttf":["packages/cupertino_icons/assets/CupertinoIcons.ttf"]}
+\ No newline at end of file
+Index: build/windows/x64/flutter/cmake_install.cmake
+===================================================================
+diff --git a/build/windows/x64/flutter/cmake_install.cmake b/build/windows/x64/flutter/cmake_install.cmake
+deleted file mode 100644
+--- a/build/windows/x64/flutter/cmake_install.cmake	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,34 +0,0 @@
+-# Install script for directory: C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows/flutter
+-
+-# Set the install prefix
+-if(NOT DEFINED CMAKE_INSTALL_PREFIX)
+-  set(CMAKE_INSTALL_PREFIX "$<TARGET_FILE_DIR:stress_managment_app>")
+-endif()
+-string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+-
+-# Set the install configuration name.
+-if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
+-  if(BUILD_TYPE)
+-    string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
+-           CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
+-  else()
+-    set(CMAKE_INSTALL_CONFIG_NAME "Release")
+-  endif()
+-  message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
+-endif()
+-
+-# Set the component getting installed.
+-if(NOT CMAKE_INSTALL_COMPONENT)
+-  if(COMPONENT)
+-    message(STATUS "Install component: \"${COMPONENT}\"")
+-    set(CMAKE_INSTALL_COMPONENT "${COMPONENT}")
+-  else()
+-    set(CMAKE_INSTALL_COMPONENT)
+-  endif()
+-endif()
+-
+-# Is this installation the result of a crosscompile?
+-if(NOT DEFINED CMAKE_CROSSCOMPILING)
+-  set(CMAKE_CROSSCOMPILING "FALSE")
+-endif()
+-
+Index: build/windows/x64/CMakeCache.txt
+===================================================================
+diff --git a/build/windows/x64/CMakeCache.txt b/build/windows/x64/CMakeCache.txt
+deleted file mode 100644
+--- a/build/windows/x64/CMakeCache.txt	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,307 +0,0 @@
+-# This is the CMakeCache file.
+-# For build in directory: c:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64
+-# It was generated by CMake: C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe
+-# You can edit this file to change values found and used by cmake.
+-# If you do not want to change any of the values, simply exit the editor.
+-# If you do want to change a value, simply edit, save, and exit the editor.
+-# The syntax for the file is as follows:
+-# KEY:TYPE=VALUE
+-# KEY is the name of a variable in the cache.
+-# TYPE is a hint to GUIs for the type of VALUE, DO NOT EDIT TYPE!.
+-# VALUE is the current value for the KEY.
+-
+-########################
+-# EXTERNAL cache entries
+-########################
+-
+-//Path to a program.
+-CMAKE_AR:FILEPATH=C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/bin/Hostx64/x64/lib.exe
+-
+-CMAKE_CONFIGURATION_TYPES:STRING=Debug;Profile;Release
+-
+-//Flags used by the CXX compiler during all build types.
+-CMAKE_CXX_FLAGS:STRING=/DWIN32 /D_WINDOWS /W3 /GR /EHsc
+-
+-//Flags used by the CXX compiler during DEBUG builds.
+-CMAKE_CXX_FLAGS_DEBUG:STRING=/MDd /Zi /Ob0 /Od /RTC1
+-
+-//Flags used by the CXX compiler during MINSIZEREL builds.
+-CMAKE_CXX_FLAGS_MINSIZEREL:STRING=/MD /O1 /Ob1 /DNDEBUG
+-
+-//Flags used by the CXX compiler during RELEASE builds.
+-CMAKE_CXX_FLAGS_RELEASE:STRING=/MD /O2 /Ob2 /DNDEBUG
+-
+-//Flags used by the CXX compiler during RELWITHDEBINFO builds.
+-CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=/MD /Zi /O2 /Ob1 /DNDEBUG
+-
+-//Libraries linked by default with all C++ applications.
+-CMAKE_CXX_STANDARD_LIBRARIES:STRING=kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+-
+-//Flags used by the linker during all build types.
+-CMAKE_EXE_LINKER_FLAGS:STRING=/machine:x64
+-
+-//Flags used by the linker during DEBUG builds.
+-CMAKE_EXE_LINKER_FLAGS_DEBUG:STRING=/debug /INCREMENTAL
+-
+-//Flags used by the linker during MINSIZEREL builds.
+-CMAKE_EXE_LINKER_FLAGS_MINSIZEREL:STRING=/INCREMENTAL:NO
+-
+-//Flags used by the linker during RELEASE builds.
+-CMAKE_EXE_LINKER_FLAGS_RELEASE:STRING=/INCREMENTAL:NO
+-
+-//Flags used by the linker during RELWITHDEBINFO builds.
+-CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
+-
+-//Value Computed by CMake.
+-CMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/CMakeFiles/pkgRedirects
+-
+-//...
+-CMAKE_INSTALL_PREFIX:PATH=$<TARGET_FILE_DIR:stress_managment_app>
+-
+-//Path to a program.
+-CMAKE_LINKER:FILEPATH=C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/bin/Hostx64/x64/link.exe
+-
+-//Flags used by the linker during the creation of modules during
+-// all build types.
+-CMAKE_MODULE_LINKER_FLAGS:STRING=/machine:x64
+-
+-//Flags used by the linker during the creation of modules during
+-// DEBUG builds.
+-CMAKE_MODULE_LINKER_FLAGS_DEBUG:STRING=/debug /INCREMENTAL
+-
+-//Flags used by the linker during the creation of modules during
+-// MINSIZEREL builds.
+-CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL:STRING=/INCREMENTAL:NO
+-
+-//Flags used by the linker during the creation of modules during
+-// RELEASE builds.
+-CMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=/INCREMENTAL:NO
+-
+-//Flags used by the linker during the creation of modules during
+-// RELWITHDEBINFO builds.
+-CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
+-
+-//Path to a program.
+-CMAKE_MT:FILEPATH=CMAKE_MT-NOTFOUND
+-
+-//Value Computed by CMake
+-CMAKE_PROJECT_DESCRIPTION:STATIC=
+-
+-//Value Computed by CMake
+-CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
+-
+-//Value Computed by CMake
+-CMAKE_PROJECT_NAME:STATIC=stress_managment_app
+-
+-//RC compiler
+-CMAKE_RC_COMPILER:FILEPATH=rc
+-
+-//Flags for Windows Resource Compiler during all build types.
+-CMAKE_RC_FLAGS:STRING=-DWIN32
+-
+-//Flags for Windows Resource Compiler during DEBUG builds.
+-CMAKE_RC_FLAGS_DEBUG:STRING=-D_DEBUG
+-
+-//Flags for Windows Resource Compiler during MINSIZEREL builds.
+-CMAKE_RC_FLAGS_MINSIZEREL:STRING=
+-
+-//Flags for Windows Resource Compiler during RELEASE builds.
+-CMAKE_RC_FLAGS_RELEASE:STRING=
+-
+-//Flags for Windows Resource Compiler during RELWITHDEBINFO builds.
+-CMAKE_RC_FLAGS_RELWITHDEBINFO:STRING=
+-
+-//Flags used by the linker during the creation of shared libraries
+-// during all build types.
+-CMAKE_SHARED_LINKER_FLAGS:STRING=/machine:x64
+-
+-//Flags used by the linker during the creation of shared libraries
+-// during DEBUG builds.
+-CMAKE_SHARED_LINKER_FLAGS_DEBUG:STRING=/debug /INCREMENTAL
+-
+-//Flags used by the linker during the creation of shared libraries
+-// during MINSIZEREL builds.
+-CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL:STRING=/INCREMENTAL:NO
+-
+-//Flags used by the linker during the creation of shared libraries
+-// during RELEASE builds.
+-CMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING=/INCREMENTAL:NO
+-
+-//Flags used by the linker during the creation of shared libraries
+-// during RELWITHDEBINFO builds.
+-CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
+-
+-//If set, runtime paths are not added when installing shared libraries,
+-// but are added when building.
+-CMAKE_SKIP_INSTALL_RPATH:BOOL=NO
+-
+-//If set, runtime paths are not added when using shared libraries.
+-CMAKE_SKIP_RPATH:BOOL=NO
+-
+-//Flags used by the linker during the creation of static libraries
+-// during all build types.
+-CMAKE_STATIC_LINKER_FLAGS:STRING=/machine:x64
+-
+-//Flags used by the linker during the creation of static libraries
+-// during DEBUG builds.
+-CMAKE_STATIC_LINKER_FLAGS_DEBUG:STRING=
+-
+-//Flags used by the linker during the creation of static libraries
+-// during MINSIZEREL builds.
+-CMAKE_STATIC_LINKER_FLAGS_MINSIZEREL:STRING=
+-
+-//Flags used by the linker during the creation of static libraries
+-// during RELEASE builds.
+-CMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=
+-
+-//Flags used by the linker during the creation of static libraries
+-// during RELWITHDEBINFO builds.
+-CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
+-
+-//If this value is on, makefiles will be generated without the
+-// .SILENT directive, and all commands will be echoed to the console
+-// during the make.  This is useful for debugging only. With Visual
+-// Studio IDE projects all commands are done without /nologo.
+-CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
+-
+-//No help, variable specified on the command line.
+-FLUTTER_TARGET_PLATFORM:UNINITIALIZED=windows-x64
+-
+-//Value Computed by CMake
+-runner_BINARY_DIR:STATIC=C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner
+-
+-//Value Computed by CMake
+-runner_IS_TOP_LEVEL:STATIC=OFF
+-
+-//Value Computed by CMake
+-runner_SOURCE_DIR:STATIC=C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows/runner
+-
+-//Value Computed by CMake
+-stress_managment_app_BINARY_DIR:STATIC=C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64
+-
+-//Value Computed by CMake
+-stress_managment_app_IS_TOP_LEVEL:STATIC=ON
+-
+-//Value Computed by CMake
+-stress_managment_app_SOURCE_DIR:STATIC=C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows
+-
+-
+-########################
+-# INTERNAL cache entries
+-########################
+-
+-//ADVANCED property for variable: CMAKE_AR
+-CMAKE_AR-ADVANCED:INTERNAL=1
+-//This is the directory where this CMakeCache.txt was created
+-CMAKE_CACHEFILE_DIR:INTERNAL=c:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64
+-//Major version of cmake used to create the current loaded cache
+-CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
+-//Minor version of cmake used to create the current loaded cache
+-CMAKE_CACHE_MINOR_VERSION:INTERNAL=28
+-//Patch version of cmake used to create the current loaded cache
+-CMAKE_CACHE_PATCH_VERSION:INTERNAL=3
+-//Path to CMake executable.
+-CMAKE_COMMAND:INTERNAL=C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe
+-//Path to cpack program executable.
+-CMAKE_CPACK_COMMAND:INTERNAL=C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cpack.exe
+-//Path to ctest program executable.
+-CMAKE_CTEST_COMMAND:INTERNAL=C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/ctest.exe
+-//ADVANCED property for variable: CMAKE_CXX_FLAGS
+-CMAKE_CXX_FLAGS-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_CXX_FLAGS_DEBUG
+-CMAKE_CXX_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_CXX_FLAGS_MINSIZEREL
+-CMAKE_CXX_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_CXX_FLAGS_RELEASE
+-CMAKE_CXX_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_CXX_FLAGS_RELWITHDEBINFO
+-CMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_CXX_STANDARD_LIBRARIES
+-CMAKE_CXX_STANDARD_LIBRARIES-ADVANCED:INTERNAL=1
+-//Executable file format
+-CMAKE_EXECUTABLE_FORMAT:INTERNAL=Unknown
+-//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS
+-CMAKE_EXE_LINKER_FLAGS-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_DEBUG
+-CMAKE_EXE_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_MINSIZEREL
+-CMAKE_EXE_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_RELEASE
+-CMAKE_EXE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO
+-CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+-//Name of external makefile project generator.
+-CMAKE_EXTRA_GENERATOR:INTERNAL=
+-//Name of generator.
+-CMAKE_GENERATOR:INTERNAL=Visual Studio 17 2022
+-//Generator instance identifier.
+-CMAKE_GENERATOR_INSTANCE:INTERNAL=C:/Program Files/Microsoft Visual Studio/2022/Community
+-//Name of generator platform.
+-CMAKE_GENERATOR_PLATFORM:INTERNAL=x64
+-//Name of generator toolset.
+-CMAKE_GENERATOR_TOOLSET:INTERNAL=
+-//Source directory with the top level CMakeLists.txt file for this
+-// project
+-CMAKE_HOME_DIRECTORY:INTERNAL=C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows
+-//ADVANCED property for variable: CMAKE_LINKER
+-CMAKE_LINKER-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS
+-CMAKE_MODULE_LINKER_FLAGS-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_DEBUG
+-CMAKE_MODULE_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL
+-CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELEASE
+-CMAKE_MODULE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO
+-CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_MT
+-CMAKE_MT-ADVANCED:INTERNAL=1
+-//number of local generators
+-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
+-//Platform information initialized
+-CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
+-//noop for ranlib
+-CMAKE_RANLIB:INTERNAL=:
+-//ADVANCED property for variable: CMAKE_RC_COMPILER
+-CMAKE_RC_COMPILER-ADVANCED:INTERNAL=1
+-CMAKE_RC_COMPILER_WORKS:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_RC_FLAGS
+-CMAKE_RC_FLAGS-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_RC_FLAGS_DEBUG
+-CMAKE_RC_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_RC_FLAGS_MINSIZEREL
+-CMAKE_RC_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_RC_FLAGS_RELEASE
+-CMAKE_RC_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_RC_FLAGS_RELWITHDEBINFO
+-CMAKE_RC_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+-//Path to CMake installation.
+-CMAKE_ROOT:INTERNAL=C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28
+-//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS
+-CMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG
+-CMAKE_SHARED_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL
+-CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_RELEASE
+-CMAKE_SHARED_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO
+-CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_SKIP_INSTALL_RPATH
+-CMAKE_SKIP_INSTALL_RPATH-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_SKIP_RPATH
+-CMAKE_SKIP_RPATH-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS
+-CMAKE_STATIC_LINKER_FLAGS-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_DEBUG
+-CMAKE_STATIC_LINKER_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_MINSIZEREL
+-CMAKE_STATIC_LINKER_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_RELEASE
+-CMAKE_STATIC_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO
+-CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+-//ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
+-CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+-
+Index: build/windows/x64/CMakeFiles/3.28.3-msvc11/CompilerIdCXX/CMakeCXXCompilerId.cpp
+===================================================================
+diff --git a/build/windows/x64/CMakeFiles/3.28.3-msvc11/CompilerIdCXX/CMakeCXXCompilerId.cpp b/build/windows/x64/CMakeFiles/3.28.3-msvc11/CompilerIdCXX/CMakeCXXCompilerId.cpp
+deleted file mode 100644
+--- a/build/windows/x64/CMakeFiles/3.28.3-msvc11/CompilerIdCXX/CMakeCXXCompilerId.cpp	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,869 +0,0 @@
+-/* This source file must have a .cpp extension so that all C++ compilers
+-   recognize the extension without flags.  Borland does not know .cxx for
+-   example.  */
+-#ifndef __cplusplus
+-# error "A C compiler has been selected for C++."
+-#endif
+-
+-#if !defined(__has_include)
+-/* If the compiler does not have __has_include, pretend the answer is
+-   always no.  */
+-#  define __has_include(x) 0
+-#endif
+-
+-
+-/* Version number components: V=Version, R=Revision, P=Patch
+-   Version date components:   YYYY=Year, MM=Month,   DD=Day  */
+-
+-#if defined(__COMO__)
+-# define COMPILER_ID "Comeau"
+-  /* __COMO_VERSION__ = VRR */
+-# define COMPILER_VERSION_MAJOR DEC(__COMO_VERSION__ / 100)
+-# define COMPILER_VERSION_MINOR DEC(__COMO_VERSION__ % 100)
+-
+-#elif defined(__INTEL_COMPILER) || defined(__ICC)
+-# define COMPILER_ID "Intel"
+-# if defined(_MSC_VER)
+-#  define SIMULATE_ID "MSVC"
+-# endif
+-# if defined(__GNUC__)
+-#  define SIMULATE_ID "GNU"
+-# endif
+-  /* __INTEL_COMPILER = VRP prior to 2021, and then VVVV for 2021 and later,
+-     except that a few beta releases use the old format with V=2021.  */
+-# if __INTEL_COMPILER < 2021 || __INTEL_COMPILER == 202110 || __INTEL_COMPILER == 202111
+-#  define COMPILER_VERSION_MAJOR DEC(__INTEL_COMPILER/100)
+-#  define COMPILER_VERSION_MINOR DEC(__INTEL_COMPILER/10 % 10)
+-#  if defined(__INTEL_COMPILER_UPDATE)
+-#   define COMPILER_VERSION_PATCH DEC(__INTEL_COMPILER_UPDATE)
+-#  else
+-#   define COMPILER_VERSION_PATCH DEC(__INTEL_COMPILER   % 10)
+-#  endif
+-# else
+-#  define COMPILER_VERSION_MAJOR DEC(__INTEL_COMPILER)
+-#  define COMPILER_VERSION_MINOR DEC(__INTEL_COMPILER_UPDATE)
+-   /* The third version component from --version is an update index,
+-      but no macro is provided for it.  */
+-#  define COMPILER_VERSION_PATCH DEC(0)
+-# endif
+-# if defined(__INTEL_COMPILER_BUILD_DATE)
+-   /* __INTEL_COMPILER_BUILD_DATE = YYYYMMDD */
+-#  define COMPILER_VERSION_TWEAK DEC(__INTEL_COMPILER_BUILD_DATE)
+-# endif
+-# if defined(_MSC_VER)
+-   /* _MSC_VER = VVRR */
+-#  define SIMULATE_VERSION_MAJOR DEC(_MSC_VER / 100)
+-#  define SIMULATE_VERSION_MINOR DEC(_MSC_VER % 100)
+-# endif
+-# if defined(__GNUC__)
+-#  define SIMULATE_VERSION_MAJOR DEC(__GNUC__)
+-# elif defined(__GNUG__)
+-#  define SIMULATE_VERSION_MAJOR DEC(__GNUG__)
+-# endif
+-# if defined(__GNUC_MINOR__)
+-#  define SIMULATE_VERSION_MINOR DEC(__GNUC_MINOR__)
+-# endif
+-# if defined(__GNUC_PATCHLEVEL__)
+-#  define SIMULATE_VERSION_PATCH DEC(__GNUC_PATCHLEVEL__)
+-# endif
+-
+-#elif (defined(__clang__) && defined(__INTEL_CLANG_COMPILER)) || defined(__INTEL_LLVM_COMPILER)
+-# define COMPILER_ID "IntelLLVM"
+-#if defined(_MSC_VER)
+-# define SIMULATE_ID "MSVC"
+-#endif
+-#if defined(__GNUC__)
+-# define SIMULATE_ID "GNU"
+-#endif
+-/* __INTEL_LLVM_COMPILER = VVVVRP prior to 2021.2.0, VVVVRRPP for 2021.2.0 and
+- * later.  Look for 6 digit vs. 8 digit version number to decide encoding.
+- * VVVV is no smaller than the current year when a version is released.
+- */
+-#if __INTEL_LLVM_COMPILER < 1000000L
+-# define COMPILER_VERSION_MAJOR DEC(__INTEL_LLVM_COMPILER/100)
+-# define COMPILER_VERSION_MINOR DEC(__INTEL_LLVM_COMPILER/10 % 10)
+-# define COMPILER_VERSION_PATCH DEC(__INTEL_LLVM_COMPILER    % 10)
+-#else
+-# define COMPILER_VERSION_MAJOR DEC(__INTEL_LLVM_COMPILER/10000)
+-# define COMPILER_VERSION_MINOR DEC(__INTEL_LLVM_COMPILER/100 % 100)
+-# define COMPILER_VERSION_PATCH DEC(__INTEL_LLVM_COMPILER     % 100)
+-#endif
+-#if defined(_MSC_VER)
+-  /* _MSC_VER = VVRR */
+-# define SIMULATE_VERSION_MAJOR DEC(_MSC_VER / 100)
+-# define SIMULATE_VERSION_MINOR DEC(_MSC_VER % 100)
+-#endif
+-#if defined(__GNUC__)
+-# define SIMULATE_VERSION_MAJOR DEC(__GNUC__)
+-#elif defined(__GNUG__)
+-# define SIMULATE_VERSION_MAJOR DEC(__GNUG__)
+-#endif
+-#if defined(__GNUC_MINOR__)
+-# define SIMULATE_VERSION_MINOR DEC(__GNUC_MINOR__)
+-#endif
+-#if defined(__GNUC_PATCHLEVEL__)
+-# define SIMULATE_VERSION_PATCH DEC(__GNUC_PATCHLEVEL__)
+-#endif
+-
+-#elif defined(__PATHCC__)
+-# define COMPILER_ID "PathScale"
+-# define COMPILER_VERSION_MAJOR DEC(__PATHCC__)
+-# define COMPILER_VERSION_MINOR DEC(__PATHCC_MINOR__)
+-# if defined(__PATHCC_PATCHLEVEL__)
+-#  define COMPILER_VERSION_PATCH DEC(__PATHCC_PATCHLEVEL__)
+-# endif
+-
+-#elif defined(__BORLANDC__) && defined(__CODEGEARC_VERSION__)
+-# define COMPILER_ID "Embarcadero"
+-# define COMPILER_VERSION_MAJOR HEX(__CODEGEARC_VERSION__>>24 & 0x00FF)
+-# define COMPILER_VERSION_MINOR HEX(__CODEGEARC_VERSION__>>16 & 0x00FF)
+-# define COMPILER_VERSION_PATCH DEC(__CODEGEARC_VERSION__     & 0xFFFF)
+-
+-#elif defined(__BORLANDC__)
+-# define COMPILER_ID "Borland"
+-  /* __BORLANDC__ = 0xVRR */
+-# define COMPILER_VERSION_MAJOR HEX(__BORLANDC__>>8)
+-# define COMPILER_VERSION_MINOR HEX(__BORLANDC__ & 0xFF)
+-
+-#elif defined(__WATCOMC__) && __WATCOMC__ < 1200
+-# define COMPILER_ID "Watcom"
+-   /* __WATCOMC__ = VVRR */
+-# define COMPILER_VERSION_MAJOR DEC(__WATCOMC__ / 100)
+-# define COMPILER_VERSION_MINOR DEC((__WATCOMC__ / 10) % 10)
+-# if (__WATCOMC__ % 10) > 0
+-#  define COMPILER_VERSION_PATCH DEC(__WATCOMC__ % 10)
+-# endif
+-
+-#elif defined(__WATCOMC__)
+-# define COMPILER_ID "OpenWatcom"
+-   /* __WATCOMC__ = VVRP + 1100 */
+-# define COMPILER_VERSION_MAJOR DEC((__WATCOMC__ - 1100) / 100)
+-# define COMPILER_VERSION_MINOR DEC((__WATCOMC__ / 10) % 10)
+-# if (__WATCOMC__ % 10) > 0
+-#  define COMPILER_VERSION_PATCH DEC(__WATCOMC__ % 10)
+-# endif
+-
+-#elif defined(__SUNPRO_CC)
+-# define COMPILER_ID "SunPro"
+-# if __SUNPRO_CC >= 0x5100
+-   /* __SUNPRO_CC = 0xVRRP */
+-#  define COMPILER_VERSION_MAJOR HEX(__SUNPRO_CC>>12)
+-#  define COMPILER_VERSION_MINOR HEX(__SUNPRO_CC>>4 & 0xFF)
+-#  define COMPILER_VERSION_PATCH HEX(__SUNPRO_CC    & 0xF)
+-# else
+-   /* __SUNPRO_CC = 0xVRP */
+-#  define COMPILER_VERSION_MAJOR HEX(__SUNPRO_CC>>8)
+-#  define COMPILER_VERSION_MINOR HEX(__SUNPRO_CC>>4 & 0xF)
+-#  define COMPILER_VERSION_PATCH HEX(__SUNPRO_CC    & 0xF)
+-# endif
+-
+-#elif defined(__HP_aCC)
+-# define COMPILER_ID "HP"
+-  /* __HP_aCC = VVRRPP */
+-# define COMPILER_VERSION_MAJOR DEC(__HP_aCC/10000)
+-# define COMPILER_VERSION_MINOR DEC(__HP_aCC/100 % 100)
+-# define COMPILER_VERSION_PATCH DEC(__HP_aCC     % 100)
+-
+-#elif defined(__DECCXX)
+-# define COMPILER_ID "Compaq"
+-  /* __DECCXX_VER = VVRRTPPPP */
+-# define COMPILER_VERSION_MAJOR DEC(__DECCXX_VER/10000000)
+-# define COMPILER_VERSION_MINOR DEC(__DECCXX_VER/100000  % 100)
+-# define COMPILER_VERSION_PATCH DEC(__DECCXX_VER         % 10000)
+-
+-#elif defined(__IBMCPP__) && defined(__COMPILER_VER__)
+-# define COMPILER_ID "zOS"
+-  /* __IBMCPP__ = VRP */
+-# define COMPILER_VERSION_MAJOR DEC(__IBMCPP__/100)
+-# define COMPILER_VERSION_MINOR DEC(__IBMCPP__/10 % 10)
+-# define COMPILER_VERSION_PATCH DEC(__IBMCPP__    % 10)
+-
+-#elif defined(__open_xl__) && defined(__clang__)
+-# define COMPILER_ID "IBMClang"
+-# define COMPILER_VERSION_MAJOR DEC(__open_xl_version__)
+-# define COMPILER_VERSION_MINOR DEC(__open_xl_release__)
+-# define COMPILER_VERSION_PATCH DEC(__open_xl_modification__)
+-# define COMPILER_VERSION_TWEAK DEC(__open_xl_ptf_fix_level__)
+-
+-
+-#elif defined(__ibmxl__) && defined(__clang__)
+-# define COMPILER_ID "XLClang"
+-# define COMPILER_VERSION_MAJOR DEC(__ibmxl_version__)
+-# define COMPILER_VERSION_MINOR DEC(__ibmxl_release__)
+-# define COMPILER_VERSION_PATCH DEC(__ibmxl_modification__)
+-# define COMPILER_VERSION_TWEAK DEC(__ibmxl_ptf_fix_level__)
+-
+-
+-#elif defined(__IBMCPP__) && !defined(__COMPILER_VER__) && __IBMCPP__ >= 800
+-# define COMPILER_ID "XL"
+-  /* __IBMCPP__ = VRP */
+-# define COMPILER_VERSION_MAJOR DEC(__IBMCPP__/100)
+-# define COMPILER_VERSION_MINOR DEC(__IBMCPP__/10 % 10)
+-# define COMPILER_VERSION_PATCH DEC(__IBMCPP__    % 10)
+-
+-#elif defined(__IBMCPP__) && !defined(__COMPILER_VER__) && __IBMCPP__ < 800
+-# define COMPILER_ID "VisualAge"
+-  /* __IBMCPP__ = VRP */
+-# define COMPILER_VERSION_MAJOR DEC(__IBMCPP__/100)
+-# define COMPILER_VERSION_MINOR DEC(__IBMCPP__/10 % 10)
+-# define COMPILER_VERSION_PATCH DEC(__IBMCPP__    % 10)
+-
+-#elif defined(__NVCOMPILER)
+-# define COMPILER_ID "NVHPC"
+-# define COMPILER_VERSION_MAJOR DEC(__NVCOMPILER_MAJOR__)
+-# define COMPILER_VERSION_MINOR DEC(__NVCOMPILER_MINOR__)
+-# if defined(__NVCOMPILER_PATCHLEVEL__)
+-#  define COMPILER_VERSION_PATCH DEC(__NVCOMPILER_PATCHLEVEL__)
+-# endif
+-
+-#elif defined(__PGI)
+-# define COMPILER_ID "PGI"
+-# define COMPILER_VERSION_MAJOR DEC(__PGIC__)
+-# define COMPILER_VERSION_MINOR DEC(__PGIC_MINOR__)
+-# if defined(__PGIC_PATCHLEVEL__)
+-#  define COMPILER_VERSION_PATCH DEC(__PGIC_PATCHLEVEL__)
+-# endif
+-
+-#elif defined(__clang__) && defined(__cray__)
+-# define COMPILER_ID "CrayClang"
+-# define COMPILER_VERSION_MAJOR DEC(__cray_major__)
+-# define COMPILER_VERSION_MINOR DEC(__cray_minor__)
+-# define COMPILER_VERSION_PATCH DEC(__cray_patchlevel__)
+-# define COMPILER_VERSION_INTERNAL_STR __clang_version__
+-
+-
+-#elif defined(_CRAYC)
+-# define COMPILER_ID "Cray"
+-# define COMPILER_VERSION_MAJOR DEC(_RELEASE_MAJOR)
+-# define COMPILER_VERSION_MINOR DEC(_RELEASE_MINOR)
+-
+-#elif defined(__TI_COMPILER_VERSION__)
+-# define COMPILER_ID "TI"
+-  /* __TI_COMPILER_VERSION__ = VVVRRRPPP */
+-# define COMPILER_VERSION_MAJOR DEC(__TI_COMPILER_VERSION__/1000000)
+-# define COMPILER_VERSION_MINOR DEC(__TI_COMPILER_VERSION__/1000   % 1000)
+-# define COMPILER_VERSION_PATCH DEC(__TI_COMPILER_VERSION__        % 1000)
+-
+-#elif defined(__CLANG_FUJITSU)
+-# define COMPILER_ID "FujitsuClang"
+-# define COMPILER_VERSION_MAJOR DEC(__FCC_major__)
+-# define COMPILER_VERSION_MINOR DEC(__FCC_minor__)
+-# define COMPILER_VERSION_PATCH DEC(__FCC_patchlevel__)
+-# define COMPILER_VERSION_INTERNAL_STR __clang_version__
+-
+-
+-#elif defined(__FUJITSU)
+-# define COMPILER_ID "Fujitsu"
+-# if defined(__FCC_version__)
+-#   define COMPILER_VERSION __FCC_version__
+-# elif defined(__FCC_major__)
+-#   define COMPILER_VERSION_MAJOR DEC(__FCC_major__)
+-#   define COMPILER_VERSION_MINOR DEC(__FCC_minor__)
+-#   define COMPILER_VERSION_PATCH DEC(__FCC_patchlevel__)
+-# endif
+-# if defined(__fcc_version)
+-#   define COMPILER_VERSION_INTERNAL DEC(__fcc_version)
+-# elif defined(__FCC_VERSION)
+-#   define COMPILER_VERSION_INTERNAL DEC(__FCC_VERSION)
+-# endif
+-
+-
+-#elif defined(__ghs__)
+-# define COMPILER_ID "GHS"
+-/* __GHS_VERSION_NUMBER = VVVVRP */
+-# ifdef __GHS_VERSION_NUMBER
+-# define COMPILER_VERSION_MAJOR DEC(__GHS_VERSION_NUMBER / 100)
+-# define COMPILER_VERSION_MINOR DEC(__GHS_VERSION_NUMBER / 10 % 10)
+-# define COMPILER_VERSION_PATCH DEC(__GHS_VERSION_NUMBER      % 10)
+-# endif
+-
+-#elif defined(__TASKING__)
+-# define COMPILER_ID "Tasking"
+-  # define COMPILER_VERSION_MAJOR DEC(__VERSION__/1000)
+-  # define COMPILER_VERSION_MINOR DEC(__VERSION__ % 100)
+-# define COMPILER_VERSION_INTERNAL DEC(__VERSION__)
+-
+-#elif defined(__ORANGEC__)
+-# define COMPILER_ID "OrangeC"
+-# define COMPILER_VERSION_MAJOR DEC(__ORANGEC_MAJOR__)
+-# define COMPILER_VERSION_MINOR DEC(__ORANGEC_MINOR__)
+-# define COMPILER_VERSION_PATCH DEC(__ORANGEC_PATCHLEVEL__)
+-
+-#elif defined(__SCO_VERSION__)
+-# define COMPILER_ID "SCO"
+-
+-#elif defined(__ARMCC_VERSION) && !defined(__clang__)
+-# define COMPILER_ID "ARMCC"
+-#if __ARMCC_VERSION >= 1000000
+-  /* __ARMCC_VERSION = VRRPPPP */
+-  # define COMPILER_VERSION_MAJOR DEC(__ARMCC_VERSION/1000000)
+-  # define COMPILER_VERSION_MINOR DEC(__ARMCC_VERSION/10000 % 100)
+-  # define COMPILER_VERSION_PATCH DEC(__ARMCC_VERSION     % 10000)
+-#else
+-  /* __ARMCC_VERSION = VRPPPP */
+-  # define COMPILER_VERSION_MAJOR DEC(__ARMCC_VERSION/100000)
+-  # define COMPILER_VERSION_MINOR DEC(__ARMCC_VERSION/10000 % 10)
+-  # define COMPILER_VERSION_PATCH DEC(__ARMCC_VERSION    % 10000)
+-#endif
+-
+-
+-#elif defined(__clang__) && defined(__apple_build_version__)
+-# define COMPILER_ID "AppleClang"
+-# if defined(_MSC_VER)
+-#  define SIMULATE_ID "MSVC"
+-# endif
+-# define COMPILER_VERSION_MAJOR DEC(__clang_major__)
+-# define COMPILER_VERSION_MINOR DEC(__clang_minor__)
+-# define COMPILER_VERSION_PATCH DEC(__clang_patchlevel__)
+-# if defined(_MSC_VER)
+-   /* _MSC_VER = VVRR */
+-#  define SIMULATE_VERSION_MAJOR DEC(_MSC_VER / 100)
+-#  define SIMULATE_VERSION_MINOR DEC(_MSC_VER % 100)
+-# endif
+-# define COMPILER_VERSION_TWEAK DEC(__apple_build_version__)
+-
+-#elif defined(__clang__) && defined(__ARMCOMPILER_VERSION)
+-# define COMPILER_ID "ARMClang"
+-  # define COMPILER_VERSION_MAJOR DEC(__ARMCOMPILER_VERSION/1000000)
+-  # define COMPILER_VERSION_MINOR DEC(__ARMCOMPILER_VERSION/10000 % 100)
+-  # define COMPILER_VERSION_PATCH DEC(__ARMCOMPILER_VERSION/100   % 100)
+-# define COMPILER_VERSION_INTERNAL DEC(__ARMCOMPILER_VERSION)
+-
+-#elif defined(__clang__)
+-# define COMPILER_ID "Clang"
+-# if defined(_MSC_VER)
+-#  define SIMULATE_ID "MSVC"
+-# endif
+-# define COMPILER_VERSION_MAJOR DEC(__clang_major__)
+-# define COMPILER_VERSION_MINOR DEC(__clang_minor__)
+-# define COMPILER_VERSION_PATCH DEC(__clang_patchlevel__)
+-# if defined(_MSC_VER)
+-   /* _MSC_VER = VVRR */
+-#  define SIMULATE_VERSION_MAJOR DEC(_MSC_VER / 100)
+-#  define SIMULATE_VERSION_MINOR DEC(_MSC_VER % 100)
+-# endif
+-
+-#elif defined(__LCC__) && (defined(__GNUC__) || defined(__GNUG__) || defined(__MCST__))
+-# define COMPILER_ID "LCC"
+-# define COMPILER_VERSION_MAJOR DEC(__LCC__ / 100)
+-# define COMPILER_VERSION_MINOR DEC(__LCC__ % 100)
+-# if defined(__LCC_MINOR__)
+-#  define COMPILER_VERSION_PATCH DEC(__LCC_MINOR__)
+-# endif
+-# if defined(__GNUC__) && defined(__GNUC_MINOR__)
+-#  define SIMULATE_ID "GNU"
+-#  define SIMULATE_VERSION_MAJOR DEC(__GNUC__)
+-#  define SIMULATE_VERSION_MINOR DEC(__GNUC_MINOR__)
+-#  if defined(__GNUC_PATCHLEVEL__)
+-#   define SIMULATE_VERSION_PATCH DEC(__GNUC_PATCHLEVEL__)
+-#  endif
+-# endif
+-
+-#elif defined(__GNUC__) || defined(__GNUG__)
+-# define COMPILER_ID "GNU"
+-# if defined(__GNUC__)
+-#  define COMPILER_VERSION_MAJOR DEC(__GNUC__)
+-# else
+-#  define COMPILER_VERSION_MAJOR DEC(__GNUG__)
+-# endif
+-# if defined(__GNUC_MINOR__)
+-#  define COMPILER_VERSION_MINOR DEC(__GNUC_MINOR__)
+-# endif
+-# if defined(__GNUC_PATCHLEVEL__)
+-#  define COMPILER_VERSION_PATCH DEC(__GNUC_PATCHLEVEL__)
+-# endif
+-
+-#elif defined(_MSC_VER)
+-# define COMPILER_ID "MSVC"
+-  /* _MSC_VER = VVRR */
+-# define COMPILER_VERSION_MAJOR DEC(_MSC_VER / 100)
+-# define COMPILER_VERSION_MINOR DEC(_MSC_VER % 100)
+-# if defined(_MSC_FULL_VER)
+-#  if _MSC_VER >= 1400
+-    /* _MSC_FULL_VER = VVRRPPPPP */
+-#   define COMPILER_VERSION_PATCH DEC(_MSC_FULL_VER % 100000)
+-#  else
+-    /* _MSC_FULL_VER = VVRRPPPP */
+-#   define COMPILER_VERSION_PATCH DEC(_MSC_FULL_VER % 10000)
+-#  endif
+-# endif
+-# if defined(_MSC_BUILD)
+-#  define COMPILER_VERSION_TWEAK DEC(_MSC_BUILD)
+-# endif
+-
+-#elif defined(_ADI_COMPILER)
+-# define COMPILER_ID "ADSP"
+-#if defined(__VERSIONNUM__)
+-  /* __VERSIONNUM__ = 0xVVRRPPTT */
+-#  define COMPILER_VERSION_MAJOR DEC(__VERSIONNUM__ >> 24 & 0xFF)
+-#  define COMPILER_VERSION_MINOR DEC(__VERSIONNUM__ >> 16 & 0xFF)
+-#  define COMPILER_VERSION_PATCH DEC(__VERSIONNUM__ >> 8 & 0xFF)
+-#  define COMPILER_VERSION_TWEAK DEC(__VERSIONNUM__ & 0xFF)
+-#endif
+-
+-#elif defined(__IAR_SYSTEMS_ICC__) || defined(__IAR_SYSTEMS_ICC)
+-# define COMPILER_ID "IAR"
+-# if defined(__VER__) && defined(__ICCARM__)
+-#  define COMPILER_VERSION_MAJOR DEC((__VER__) / 1000000)
+-#  define COMPILER_VERSION_MINOR DEC(((__VER__) / 1000) % 1000)
+-#  define COMPILER_VERSION_PATCH DEC((__VER__) % 1000)
+-#  define COMPILER_VERSION_INTERNAL DEC(__IAR_SYSTEMS_ICC__)
+-# elif defined(__VER__) && (defined(__ICCAVR__) || defined(__ICCRX__) || defined(__ICCRH850__) || defined(__ICCRL78__) || defined(__ICC430__) || defined(__ICCRISCV__) || defined(__ICCV850__) || defined(__ICC8051__) || defined(__ICCSTM8__))
+-#  define COMPILER_VERSION_MAJOR DEC((__VER__) / 100)
+-#  define COMPILER_VERSION_MINOR DEC((__VER__) - (((__VER__) / 100)*100))
+-#  define COMPILER_VERSION_PATCH DEC(__SUBVERSION__)
+-#  define COMPILER_VERSION_INTERNAL DEC(__IAR_SYSTEMS_ICC__)
+-# endif
+-
+-
+-/* These compilers are either not known or too old to define an
+-  identification macro.  Try to identify the platform and guess that
+-  it is the native compiler.  */
+-#elif defined(__hpux) || defined(__hpua)
+-# define COMPILER_ID "HP"
+-
+-#else /* unknown compiler */
+-# define COMPILER_ID ""
+-#endif
+-
+-/* Construct the string literal in pieces to prevent the source from
+-   getting matched.  Store it in a pointer rather than an array
+-   because some compilers will just produce instructions to fill the
+-   array rather than assigning a pointer to a static array.  */
+-char const* info_compiler = "INFO" ":" "compiler[" COMPILER_ID "]";
+-#ifdef SIMULATE_ID
+-char const* info_simulate = "INFO" ":" "simulate[" SIMULATE_ID "]";
+-#endif
+-
+-#ifdef __QNXNTO__
+-char const* qnxnto = "INFO" ":" "qnxnto[]";
+-#endif
+-
+-#if defined(__CRAYXT_COMPUTE_LINUX_TARGET)
+-char const *info_cray = "INFO" ":" "compiler_wrapper[CrayPrgEnv]";
+-#endif
+-
+-#define STRINGIFY_HELPER(X) #X
+-#define STRINGIFY(X) STRINGIFY_HELPER(X)
+-
+-/* Identify known platforms by name.  */
+-#if defined(__linux) || defined(__linux__) || defined(linux)
+-# define PLATFORM_ID "Linux"
+-
+-#elif defined(__MSYS__)
+-# define PLATFORM_ID "MSYS"
+-
+-#elif defined(__CYGWIN__)
+-# define PLATFORM_ID "Cygwin"
+-
+-#elif defined(__MINGW32__)
+-# define PLATFORM_ID "MinGW"
+-
+-#elif defined(__APPLE__)
+-# define PLATFORM_ID "Darwin"
+-
+-#elif defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
+-# define PLATFORM_ID "Windows"
+-
+-#elif defined(__FreeBSD__) || defined(__FreeBSD)
+-# define PLATFORM_ID "FreeBSD"
+-
+-#elif defined(__NetBSD__) || defined(__NetBSD)
+-# define PLATFORM_ID "NetBSD"
+-
+-#elif defined(__OpenBSD__) || defined(__OPENBSD)
+-# define PLATFORM_ID "OpenBSD"
+-
+-#elif defined(__sun) || defined(sun)
+-# define PLATFORM_ID "SunOS"
+-
+-#elif defined(_AIX) || defined(__AIX) || defined(__AIX__) || defined(__aix) || defined(__aix__)
+-# define PLATFORM_ID "AIX"
+-
+-#elif defined(__hpux) || defined(__hpux__)
+-# define PLATFORM_ID "HP-UX"
+-
+-#elif defined(__HAIKU__)
+-# define PLATFORM_ID "Haiku"
+-
+-#elif defined(__BeOS) || defined(__BEOS__) || defined(_BEOS)
+-# define PLATFORM_ID "BeOS"
+-
+-#elif defined(__QNX__) || defined(__QNXNTO__)
+-# define PLATFORM_ID "QNX"
+-
+-#elif defined(__tru64) || defined(_tru64) || defined(__TRU64__)
+-# define PLATFORM_ID "Tru64"
+-
+-#elif defined(__riscos) || defined(__riscos__)
+-# define PLATFORM_ID "RISCos"
+-
+-#elif defined(__sinix) || defined(__sinix__) || defined(__SINIX__)
+-# define PLATFORM_ID "SINIX"
+-
+-#elif defined(__UNIX_SV__)
+-# define PLATFORM_ID "UNIX_SV"
+-
+-#elif defined(__bsdos__)
+-# define PLATFORM_ID "BSDOS"
+-
+-#elif defined(_MPRAS) || defined(MPRAS)
+-# define PLATFORM_ID "MP-RAS"
+-
+-#elif defined(__osf) || defined(__osf__)
+-# define PLATFORM_ID "OSF1"
+-
+-#elif defined(_SCO_SV) || defined(SCO_SV) || defined(sco_sv)
+-# define PLATFORM_ID "SCO_SV"
+-
+-#elif defined(__ultrix) || defined(__ultrix__) || defined(_ULTRIX)
+-# define PLATFORM_ID "ULTRIX"
+-
+-#elif defined(__XENIX__) || defined(_XENIX) || defined(XENIX)
+-# define PLATFORM_ID "Xenix"
+-
+-#elif defined(__WATCOMC__)
+-# if defined(__LINUX__)
+-#  define PLATFORM_ID "Linux"
+-
+-# elif defined(__DOS__)
+-#  define PLATFORM_ID "DOS"
+-
+-# elif defined(__OS2__)
+-#  define PLATFORM_ID "OS2"
+-
+-# elif defined(__WINDOWS__)
+-#  define PLATFORM_ID "Windows3x"
+-
+-# elif defined(__VXWORKS__)
+-#  define PLATFORM_ID "VxWorks"
+-
+-# else /* unknown platform */
+-#  define PLATFORM_ID
+-# endif
+-
+-#elif defined(__INTEGRITY)
+-# if defined(INT_178B)
+-#  define PLATFORM_ID "Integrity178"
+-
+-# else /* regular Integrity */
+-#  define PLATFORM_ID "Integrity"
+-# endif
+-
+-# elif defined(_ADI_COMPILER)
+-#  define PLATFORM_ID "ADSP"
+-
+-#else /* unknown platform */
+-# define PLATFORM_ID
+-
+-#endif
+-
+-/* For windows compilers MSVC and Intel we can determine
+-   the architecture of the compiler being used.  This is because
+-   the compilers do not have flags that can change the architecture,
+-   but rather depend on which compiler is being used
+-*/
+-#if defined(_WIN32) && defined(_MSC_VER)
+-# if defined(_M_IA64)
+-#  define ARCHITECTURE_ID "IA64"
+-
+-# elif defined(_M_ARM64EC)
+-#  define ARCHITECTURE_ID "ARM64EC"
+-
+-# elif defined(_M_X64) || defined(_M_AMD64)
+-#  define ARCHITECTURE_ID "x64"
+-
+-# elif defined(_M_IX86)
+-#  define ARCHITECTURE_ID "X86"
+-
+-# elif defined(_M_ARM64)
+-#  define ARCHITECTURE_ID "ARM64"
+-
+-# elif defined(_M_ARM)
+-#  if _M_ARM == 4
+-#   define ARCHITECTURE_ID "ARMV4I"
+-#  elif _M_ARM == 5
+-#   define ARCHITECTURE_ID "ARMV5I"
+-#  else
+-#   define ARCHITECTURE_ID "ARMV" STRINGIFY(_M_ARM)
+-#  endif
+-
+-# elif defined(_M_MIPS)
+-#  define ARCHITECTURE_ID "MIPS"
+-
+-# elif defined(_M_SH)
+-#  define ARCHITECTURE_ID "SHx"
+-
+-# else /* unknown architecture */
+-#  define ARCHITECTURE_ID ""
+-# endif
+-
+-#elif defined(__WATCOMC__)
+-# if defined(_M_I86)
+-#  define ARCHITECTURE_ID "I86"
+-
+-# elif defined(_M_IX86)
+-#  define ARCHITECTURE_ID "X86"
+-
+-# else /* unknown architecture */
+-#  define ARCHITECTURE_ID ""
+-# endif
+-
+-#elif defined(__IAR_SYSTEMS_ICC__) || defined(__IAR_SYSTEMS_ICC)
+-# if defined(__ICCARM__)
+-#  define ARCHITECTURE_ID "ARM"
+-
+-# elif defined(__ICCRX__)
+-#  define ARCHITECTURE_ID "RX"
+-
+-# elif defined(__ICCRH850__)
+-#  define ARCHITECTURE_ID "RH850"
+-
+-# elif defined(__ICCRL78__)
+-#  define ARCHITECTURE_ID "RL78"
+-
+-# elif defined(__ICCRISCV__)
+-#  define ARCHITECTURE_ID "RISCV"
+-
+-# elif defined(__ICCAVR__)
+-#  define ARCHITECTURE_ID "AVR"
+-
+-# elif defined(__ICC430__)
+-#  define ARCHITECTURE_ID "MSP430"
+-
+-# elif defined(__ICCV850__)
+-#  define ARCHITECTURE_ID "V850"
+-
+-# elif defined(__ICC8051__)
+-#  define ARCHITECTURE_ID "8051"
+-
+-# elif defined(__ICCSTM8__)
+-#  define ARCHITECTURE_ID "STM8"
+-
+-# else /* unknown architecture */
+-#  define ARCHITECTURE_ID ""
+-# endif
+-
+-#elif defined(__ghs__)
+-# if defined(__PPC64__)
+-#  define ARCHITECTURE_ID "PPC64"
+-
+-# elif defined(__ppc__)
+-#  define ARCHITECTURE_ID "PPC"
+-
+-# elif defined(__ARM__)
+-#  define ARCHITECTURE_ID "ARM"
+-
+-# elif defined(__x86_64__)
+-#  define ARCHITECTURE_ID "x64"
+-
+-# elif defined(__i386__)
+-#  define ARCHITECTURE_ID "X86"
+-
+-# else /* unknown architecture */
+-#  define ARCHITECTURE_ID ""
+-# endif
+-
+-#elif defined(__TI_COMPILER_VERSION__)
+-# if defined(__TI_ARM__)
+-#  define ARCHITECTURE_ID "ARM"
+-
+-# elif defined(__MSP430__)
+-#  define ARCHITECTURE_ID "MSP430"
+-
+-# elif defined(__TMS320C28XX__)
+-#  define ARCHITECTURE_ID "TMS320C28x"
+-
+-# elif defined(__TMS320C6X__) || defined(_TMS320C6X)
+-#  define ARCHITECTURE_ID "TMS320C6x"
+-
+-# else /* unknown architecture */
+-#  define ARCHITECTURE_ID ""
+-# endif
+-
+-# elif defined(__ADSPSHARC__)
+-#  define ARCHITECTURE_ID "SHARC"
+-
+-# elif defined(__ADSPBLACKFIN__)
+-#  define ARCHITECTURE_ID "Blackfin"
+-
+-#elif defined(__TASKING__)
+-
+-# if defined(__CTC__) || defined(__CPTC__)
+-#  define ARCHITECTURE_ID "TriCore"
+-
+-# elif defined(__CMCS__)
+-#  define ARCHITECTURE_ID "MCS"
+-
+-# elif defined(__CARM__)
+-#  define ARCHITECTURE_ID "ARM"
+-
+-# elif defined(__CARC__)
+-#  define ARCHITECTURE_ID "ARC"
+-
+-# elif defined(__C51__)
+-#  define ARCHITECTURE_ID "8051"
+-
+-# elif defined(__CPCP__)
+-#  define ARCHITECTURE_ID "PCP"
+-
+-# else
+-#  define ARCHITECTURE_ID ""
+-# endif
+-
+-#else
+-#  define ARCHITECTURE_ID
+-#endif
+-
+-/* Convert integer to decimal digit literals.  */
+-#define DEC(n)                   \
+-  ('0' + (((n) / 10000000)%10)), \
+-  ('0' + (((n) / 1000000)%10)),  \
+-  ('0' + (((n) / 100000)%10)),   \
+-  ('0' + (((n) / 10000)%10)),    \
+-  ('0' + (((n) / 1000)%10)),     \
+-  ('0' + (((n) / 100)%10)),      \
+-  ('0' + (((n) / 10)%10)),       \
+-  ('0' +  ((n) % 10))
+-
+-/* Convert integer to hex digit literals.  */
+-#define HEX(n)             \
+-  ('0' + ((n)>>28 & 0xF)), \
+-  ('0' + ((n)>>24 & 0xF)), \
+-  ('0' + ((n)>>20 & 0xF)), \
+-  ('0' + ((n)>>16 & 0xF)), \
+-  ('0' + ((n)>>12 & 0xF)), \
+-  ('0' + ((n)>>8  & 0xF)), \
+-  ('0' + ((n)>>4  & 0xF)), \
+-  ('0' + ((n)     & 0xF))
+-
+-/* Construct a string literal encoding the version number. */
+-#ifdef COMPILER_VERSION
+-char const* info_version = "INFO" ":" "compiler_version[" COMPILER_VERSION "]";
+-
+-/* Construct a string literal encoding the version number components. */
+-#elif defined(COMPILER_VERSION_MAJOR)
+-char const info_version[] = {
+-  'I', 'N', 'F', 'O', ':',
+-  'c','o','m','p','i','l','e','r','_','v','e','r','s','i','o','n','[',
+-  COMPILER_VERSION_MAJOR,
+-# ifdef COMPILER_VERSION_MINOR
+-  '.', COMPILER_VERSION_MINOR,
+-#  ifdef COMPILER_VERSION_PATCH
+-   '.', COMPILER_VERSION_PATCH,
+-#   ifdef COMPILER_VERSION_TWEAK
+-    '.', COMPILER_VERSION_TWEAK,
+-#   endif
+-#  endif
+-# endif
+-  ']','\0'};
+-#endif
+-
+-/* Construct a string literal encoding the internal version number. */
+-#ifdef COMPILER_VERSION_INTERNAL
+-char const info_version_internal[] = {
+-  'I', 'N', 'F', 'O', ':',
+-  'c','o','m','p','i','l','e','r','_','v','e','r','s','i','o','n','_',
+-  'i','n','t','e','r','n','a','l','[',
+-  COMPILER_VERSION_INTERNAL,']','\0'};
+-#elif defined(COMPILER_VERSION_INTERNAL_STR)
+-char const* info_version_internal = "INFO" ":" "compiler_version_internal[" COMPILER_VERSION_INTERNAL_STR "]";
+-#endif
+-
+-/* Construct a string literal encoding the version number components. */
+-#ifdef SIMULATE_VERSION_MAJOR
+-char const info_simulate_version[] = {
+-  'I', 'N', 'F', 'O', ':',
+-  's','i','m','u','l','a','t','e','_','v','e','r','s','i','o','n','[',
+-  SIMULATE_VERSION_MAJOR,
+-# ifdef SIMULATE_VERSION_MINOR
+-  '.', SIMULATE_VERSION_MINOR,
+-#  ifdef SIMULATE_VERSION_PATCH
+-   '.', SIMULATE_VERSION_PATCH,
+-#   ifdef SIMULATE_VERSION_TWEAK
+-    '.', SIMULATE_VERSION_TWEAK,
+-#   endif
+-#  endif
+-# endif
+-  ']','\0'};
+-#endif
+-
+-/* Construct the string literal in pieces to prevent the source from
+-   getting matched.  Store it in a pointer rather than an array
+-   because some compilers will just produce instructions to fill the
+-   array rather than assigning a pointer to a static array.  */
+-char const* info_platform = "INFO" ":" "platform[" PLATFORM_ID "]";
+-char const* info_arch = "INFO" ":" "arch[" ARCHITECTURE_ID "]";
+-
+-
+-
+-#if defined(__INTEL_COMPILER) && defined(_MSVC_LANG) && _MSVC_LANG < 201403L
+-#  if defined(__INTEL_CXX11_MODE__)
+-#    if defined(__cpp_aggregate_nsdmi)
+-#      define CXX_STD 201402L
+-#    else
+-#      define CXX_STD 201103L
+-#    endif
+-#  else
+-#    define CXX_STD 199711L
+-#  endif
+-#elif defined(_MSC_VER) && defined(_MSVC_LANG)
+-#  define CXX_STD _MSVC_LANG
+-#else
+-#  define CXX_STD __cplusplus
+-#endif
+-
+-const char* info_language_standard_default = "INFO" ":" "standard_default["
+-#if CXX_STD > 202002L
+-  "23"
+-#elif CXX_STD > 201703L
+-  "20"
+-#elif CXX_STD >= 201703L
+-  "17"
+-#elif CXX_STD >= 201402L
+-  "14"
+-#elif CXX_STD >= 201103L
+-  "11"
+-#else
+-  "98"
+-#endif
+-"]";
+-
+-const char* info_language_extensions_default = "INFO" ":" "extensions_default["
+-#if (defined(__clang__) || defined(__GNUC__) || defined(__xlC__) ||           \
+-     defined(__TI_COMPILER_VERSION__)) &&                                     \
+-  !defined(__STRICT_ANSI__)
+-  "ON"
+-#else
+-  "OFF"
+-#endif
+-"]";
+-
+-/*--------------------------------------------------------------------------*/
+-
+-int main(int argc, char* argv[])
+-{
+-  int require = 0;
+-  require += info_compiler[argc];
+-  require += info_platform[argc];
+-  require += info_arch[argc];
+-#ifdef COMPILER_VERSION_MAJOR
+-  require += info_version[argc];
+-#endif
+-#ifdef COMPILER_VERSION_INTERNAL
+-  require += info_version_internal[argc];
+-#endif
+-#ifdef SIMULATE_ID
+-  require += info_simulate[argc];
+-#endif
+-#ifdef SIMULATE_VERSION_MAJOR
+-  require += info_simulate_version[argc];
+-#endif
+-#if defined(__CRAYXT_COMPUTE_LINUX_TARGET)
+-  require += info_cray[argc];
+-#endif
+-  require += info_language_standard_default[argc];
+-  require += info_language_extensions_default[argc];
+-  (void)argv;
+-  return require;
+-}
+Index: build/windows/x64/CMakeFiles/CMakeConfigureLog.yaml
+===================================================================
+diff --git a/build/windows/x64/CMakeFiles/CMakeConfigureLog.yaml b/build/windows/x64/CMakeFiles/CMakeConfigureLog.yaml
+deleted file mode 100644
+--- a/build/windows/x64/CMakeFiles/CMakeConfigureLog.yaml	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,121 +0,0 @@
+-
+----
+-events:
+-  -
+-    kind: "message-v1"
+-    backtrace:
+-      - "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:233 (message)"
+-      - "CMakeLists.txt:3 (project)"
+-    message: |
+-      The system is: Windows - 10.0.26100 - AMD64
+-  -
+-    kind: "message-v1"
+-    backtrace:
+-      - "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+-      - "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+-      - "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+-      - "CMakeLists.txt:3 (project)"
+-    message: |
+-      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+-      Compiler:  
+-      Build flags: 
+-      Id flags:  
+-      
+-      The output was:
+-      0
+-      MSBuild version 17.10.4+10fbfbf2e for .NET Framework
+-      Build started 3/20/2025 2:20:31 PM.
+-      
+-      Project "C:\\Users\\angel\\Desktop\\CS 3541 SOFTWARE ENG\\under_staffed\\build\\windows\\x64\\CMakeFiles\\3.28.3-msvc11\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
+-      PrepareForBuild:
+-        Creating directory "Debug\\".
+-        Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+-        Creating directory "Debug\\CompilerIdCXX.tlog\\".
+-      InitializeBuildStatus:
+-        Creating "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+-        Touching "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+-      ClCompile:
+-        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+-        CMakeCXXCompilerId.cpp
+-      Link:
+-        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+-        CompilerIdCXX.vcxproj -> C:\\Users\\angel\\Desktop\\CS 3541 SOFTWARE ENG\\under_staffed\\build\\windows\\x64\\CMakeFiles\\3.28.3-msvc11\\CompilerIdCXX\\CompilerIdCXX.exe
+-      PostBuildEvent:
+-        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+-        :VCEnd
+-        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\Hostx64\\x64\\cl.exe
+-      FinalizeBuildStatus:
+-        Deleting file "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+-        Touching "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+-      Done Building Project "C:\\Users\\angel\\Desktop\\CS 3541 SOFTWARE ENG\\under_staffed\\build\\windows\\x64\\CMakeFiles\\3.28.3-msvc11\\CompilerIdCXX\\CompilerIdCXX.vcxproj" (default targets).
+-      
+-      Build succeeded.
+-          0 Warning(s)
+-          0 Error(s)
+-      
+-      Time Elapsed 00:00:01.88
+-      
+-      
+-      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+-      
+-      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+-      
+-      The CXX compiler identification is MSVC, found in:
+-        C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/CMakeFiles/3.28.3-msvc11/CompilerIdCXX/CompilerIdCXX.exe
+-      
+-  -
+-    kind: "try_compile-v1"
+-    backtrace:
+-      - "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+-      - "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+-      - "CMakeLists.txt:3 (project)"
+-    checks:
+-      - "Detecting CXX compiler ABI info"
+-    directories:
+-      source: "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-ypodzm"
+-      binary: "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-ypodzm"
+-    cmakeVariables:
+-      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
+-      CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
+-      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+-    buildResult:
+-      variable: "CMAKE_CXX_ABI_COMPILED"
+-      cached: true
+-      stdout: |
+-        Change Dir: 'C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-ypodzm'
+-        
+-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_c6cd8.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+-        MSBuild version 17.10.4+10fbfbf2e for .NET Framework
+-        Build started 3/20/2025 2:20:34 PM.
+-        
+-        Project "C:\\Users\\angel\\Desktop\\CS 3541 SOFTWARE ENG\\under_staffed\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-ypodzm\\cmTC_c6cd8.vcxproj" on node 1 (default targets).
+-        PrepareForBuild:
+-          Creating directory "cmTC_c6cd8.dir\\Debug\\".
+-          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+-          Creating directory "C:\\Users\\angel\\Desktop\\CS 3541 SOFTWARE ENG\\under_staffed\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-ypodzm\\Debug\\".
+-          Creating directory "cmTC_c6cd8.dir\\Debug\\cmTC_c6cd8.tlog\\".
+-        InitializeBuildStatus:
+-          Creating "cmTC_c6cd8.dir\\Debug\\cmTC_c6cd8.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+-          Touching "cmTC_c6cd8.dir\\Debug\\cmTC_c6cd8.tlog\\unsuccessfulbuild".
+-        ClCompile:
+-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_c6cd8.dir\\Debug\\\\" /Fd"cmTC_c6cd8.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+-          Microsoft (R) C/C++ Optimizing Compiler Version 19.40.33811 for x64
+-          Copyright (C) Microsoft Corporation.  All rights reserved.
+-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_c6cd8.dir\\Debug\\\\" /Fd"cmTC_c6cd8.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TP /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.28\\Modules\\CMakeCXXCompilerABI.cpp"
+-          CMakeCXXCompilerABI.cpp
+-        Link:
+-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\angel\\Desktop\\CS 3541 SOFTWARE ENG\\under_staffed\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-ypodzm\\Debug\\cmTC_c6cd8.exe" /INCREMENTAL /ILK:"cmTC_c6cd8.dir\\Debug\\cmTC_c6cd8.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-ypodzm/Debug/cmTC_c6cd8.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/CMakeFiles/CMakeScratch/TryCompile-ypodzm/Debug/cmTC_c6cd8.lib" /MACHINE:X64  /machine:x64 cmTC_c6cd8.dir\\Debug\\CMakeCXXCompilerABI.obj
+-          cmTC_c6cd8.vcxproj -> C:\\Users\\angel\\Desktop\\CS 3541 SOFTWARE ENG\\under_staffed\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-ypodzm\\Debug\\cmTC_c6cd8.exe
+-        FinalizeBuildStatus:
+-          Deleting file "cmTC_c6cd8.dir\\Debug\\cmTC_c6cd8.tlog\\unsuccessfulbuild".
+-          Touching "cmTC_c6cd8.dir\\Debug\\cmTC_c6cd8.tlog\\cmTC_c6cd8.lastbuildstate".
+-        Done Building Project "C:\\Users\\angel\\Desktop\\CS 3541 SOFTWARE ENG\\under_staffed\\build\\windows\\x64\\CMakeFiles\\CMakeScratch\\TryCompile-ypodzm\\cmTC_c6cd8.vcxproj" (default targets).
+-        
+-        Build succeeded.
+-            0 Warning(s)
+-            0 Error(s)
+-        
+-        Time Elapsed 00:00:00.98
+-        
+-      exitCode: 0
+-...
+Index: build/windows/x64/cmake_install.cmake
+===================================================================
+diff --git a/build/windows/x64/cmake_install.cmake b/build/windows/x64/cmake_install.cmake
+deleted file mode 100644
+--- a/build/windows/x64/cmake_install.cmake	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,264 +0,0 @@
+-# Install script for directory: C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows
+-
+-# Set the install prefix
+-if(NOT DEFINED CMAKE_INSTALL_PREFIX)
+-  set(CMAKE_INSTALL_PREFIX "$<TARGET_FILE_DIR:stress_managment_app>")
+-endif()
+-string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+-
+-# Set the install configuration name.
+-if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
+-  if(BUILD_TYPE)
+-    string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
+-           CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
+-  else()
+-    set(CMAKE_INSTALL_CONFIG_NAME "Release")
+-  endif()
+-  message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
+-endif()
+-
+-# Set the component getting installed.
+-if(NOT CMAKE_INSTALL_COMPONENT)
+-  if(COMPONENT)
+-    message(STATUS "Install component: \"${COMPONENT}\"")
+-    set(CMAKE_INSTALL_COMPONENT "${COMPONENT}")
+-  else()
+-    set(CMAKE_INSTALL_COMPONENT)
+-  endif()
+-endif()
+-
+-# Is this installation the result of a crosscompile?
+-if(NOT DEFINED CMAKE_CROSSCOMPILING)
+-  set(CMAKE_CROSSCOMPILING "FALSE")
+-endif()
+-
+-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+-  # Include the install script for the subdirectory.
+-  include("C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/flutter/cmake_install.cmake")
+-endif()
+-
+-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+-  # Include the install script for the subdirectory.
+-  include("C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/cmake_install.cmake")
+-endif()
+-
+-if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
+-  if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/stress_managment_app.exe")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug" TYPE EXECUTABLE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/stress_managment_app.exe")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/stress_managment_app.exe")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile" TYPE EXECUTABLE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/stress_managment_app.exe")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/stress_managment_app.exe")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release" TYPE EXECUTABLE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/stress_managment_app.exe")
+-  endif()
+-endif()
+-
+-if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
+-  if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/icudtl.dat")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data" TYPE FILE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows/flutter/ephemeral/icudtl.dat")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/data/icudtl.dat")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/data" TYPE FILE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows/flutter/ephemeral/icudtl.dat")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/data/icudtl.dat")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/data" TYPE FILE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows/flutter/ephemeral/icudtl.dat")
+-  endif()
+-endif()
+-
+-if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
+-  if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/flutter_windows.dll")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug" TYPE FILE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows/flutter/ephemeral/flutter_windows.dll")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/flutter_windows.dll")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile" TYPE FILE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows/flutter/ephemeral/flutter_windows.dll")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/flutter_windows.dll")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release" TYPE FILE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/windows/flutter/ephemeral/flutter_windows.dll")
+-  endif()
+-endif()
+-
+-if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
+-  if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug" TYPE DIRECTORY FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/native_assets/windows/")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile" TYPE DIRECTORY FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/native_assets/windows/")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release" TYPE DIRECTORY FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/native_assets/windows/")
+-  endif()
+-endif()
+-
+-if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
+-  if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+-    
+-  file(REMOVE_RECURSE "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/flutter_assets")
+-  
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
+-    
+-  file(REMOVE_RECURSE "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/data/flutter_assets")
+-  
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+-    
+-  file(REMOVE_RECURSE "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/data/flutter_assets")
+-  
+-  endif()
+-endif()
+-
+-if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
+-  if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data/flutter_assets")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Debug/data" TYPE DIRECTORY FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build//flutter_assets")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/data/flutter_assets")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/data" TYPE DIRECTORY FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build//flutter_assets")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/data/flutter_assets")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/data" TYPE DIRECTORY FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build//flutter_assets")
+-  endif()
+-endif()
+-
+-if(CMAKE_INSTALL_COMPONENT STREQUAL "Runtime" OR NOT CMAKE_INSTALL_COMPONENT)
+-  if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Pp][Rr][Oo][Ff][Ii][Ll][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/data/app.so")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Profile/data" TYPE FILE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/app.so")
+-  elseif(CMAKE_INSTALL_CONFIG_NAME MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
+-    list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+-     "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/data/app.so")
+-    if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+-      message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+-    endif()
+-    file(INSTALL DESTINATION "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/Release/data" TYPE FILE FILES "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/app.so")
+-  endif()
+-endif()
+-
+-if(CMAKE_INSTALL_COMPONENT)
+-  set(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
+-else()
+-  set(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
+-endif()
+-
+-string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
+-       "${CMAKE_INSTALL_MANIFEST_FILES}")
+-file(WRITE "C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/${CMAKE_INSTALL_MANIFEST}"
+-     "${CMAKE_INSTALL_MANIFEST_CONTENT}")
+Index: build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeSystem.cmake
+===================================================================
+diff --git a/build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeSystem.cmake b/build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeSystem.cmake
+deleted file mode 100644
+--- a/build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeSystem.cmake	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,15 +0,0 @@
+-set(CMAKE_HOST_SYSTEM "Windows-10.0.26100")
+-set(CMAKE_HOST_SYSTEM_NAME "Windows")
+-set(CMAKE_HOST_SYSTEM_VERSION "10.0.26100")
+-set(CMAKE_HOST_SYSTEM_PROCESSOR "AMD64")
+-
+-
+-
+-set(CMAKE_SYSTEM "Windows-10.0.26100")
+-set(CMAKE_SYSTEM_NAME "Windows")
+-set(CMAKE_SYSTEM_VERSION "10.0.26100")
+-set(CMAKE_SYSTEM_PROCESSOR "AMD64")
+-
+-set(CMAKE_CROSSCOMPILING "FALSE")
+-
+-set(CMAKE_SYSTEM_LOADED 1)
+Index: build/windows/x64/CMakeFiles/3.28.3-msvc11/VCTargetsPath.txt
+===================================================================
+diff --git a/build/windows/x64/CMakeFiles/3.28.3-msvc11/VCTargetsPath.txt b/build/windows/x64/CMakeFiles/3.28.3-msvc11/VCTargetsPath.txt
+deleted file mode 100644
+--- a/build/windows/x64/CMakeFiles/3.28.3-msvc11/VCTargetsPath.txt	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,1 +0,0 @@
+-C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Microsoft/VC/v170
+Index: build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeRCCompiler.cmake
+===================================================================
+diff --git a/build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeRCCompiler.cmake b/build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeRCCompiler.cmake
+deleted file mode 100644
+--- a/build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeRCCompiler.cmake	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,6 +0,0 @@
+-set(CMAKE_RC_COMPILER "rc")
+-set(CMAKE_RC_COMPILER_ARG1 "")
+-set(CMAKE_RC_COMPILER_LOADED 1)
+-set(CMAKE_RC_SOURCE_FILE_EXTENSIONS rc;RC)
+-set(CMAKE_RC_OUTPUT_EXTENSION .res)
+-set(CMAKE_RC_COMPILER_ENV_VAR "RC")
+Index: build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeCXXCompiler.cmake
+===================================================================
+diff --git a/build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeCXXCompiler.cmake b/build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeCXXCompiler.cmake
+deleted file mode 100644
+--- a/build/windows/x64/CMakeFiles/3.28.3-msvc11/CMakeCXXCompiler.cmake	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,85 +0,0 @@
+-set(CMAKE_CXX_COMPILER "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/bin/Hostx64/x64/cl.exe")
+-set(CMAKE_CXX_COMPILER_ARG1 "")
+-set(CMAKE_CXX_COMPILER_ID "MSVC")
+-set(CMAKE_CXX_COMPILER_VERSION "19.40.33811.0")
+-set(CMAKE_CXX_COMPILER_VERSION_INTERNAL "")
+-set(CMAKE_CXX_COMPILER_WRAPPER "")
+-set(CMAKE_CXX_STANDARD_COMPUTED_DEFAULT "14")
+-set(CMAKE_CXX_EXTENSIONS_COMPUTED_DEFAULT "OFF")
+-set(CMAKE_CXX_COMPILE_FEATURES "cxx_std_98;cxx_template_template_parameters;cxx_std_11;cxx_alias_templates;cxx_alignas;cxx_alignof;cxx_attributes;cxx_auto_type;cxx_constexpr;cxx_decltype;cxx_decltype_incomplete_return_types;cxx_default_function_template_args;cxx_defaulted_functions;cxx_defaulted_move_initializers;cxx_delegating_constructors;cxx_deleted_functions;cxx_enum_forward_declarations;cxx_explicit_conversions;cxx_extended_friend_declarations;cxx_extern_templates;cxx_final;cxx_func_identifier;cxx_generalized_initializers;cxx_inheriting_constructors;cxx_inline_namespaces;cxx_lambdas;cxx_local_type_template_args;cxx_long_long_type;cxx_noexcept;cxx_nonstatic_member_init;cxx_nullptr;cxx_override;cxx_range_for;cxx_raw_string_literals;cxx_reference_qualified_functions;cxx_right_angle_brackets;cxx_rvalue_references;cxx_sizeof_member;cxx_static_assert;cxx_strong_enums;cxx_thread_local;cxx_trailing_return_types;cxx_unicode_literals;cxx_uniform_initialization;cxx_unrestricted_unions;cxx_user_literals;cxx_variadic_macros;cxx_variadic_templates;cxx_std_14;cxx_aggregate_default_initializers;cxx_attribute_deprecated;cxx_binary_literals;cxx_contextual_conversions;cxx_decltype_auto;cxx_digit_separators;cxx_generic_lambdas;cxx_lambda_init_captures;cxx_relaxed_constexpr;cxx_return_type_deduction;cxx_variable_templates;cxx_std_17;cxx_std_20;cxx_std_23")
+-set(CMAKE_CXX98_COMPILE_FEATURES "cxx_std_98;cxx_template_template_parameters")
+-set(CMAKE_CXX11_COMPILE_FEATURES "cxx_std_11;cxx_alias_templates;cxx_alignas;cxx_alignof;cxx_attributes;cxx_auto_type;cxx_constexpr;cxx_decltype;cxx_decltype_incomplete_return_types;cxx_default_function_template_args;cxx_defaulted_functions;cxx_defaulted_move_initializers;cxx_delegating_constructors;cxx_deleted_functions;cxx_enum_forward_declarations;cxx_explicit_conversions;cxx_extended_friend_declarations;cxx_extern_templates;cxx_final;cxx_func_identifier;cxx_generalized_initializers;cxx_inheriting_constructors;cxx_inline_namespaces;cxx_lambdas;cxx_local_type_template_args;cxx_long_long_type;cxx_noexcept;cxx_nonstatic_member_init;cxx_nullptr;cxx_override;cxx_range_for;cxx_raw_string_literals;cxx_reference_qualified_functions;cxx_right_angle_brackets;cxx_rvalue_references;cxx_sizeof_member;cxx_static_assert;cxx_strong_enums;cxx_thread_local;cxx_trailing_return_types;cxx_unicode_literals;cxx_uniform_initialization;cxx_unrestricted_unions;cxx_user_literals;cxx_variadic_macros;cxx_variadic_templates")
+-set(CMAKE_CXX14_COMPILE_FEATURES "cxx_std_14;cxx_aggregate_default_initializers;cxx_attribute_deprecated;cxx_binary_literals;cxx_contextual_conversions;cxx_decltype_auto;cxx_digit_separators;cxx_generic_lambdas;cxx_lambda_init_captures;cxx_relaxed_constexpr;cxx_return_type_deduction;cxx_variable_templates")
+-set(CMAKE_CXX17_COMPILE_FEATURES "cxx_std_17")
+-set(CMAKE_CXX20_COMPILE_FEATURES "cxx_std_20")
+-set(CMAKE_CXX23_COMPILE_FEATURES "cxx_std_23")
+-
+-set(CMAKE_CXX_PLATFORM_ID "Windows")
+-set(CMAKE_CXX_SIMULATE_ID "")
+-set(CMAKE_CXX_COMPILER_FRONTEND_VARIANT "MSVC")
+-set(CMAKE_CXX_SIMULATE_VERSION "")
+-set(CMAKE_CXX_COMPILER_ARCHITECTURE_ID x64)
+-
+-set(MSVC_CXX_ARCHITECTURE_ID x64)
+-
+-set(CMAKE_AR "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/bin/Hostx64/x64/lib.exe")
+-set(CMAKE_CXX_COMPILER_AR "")
+-set(CMAKE_RANLIB ":")
+-set(CMAKE_CXX_COMPILER_RANLIB "")
+-set(CMAKE_LINKER "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/bin/Hostx64/x64/link.exe")
+-set(CMAKE_MT "CMAKE_MT-NOTFOUND")
+-set(CMAKE_TAPI "")
+-set(CMAKE_COMPILER_IS_GNUCXX )
+-set(CMAKE_CXX_COMPILER_LOADED 1)
+-set(CMAKE_CXX_COMPILER_WORKS TRUE)
+-set(CMAKE_CXX_ABI_COMPILED TRUE)
+-
+-set(CMAKE_CXX_COMPILER_ENV_VAR "CXX")
+-
+-set(CMAKE_CXX_COMPILER_ID_RUN 1)
+-set(CMAKE_CXX_SOURCE_FILE_EXTENSIONS C;M;c++;cc;cpp;cxx;m;mm;mpp;CPP;ixx;cppm;ccm;cxxm;c++m)
+-set(CMAKE_CXX_IGNORE_EXTENSIONS inl;h;hpp;HPP;H;o;O;obj;OBJ;def;DEF;rc;RC)
+-
+-foreach (lang C OBJC OBJCXX)
+-  if (CMAKE_${lang}_COMPILER_ID_RUN)
+-    foreach(extension IN LISTS CMAKE_${lang}_SOURCE_FILE_EXTENSIONS)
+-      list(REMOVE_ITEM CMAKE_CXX_SOURCE_FILE_EXTENSIONS ${extension})
+-    endforeach()
+-  endif()
+-endforeach()
+-
+-set(CMAKE_CXX_LINKER_PREFERENCE 30)
+-set(CMAKE_CXX_LINKER_PREFERENCE_PROPAGATES 1)
+-set(CMAKE_CXX_LINKER_DEPFILE_SUPPORTED )
+-
+-# Save compiler ABI information.
+-set(CMAKE_CXX_SIZEOF_DATA_PTR "8")
+-set(CMAKE_CXX_COMPILER_ABI "")
+-set(CMAKE_CXX_BYTE_ORDER "LITTLE_ENDIAN")
+-set(CMAKE_CXX_LIBRARY_ARCHITECTURE "")
+-
+-if(CMAKE_CXX_SIZEOF_DATA_PTR)
+-  set(CMAKE_SIZEOF_VOID_P "${CMAKE_CXX_SIZEOF_DATA_PTR}")
+-endif()
+-
+-if(CMAKE_CXX_COMPILER_ABI)
+-  set(CMAKE_INTERNAL_PLATFORM_ABI "${CMAKE_CXX_COMPILER_ABI}")
+-endif()
+-
+-if(CMAKE_CXX_LIBRARY_ARCHITECTURE)
+-  set(CMAKE_LIBRARY_ARCHITECTURE "")
+-endif()
+-
+-set(CMAKE_CXX_CL_SHOWINCLUDES_PREFIX "")
+-if(CMAKE_CXX_CL_SHOWINCLUDES_PREFIX)
+-  set(CMAKE_CL_SHOWINCLUDES_PREFIX "${CMAKE_CXX_CL_SHOWINCLUDES_PREFIX}")
+-endif()
+-
+-
+-
+-
+-
+-set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "")
+-set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "")
+-set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "")
+-set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")
+Index: build/windows/x64/CMakeFiles/TargetDirectories.txt
+===================================================================
+diff --git a/build/windows/x64/CMakeFiles/TargetDirectories.txt b/build/windows/x64/CMakeFiles/TargetDirectories.txt
+deleted file mode 100644
+--- a/build/windows/x64/CMakeFiles/TargetDirectories.txt	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,10 +0,0 @@
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/CMakeFiles/INSTALL.dir
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/CMakeFiles/ALL_BUILD.dir
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/CMakeFiles/ZERO_CHECK.dir
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/flutter/CMakeFiles/flutter_wrapper_plugin.dir
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/flutter/CMakeFiles/flutter_wrapper_app.dir
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/flutter/CMakeFiles/flutter_assemble.dir
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/flutter/CMakeFiles/INSTALL.dir
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/CMakeFiles/stress_managment_app.dir
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/CMakeFiles/INSTALL.dir
+-C:/Users/angel/Desktop/CS 3541 SOFTWARE ENG/under_staffed/build/windows/x64/runner/CMakeFiles/ALL_BUILD.dir
+Index: build/flutter_assets/AssetManifest.json
+===================================================================
+diff --git a/build/flutter_assets/AssetManifest.json b/build/flutter_assets/AssetManifest.json
+deleted file mode 100644
+--- a/build/flutter_assets/AssetManifest.json	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,1 +0,0 @@
+-{"packages/cupertino_icons/assets/CupertinoIcons.ttf":["packages/cupertino_icons/assets/CupertinoIcons.ttf"]}
+\ No newline at end of file
+Index: build/flutter_assets/FontManifest.json
+===================================================================
+diff --git a/build/flutter_assets/FontManifest.json b/build/flutter_assets/FontManifest.json
+deleted file mode 100644
+--- a/build/flutter_assets/FontManifest.json	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,1 +0,0 @@
+-[{"family":"MaterialIcons","fonts":[{"asset":"fonts/MaterialIcons-Regular.otf"}]},{"family":"packages/cupertino_icons/CupertinoIcons","fonts":[{"asset":"packages/cupertino_icons/assets/CupertinoIcons.ttf"}]}]
+\ No newline at end of file
+Index: build/windows/x64/runner/Debug/data/flutter_assets/FontManifest.json
+===================================================================
+diff --git a/build/windows/x64/runner/Debug/data/flutter_assets/FontManifest.json b/build/windows/x64/runner/Debug/data/flutter_assets/FontManifest.json
+deleted file mode 100644
+--- a/build/windows/x64/runner/Debug/data/flutter_assets/FontManifest.json	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ /dev/null	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
+@@ -1,1 +0,0 @@
+-[{"family":"MaterialIcons","fonts":[{"asset":"fonts/MaterialIcons-Regular.otf"}]},{"family":"packages/cupertino_icons/CupertinoIcons","fonts":[{"asset":"packages/cupertino_icons/assets/CupertinoIcons.ttf"}]}]
+\ No newline at end of file
+Index: pubspec.lock
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Generated by pub\r\n# See https://dart.dev/tools/pub/glossary#lockfile\r\npackages:\r\n  async:\r\n    dependency: transitive\r\n    description:\r\n      name: async\r\n      sha256: \"947bfcf187f74dbc5e146c9eb9c0f10c9f8b30743e341481c1e2ed3ecc18c20c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.11.0\"\r\n  boolean_selector:\r\n    dependency: transitive\r\n    description:\r\n      name: boolean_selector\r\n      sha256: \"6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.1\"\r\n  characters:\r\n    dependency: transitive\r\n    description:\r\n      name: characters\r\n      sha256: \"04a925763edad70e8443c99234dc3328f442e811f1d8fd1a72f1c8ad0f69a605\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.0\"\r\n  clock:\r\n    dependency: transitive\r\n    description:\r\n      name: clock\r\n      sha256: cb6d7f03e1de671e34607e909a7213e31d7752be4fb66a86d29fe1eb14bfb5cf\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.1.1\"\r\n  collection:\r\n    dependency: transitive\r\n    description:\r\n      name: collection\r\n      sha256: a1ace0a119f20aabc852d165077c036cd864315bd99b7eaa10a60100341941bf\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.19.0\"\r\n  cupertino_icons:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: cupertino_icons\r\n      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.0.8\"\r\n  equatable:\r\n    dependency: transitive\r\n    description:\r\n      name: equatable\r\n      sha256: \"567c64b3cb4cf82397aac55f4f0cbd3ca20d77c6c03bedbc4ceaddc08904aef7\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.0.7\"\r\n  fake_async:\r\n    dependency: transitive\r\n    description:\r\n      name: fake_async\r\n      sha256: \"511392330127add0b769b75a987850d136345d9227c6b94c96a04cf4a391bf78\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.1\"\r\n  fl_chart:\r\n    dependency: \"direct main\"\r\n    description:\r\n      name: fl_chart\r\n      sha256: \"5276944c6ffc975ae796569a826c38a62d2abcf264e26b88fa6f482e107f4237\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.70.2\"\r\n  flutter:\r\n    dependency: \"direct main\"\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.0\"\r\n  flutter_lints:\r\n    dependency: \"direct dev\"\r\n    description:\r\n      name: flutter_lints\r\n      sha256: \"5398f14efa795ffb7a33e9b6a08798b26a180edac4ad7db3f231e40f82ce11e1\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"5.0.0\"\r\n  flutter_test:\r\n    dependency: \"direct dev\"\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.0\"\r\n  leak_tracker:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker\r\n      sha256: \"7bb2830ebd849694d1ec25bf1f44582d6ac531a57a365a803a6034ff751d2d06\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"10.0.7\"\r\n  leak_tracker_flutter_testing:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker_flutter_testing\r\n      sha256: \"9491a714cca3667b60b5c420da8217e6de0d1ba7a5ec322fab01758f6998f379\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.8\"\r\n  leak_tracker_testing:\r\n    dependency: transitive\r\n    description:\r\n      name: leak_tracker_testing\r\n      sha256: \"6ba465d5d76e67ddf503e1161d1f4a6bc42306f9d66ca1e8f079a47290fb06d3\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"3.0.1\"\r\n  lints:\r\n    dependency: transitive\r\n    description:\r\n      name: lints\r\n      sha256: c35bb79562d980e9a453fc715854e1ed39e24e7d0297a880ef54e17f9874a9d7\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"5.1.1\"\r\n  matcher:\r\n    dependency: transitive\r\n    description:\r\n      name: matcher\r\n      sha256: d2323aa2060500f906aa31a895b4030b6da3ebdcc5619d14ce1aada65cd161cb\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.12.16+1\"\r\n  material_color_utilities:\r\n    dependency: transitive\r\n    description:\r\n      name: material_color_utilities\r\n      sha256: f7142bb1154231d7ea5f96bc7bde4bda2a0945d2806bb11670e30b850d56bdec\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.11.1\"\r\n  meta:\r\n    dependency: transitive\r\n    description:\r\n      name: meta\r\n      sha256: bdb68674043280c3428e9ec998512fb681678676b3c54e773629ffe74419f8c7\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.15.0\"\r\n  path:\r\n    dependency: transitive\r\n    description:\r\n      name: path\r\n      sha256: \"087ce49c3f0dc39180befefc60fdb4acd8f8620e5682fe2476afd0b3688bb4af\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.9.0\"\r\n  sky_engine:\r\n    dependency: transitive\r\n    description: flutter\r\n    source: sdk\r\n    version: \"0.0.0\"\r\n  source_span:\r\n    dependency: transitive\r\n    description:\r\n      name: source_span\r\n      sha256: \"53e943d4206a5e30df338fd4c6e7a077e02254531b138a15aec3bd143c1a8b3c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.10.0\"\r\n  stack_trace:\r\n    dependency: transitive\r\n    description:\r\n      name: stack_trace\r\n      sha256: \"9f47fd3630d76be3ab26f0ee06d213679aa425996925ff3feffdec504931c377\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.12.0\"\r\n  stream_channel:\r\n    dependency: transitive\r\n    description:\r\n      name: stream_channel\r\n      sha256: ba2aa5d8cc609d96bbb2899c28934f9e1af5cddbd60a827822ea467161eb54e7\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.2\"\r\n  string_scanner:\r\n    dependency: transitive\r\n    description:\r\n      name: string_scanner\r\n      sha256: \"688af5ed3402a4bde5b3a6c15fd768dbf2621a614950b17f04626c431ab3c4c3\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.3.0\"\r\n  term_glyph:\r\n    dependency: transitive\r\n    description:\r\n      name: term_glyph\r\n      sha256: a29248a84fbb7c79282b40b8c72a1209db169a2e0542bce341da992fe1bc7e84\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"1.2.1\"\r\n  test_api:\r\n    dependency: transitive\r\n    description:\r\n      name: test_api\r\n      sha256: \"664d3a9a64782fcdeb83ce9c6b39e78fd2971d4e37827b9b06c3aa1edc5e760c\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"0.7.3\"\r\n  vector_math:\r\n    dependency: transitive\r\n    description:\r\n      name: vector_math\r\n      sha256: \"80b3257d1492ce4d091729e3a67a60407d227c27241d6927be0130c98e741803\"\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"2.1.4\"\r\n  vm_service:\r\n    dependency: transitive\r\n    description:\r\n      name: vm_service\r\n      sha256: f6be3ed8bd01289b34d679c2b62226f63c0e69f9fd2e50a6b3c1c729a961041b\r\n      url: \"https://pub.dev\"\r\n    source: hosted\r\n    version: \"14.3.0\"\r\nsdks:\r\n  dart: \">=3.6.1 <4.0.0\"\r\n  flutter: \">=3.18.0-18.0.pre.54\"\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pubspec.lock b/pubspec.lock
+--- a/pubspec.lock	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ b/pubspec.lock	(date 1743018033972)
+@@ -1,46 +1,78 @@
+ # Generated by pub
+ # See https://dart.dev/tools/pub/glossary#lockfile
+ packages:
++  _flutterfire_internals:
++    dependency: transitive
++    description:
++      name: _flutterfire_internals
++      sha256: "7fd72d77a7487c26faab1d274af23fb008763ddc10800261abbfb2c067f183d5"
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.3.53"
+   async:
+     dependency: transitive
+     description:
+       name: async
+-      sha256: "947bfcf187f74dbc5e146c9eb9c0f10c9f8b30743e341481c1e2ed3ecc18c20c"
++      sha256: d2872f9c19731c2e5f10444b14686eb7cc85c76274bd6c16e1816bff9a3bab63
+       url: "https://pub.dev"
+     source: hosted
+-    version: "2.11.0"
++    version: "2.12.0"
+   boolean_selector:
+     dependency: transitive
+     description:
+       name: boolean_selector
+-      sha256: "6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66"
++      sha256: "8aab1771e1243a5063b8b0ff68042d67334e3feab9e95b9490f9a6ebf73b42ea"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "2.1.1"
++    version: "2.1.2"
+   characters:
+     dependency: transitive
+     description:
+       name: characters
+-      sha256: "04a925763edad70e8443c99234dc3328f442e811f1d8fd1a72f1c8ad0f69a605"
++      sha256: f71061c654a3380576a52b451dd5532377954cf9dbd272a78fc8479606670803
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.3.0"
++    version: "1.4.0"
+   clock:
+     dependency: transitive
+     description:
+       name: clock
+-      sha256: cb6d7f03e1de671e34607e909a7213e31d7752be4fb66a86d29fe1eb14bfb5cf
++      sha256: fddb70d9b5277016c77a80201021d40a2247104d9f4aa7bab7157b7e3f05b84b
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.1.1"
++    version: "1.1.2"
++  cloud_firestore:
++    dependency: "direct main"
++    description:
++      name: cloud_firestore
++      sha256: "6b5d0ca6b62830ca5bcf98c5e0c882df32dea3cb523b635db3626333e1c29090"
++      url: "https://pub.dev"
++    source: hosted
++    version: "5.6.5"
++  cloud_firestore_platform_interface:
++    dependency: transitive
++    description:
++      name: cloud_firestore_platform_interface
++      sha256: "149c7d2d634178aff8e25eba6cbbbc76bd92f37e0e63727a31952c72bbcb77fb"
++      url: "https://pub.dev"
++    source: hosted
++    version: "6.6.5"
++  cloud_firestore_web:
++    dependency: transitive
++    description:
++      name: cloud_firestore_web
++      sha256: "05a3c02a7edb3fadeb3f14f491c3a0bbad3ea2c9f22842acbf1d73bceeb93e77"
++      url: "https://pub.dev"
++    source: hosted
++    version: "4.4.5"
+   collection:
+     dependency: transitive
+     description:
+       name: collection
+-      sha256: a1ace0a119f20aabc852d165077c036cd864315bd99b7eaa10a60100341941bf
++      sha256: "2f5709ae4d3d59dd8f7cd309b4e023046b57d8a6c82130785d2b0e5868084e76"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.19.0"
++    version: "1.19.1"
+   cupertino_icons:
+     dependency: "direct main"
+     description:
+@@ -61,10 +93,34 @@
+     dependency: transitive
+     description:
+       name: fake_async
+-      sha256: "511392330127add0b769b75a987850d136345d9227c6b94c96a04cf4a391bf78"
++      sha256: "6a95e56b2449df2273fd8c45a662d6947ce1ebb7aafe80e550a3f68297f3cacc"
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.3.2"
++  firebase_core:
++    dependency: "direct main"
++    description:
++      name: firebase_core
++      sha256: f4d8f49574a4e396f34567f3eec4d38ab9c3910818dec22ca42b2a467c685d8b
++      url: "https://pub.dev"
++    source: hosted
++    version: "3.12.1"
++  firebase_core_platform_interface:
++    dependency: transitive
++    description:
++      name: firebase_core_platform_interface
++      sha256: d7253d255ff10f85cfd2adaba9ac17bae878fa3ba577462451163bd9f1d1f0bf
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.3.1"
++    version: "5.4.0"
++  firebase_core_web:
++    dependency: transitive
++    description:
++      name: firebase_core_web
++      sha256: faa5a76f6380a9b90b53bc3bdcb85bc7926a382e0709b9b5edac9f7746651493
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.21.1"
+   fl_chart:
+     dependency: "direct main"
+     description:
+@@ -91,22 +147,35 @@
+     description: flutter
+     source: sdk
+     version: "0.0.0"
++  flutter_web_plugins:
++    dependency: transitive
++    description: flutter
++    source: sdk
++    version: "0.0.0"
++  intl:
++    dependency: transitive
++    description:
++      name: intl
++      sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
++      url: "https://pub.dev"
++    source: hosted
++    version: "0.20.2"
+   leak_tracker:
+     dependency: transitive
+     description:
+       name: leak_tracker
+-      sha256: "7bb2830ebd849694d1ec25bf1f44582d6ac531a57a365a803a6034ff751d2d06"
++      sha256: c35baad643ba394b40aac41080300150a4f08fd0fd6a10378f8f7c6bc161acec
+       url: "https://pub.dev"
+     source: hosted
+-    version: "10.0.7"
++    version: "10.0.8"
+   leak_tracker_flutter_testing:
+     dependency: transitive
+     description:
+       name: leak_tracker_flutter_testing
+-      sha256: "9491a714cca3667b60b5c420da8217e6de0d1ba7a5ec322fab01758f6998f379"
++      sha256: f8b613e7e6a13ec79cfdc0e97638fddb3ab848452eff057653abd3edba760573
+       url: "https://pub.dev"
+     source: hosted
+-    version: "3.0.8"
++    version: "3.0.9"
+   leak_tracker_testing:
+     dependency: transitive
+     description:
+@@ -127,10 +196,10 @@
+     dependency: transitive
+     description:
+       name: matcher
+-      sha256: d2323aa2060500f906aa31a895b4030b6da3ebdcc5619d14ce1aada65cd161cb
++      sha256: dc58c723c3c24bf8d3e2d3ad3f2f9d7bd9cf43ec6feaa64181775e60190153f2
+       url: "https://pub.dev"
+     source: hosted
+-    version: "0.12.16+1"
++    version: "0.12.17"
+   material_color_utilities:
+     dependency: transitive
+     description:
+@@ -143,18 +212,34 @@
+     dependency: transitive
+     description:
+       name: meta
+-      sha256: bdb68674043280c3428e9ec998512fb681678676b3c54e773629ffe74419f8c7
++      sha256: e3641ec5d63ebf0d9b41bd43201a66e3fc79a65db5f61fc181f04cd27aab950c
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.15.0"
++    version: "1.16.0"
+   path:
+     dependency: transitive
+     description:
+       name: path
+-      sha256: "087ce49c3f0dc39180befefc60fdb4acd8f8620e5682fe2476afd0b3688bb4af"
++      sha256: "75cca69d1490965be98c73ceaea117e8a04dd21217b37b292c9ddbec0d955bc5"
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.9.1"
++  plugin_platform_interface:
++    dependency: transitive
++    description:
++      name: plugin_platform_interface
++      sha256: "4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02"
++      url: "https://pub.dev"
++    source: hosted
++    version: "2.1.8"
++  simple_gesture_detector:
++    dependency: transitive
++    description:
++      name: simple_gesture_detector
++      sha256: ba2cd5af24ff20a0b8d609cec3f40e5b0744d2a71804a2616ae086b9c19d19a3
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.9.0"
++    version: "0.2.1"
+   sky_engine:
+     dependency: transitive
+     description: flutter
+@@ -164,50 +249,58 @@
+     dependency: transitive
+     description:
+       name: source_span
+-      sha256: "53e943d4206a5e30df338fd4c6e7a077e02254531b138a15aec3bd143c1a8b3c"
++      sha256: "254ee5351d6cb365c859e20ee823c3bb479bf4a293c22d17a9f1bf144ce86f7c"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.10.0"
++    version: "1.10.1"
+   stack_trace:
+     dependency: transitive
+     description:
+       name: stack_trace
+-      sha256: "9f47fd3630d76be3ab26f0ee06d213679aa425996925ff3feffdec504931c377"
++      sha256: "8b27215b45d22309b5cddda1aa2b19bdfec9df0e765f2de506401c071d38d1b1"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.12.0"
++    version: "1.12.1"
+   stream_channel:
+     dependency: transitive
+     description:
+       name: stream_channel
+-      sha256: ba2aa5d8cc609d96bbb2899c28934f9e1af5cddbd60a827822ea467161eb54e7
++      sha256: "969e04c80b8bcdf826f8f16579c7b14d780458bd97f56d107d3950fdbeef059d"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "2.1.2"
++    version: "2.1.4"
+   string_scanner:
+     dependency: transitive
+     description:
+       name: string_scanner
+-      sha256: "688af5ed3402a4bde5b3a6c15fd768dbf2621a614950b17f04626c431ab3c4c3"
++      sha256: "921cd31725b72fe181906c6a94d987c78e3b98c2e205b397ea399d4054872b43"
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.4.1"
++  table_calendar:
++    dependency: "direct main"
++    description:
++      name: table_calendar
++      sha256: "0c0c6219878b363a2d5f40c7afb159d845f253d061dc3c822aa0d5fe0f721982"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.3.0"
++    version: "3.2.0"
+   term_glyph:
+     dependency: transitive
+     description:
+       name: term_glyph
+-      sha256: a29248a84fbb7c79282b40b8c72a1209db169a2e0542bce341da992fe1bc7e84
++      sha256: "7f554798625ea768a7518313e58f83891c7f5024f88e46e7182a4558850a4b8e"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "1.2.1"
++    version: "1.2.2"
+   test_api:
+     dependency: transitive
+     description:
+       name: test_api
+-      sha256: "664d3a9a64782fcdeb83ce9c6b39e78fd2971d4e37827b9b06c3aa1edc5e760c"
++      sha256: fb31f383e2ee25fbbfe06b40fe21e1e458d14080e3c67e7ba0acfde4df4e0bbd
+       url: "https://pub.dev"
+     source: hosted
+-    version: "0.7.3"
++    version: "0.7.4"
+   vector_math:
+     dependency: transitive
+     description:
+@@ -220,10 +313,18 @@
+     dependency: transitive
+     description:
+       name: vm_service
+-      sha256: f6be3ed8bd01289b34d679c2b62226f63c0e69f9fd2e50a6b3c1c729a961041b
++      sha256: "0968250880a6c5fe7edc067ed0a13d4bae1577fe2771dcf3010d52c4a9d3ca14"
+       url: "https://pub.dev"
+     source: hosted
+-    version: "14.3.0"
++    version: "14.3.1"
++  web:
++    dependency: transitive
++    description:
++      name: web
++      sha256: "868d88a33d8a87b18ffc05f9f030ba328ffefba92d6c127917a2ba740f9cfe4a"
++      url: "https://pub.dev"
++    source: hosted
++    version: "1.1.1"
+ sdks:
+-  dart: ">=3.6.1 <4.0.0"
+-  flutter: ">=3.18.0-18.0.pre.54"
++  dart: ">=3.7.0-0 <4.0.0"
++  flutter: ">=3.22.0"
+Index: android/local.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>sdk.dir=C:\\\\Users\\\\angel\\\\AppData\\\\Local\\\\Android\\\\sdk\r\nflutter.sdk=C:\\\\Users\\\\angel\\\\Downloads\\\\downloads\\\\flutter\r\nflutter.buildMode=debug\r\nflutter.versionName=1.0.0\r\nflutter.versionCode=1
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/android/local.properties b/android/local.properties
+--- a/android/local.properties	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ b/android/local.properties	(date 1742932342547)
+@@ -1,5 +1,5 @@
+-sdk.dir=C:\\Users\\angel\\AppData\\Local\\Android\\sdk
+-flutter.sdk=C:\\Users\\angel\\Downloads\\downloads\\flutter
++sdk.dir=C:\\Users\\julia\\AppData\\Local\\Android\\sdk
++flutter.sdk=C:\\Users\\julia\\flutter
+ flutter.buildMode=debug
+ flutter.versionName=1.0.0
+ flutter.versionCode=1
+\ No newline at end of file
+Index: ios/Runner/GeneratedPluginRegistrant.m
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n//  Generated file. Do not edit.\r\n//\r\n\r\n// clang-format off\r\n\r\n#import \"GeneratedPluginRegistrant.h\"\r\n\r\n@implementation GeneratedPluginRegistrant\r\n\r\n+ (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {\r\n}\r\n\r\n@end\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ios/Runner/GeneratedPluginRegistrant.m b/ios/Runner/GeneratedPluginRegistrant.m
+--- a/ios/Runner/GeneratedPluginRegistrant.m	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ b/ios/Runner/GeneratedPluginRegistrant.m	(date 1743037291288)
+@@ -6,9 +6,23 @@
+ 
+ #import "GeneratedPluginRegistrant.h"
+ 
++#if __has_include(<cloud_firestore/FLTFirebaseFirestorePlugin.h>)
++#import <cloud_firestore/FLTFirebaseFirestorePlugin.h>
++#else
++@import cloud_firestore;
++#endif
++
++#if __has_include(<firebase_core/FLTFirebaseCorePlugin.h>)
++#import <firebase_core/FLTFirebaseCorePlugin.h>
++#else
++@import firebase_core;
++#endif
++
+ @implementation GeneratedPluginRegistrant
+ 
+ + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
++  [FLTFirebaseFirestorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseFirestorePlugin"]];
++  [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
+ }
+ 
+ @end
+Index: macos/Flutter/GeneratedPluginRegistrant.swift
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n//  Generated file. Do not edit.\r\n//\r\n\r\nimport FlutterMacOS\r\nimport Foundation\r\n\r\n\r\nfunc RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/macos/Flutter/GeneratedPluginRegistrant.swift b/macos/Flutter/GeneratedPluginRegistrant.swift
+--- a/macos/Flutter/GeneratedPluginRegistrant.swift	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ b/macos/Flutter/GeneratedPluginRegistrant.swift	(date 1743037291373)
+@@ -5,6 +5,10 @@
+ import FlutterMacOS
+ import Foundation
+ 
++import cloud_firestore
++import firebase_core
+ 
+ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
++  FLTFirebaseFirestorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseFirestorePlugin"))
++  FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))
+ }
+Index: android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package io.flutter.plugins;\r\n\r\nimport androidx.annotation.Keep;\r\nimport androidx.annotation.NonNull;\r\nimport io.flutter.Log;\r\n\r\nimport io.flutter.embedding.engine.FlutterEngine;\r\n\r\n/**\r\n * Generated file. Do not edit.\r\n * This file is generated by the Flutter tool based on the\r\n * plugins that support the Android platform.\r\n */\r\n@Keep\r\npublic final class GeneratedPluginRegistrant {\r\n  private static final String TAG = \"GeneratedPluginRegistrant\";\r\n  public static void registerWith(@NonNull FlutterEngine flutterEngine) {\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java b/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+--- a/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ b/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java	(date 1743037291230)
+@@ -15,5 +15,15 @@
+ public final class GeneratedPluginRegistrant {
+   private static final String TAG = "GeneratedPluginRegistrant";
+   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
++    try {
++      flutterEngine.getPlugins().add(new io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestorePlugin());
++    } catch (Exception e) {
++      Log.e(TAG, "Error registering plugin cloud_firestore, io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestorePlugin", e);
++    }
++    try {
++      flutterEngine.getPlugins().add(new io.flutter.plugins.firebase.core.FlutterFirebaseCorePlugin());
++    } catch (Exception e) {
++      Log.e(TAG, "Error registering plugin firebase_core, io.flutter.plugins.firebase.core.FlutterFirebaseCorePlugin", e);
++    }
+   }
+ }
+Index: windows/flutter/generated_plugins.cmake
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#\r\n# Generated file, do not edit.\r\n#\r\n\r\nlist(APPEND FLUTTER_PLUGIN_LIST\r\n)\r\n\r\nlist(APPEND FLUTTER_FFI_PLUGIN_LIST\r\n)\r\n\r\nset(PLUGIN_BUNDLED_LIBRARIES)\r\n\r\nforeach(plugin ${FLUTTER_PLUGIN_LIST})\r\n  add_subdirectory(flutter/ephemeral/.plugin_symlinks/${plugin}/windows plugins/${plugin})\r\n  target_link_libraries(${BINARY_NAME} PRIVATE ${plugin}_plugin)\r\n  list(APPEND PLUGIN_BUNDLED_LIBRARIES $<TARGET_FILE:${plugin}_plugin>)\r\n  list(APPEND PLUGIN_BUNDLED_LIBRARIES ${${plugin}_bundled_libraries})\r\nendforeach(plugin)\r\n\r\nforeach(ffi_plugin ${FLUTTER_FFI_PLUGIN_LIST})\r\n  add_subdirectory(flutter/ephemeral/.plugin_symlinks/${ffi_plugin}/windows plugins/${ffi_plugin})\r\n  list(APPEND PLUGIN_BUNDLED_LIBRARIES ${${ffi_plugin}_bundled_libraries})\r\nendforeach(ffi_plugin)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/windows/flutter/generated_plugins.cmake b/windows/flutter/generated_plugins.cmake
+--- a/windows/flutter/generated_plugins.cmake	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ b/windows/flutter/generated_plugins.cmake	(date 1743037291449)
+@@ -3,6 +3,8 @@
+ #
+ 
+ list(APPEND FLUTTER_PLUGIN_LIST
++  cloud_firestore
++  firebase_core
+ )
+ 
+ list(APPEND FLUTTER_FFI_PLUGIN_LIST
+Index: windows/flutter/generated_plugin_registrant.cc
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//\r\n//  Generated file. Do not edit.\r\n//\r\n\r\n// clang-format off\r\n\r\n#include \"generated_plugin_registrant.h\"\r\n\r\n\r\nvoid RegisterPlugins(flutter::PluginRegistry* registry) {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/windows/flutter/generated_plugin_registrant.cc b/windows/flutter/generated_plugin_registrant.cc
+--- a/windows/flutter/generated_plugin_registrant.cc	(revision 3d13c27a9a1d1092094facb7b75ed9687408e8f2)
++++ b/windows/flutter/generated_plugin_registrant.cc	(date 1743037291432)
+@@ -6,6 +6,12 @@
+ 
+ #include "generated_plugin_registrant.h"
+ 
++#include <cloud_firestore/cloud_firestore_plugin_c_api.h>
++#include <firebase_core/firebase_core_plugin_c_api.h>
+ 
+ void RegisterPlugins(flutter::PluginRegistry* registry) {
++  CloudFirestorePluginCApiRegisterWithRegistrar(
++      registry->GetRegistrarForPlugin("CloudFirestorePluginCApi"));
++  FirebaseCorePluginCApiRegisterWithRegistrar(
++      registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
+ }
