@@ -34,7 +34,10 @@ class Button extends StatelessWidget{
               )
           );
         }else if(pageID == 2){
-          //placeholder
+          // Navigate to Mood Tracker Page
+          MaterialPageRoute(
+              builder: (context) => MoodtrackPage()
+          );
         }else if(pageID == 3){
           //placeholder
         }
@@ -74,33 +77,11 @@ class HomePage extends StatelessWidget {
             ),
 
             SizedBox(height: 40,), //space between title and buttons
-
-
             // Planner Button
-            Button(icon: Icons.calendar_month_outlined, label: 'Planner'),
-
-
+            Button(icon: Icons.calendar_month_outlined, label: 'Planner', pageID: 1),
             SizedBox(height: 20), // Space between buttons
-
-
-            // Navigate to Mood Tracker Page
-            ElevatedButton.icon(
-              onPressed: (){
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MoodtrackPage()
-                  ),
-                );
-              }, 
-              icon: Icon(Icons.tag_faces), 
-              label: Text('Mood Tracker'),
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(150,75),
-              ),
-            ),
-
-
+            //Mood Tracker Button
+            Button(icon: Icons.tag_faces, label: 'Mood Tracker', pageID: 2),
             SizedBox(height: 20), // Space between buttons
 
 
