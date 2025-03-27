@@ -1,5 +1,6 @@
 //import 'dart:ffi';
 import 'package:flutter/material.dart';
+import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
@@ -22,13 +23,16 @@ class Button extends StatelessWidget{
   Widget build(BuildContext context){
     return ElevatedButton.icon(
       onPressed: () {
+
+
         // Navigate to PlannerPage
         Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => CalendarView(presenter: CalendarPresenter(CalendarModel({}))),
-        )
+          )
         );
+
       },
       icon: Icon(icon),
       label: Text(label),
@@ -39,6 +43,7 @@ class Button extends StatelessWidget{
     );
   }
 }
+
 
 class HomePage extends StatelessWidget {
   @override
@@ -59,13 +64,61 @@ class HomePage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+
             SizedBox(height: 40,), //space between title and buttons
-            //creates the 3 buttons
+
+
+            // Planner Button
             Button(icon: Icons.calendar_month_outlined, label: 'Planner'),
+
+
             SizedBox(height: 20), // Space between buttons
-            Button(icon: Icons.tag_faces, label: 'Mood Tracker'),
+
+
+            // Navigate to Mood Tracker Page
+            ElevatedButton.icon(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MoodtrackPage()
+                  ),
+                );
+              }, 
+              icon: Icon(Icons.tag_faces), 
+              label: Text('Mood Tracker'),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(150,75),
+              ),
+            ),
+
+
             SizedBox(height: 20), // Space between buttons
+
+
+
+            // CAN UN-COMMENT THIS WHEN READY TO USE
+            /*
+            // Navigate to Activity History Page
+            ElevatedButton.icon(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HistoryPage()),     // UPDATE THIS LINE SO BUTTON CAN NAVIGATE TO PAGE
+                );
+              }, 
+              icon: Icon(Icons.timer), 
+              label: Text('Activity History'),
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(150,75),
+              ),
+            ),
+            */
+
+
+            // Activity History Button 
             Button(icon: Icons.timer, label: 'Activity History'),
+
           ],
         ),
       ),

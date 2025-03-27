@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// MOOD TRACKER PRESENTER
-
 
 class MoodtrackTile extends StatefulWidget {
   @override
@@ -16,8 +14,8 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-
-
+        
+        
         // TEXT "SELECT YOUR MOOD:"
         Container(
           padding: EdgeInsets.all(5),
