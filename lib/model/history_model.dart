@@ -1,8 +1,12 @@
-//import 'package:shared_preferences/shared_preferences.dart';
-//import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class HistoryModel{
   String _historyType = "Activity History";
+  final historyDatabaseReference = FirebaseFirestore.instance.collection('Activities');
+  final moodDatabaseReference = FirebaseFirestore.instance.collection('Mood');
+  List<Widget> entries = [];
 
   String get historyType => _historyType;
   set historyType(String setValue){
@@ -17,17 +21,6 @@ class HistoryModel{
       _historyType = "Mood History";
     }
   }
-
-  /*Future<int> loadValue() async{
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    int? data = preferences.getInt('data');
-    if( data != null ) {
-      return data;
-    } else {
-      return 0;
-    }
-
-  }*/
 
   HistoryModel();
 }

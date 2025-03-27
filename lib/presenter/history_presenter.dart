@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:stress_managment_app/model/history_model.dart';
 import 'package:stress_managment_app/view/history_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,6 +7,8 @@ import 'package:firebase_core/firebase_core.dart';
 class HistoryPresenter {
   set historyView(HistoryView value){}
   void onOptionChanged(String value) {}
+  void updateScreen(){}
+  void createBlocks(CollectionReference database, String field){}
 }
 
 class BasicHistoryPresenter extends HistoryPresenter{
@@ -18,7 +21,7 @@ class BasicHistoryPresenter extends HistoryPresenter{
   }
 
   void _loadUnit() async {
-    _viewModel.historyType = "na";
+    _viewModel.historyType = "N/A";
     _view.updateHistory(_viewModel.historyType);
   }
 
@@ -36,7 +39,43 @@ class BasicHistoryPresenter extends HistoryPresenter{
     }
   }
 
-  void addBlock(String date, String data){
-    
+  @override
+  Future<void> createBlocks(CollectionReference database, String field) async {
+    final QuerySnapshot snapshot = await database.get();
+    final List<DocumentSnapshot> documents = snapshot.docs;
+    documents.forEach((document) {
+      var date = document.get("Date");
+      var data = document.get(field);
+      Container entry = createEntryContainer(date, field, data);
+      _viewModel.entries.add(entry);
+    });
+  }
+
+  Container createEntryContainer(date, String field, data) {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white,),
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+      margin: EdgeInsets.only(bottom: 15.0, left: 20.0, right: 20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('$date', style: TextStyle(fontSize: 16),),
+          Text('$field: $data', style: TextStyle(fontSize: 20),),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Future<void> updateScreen() async{
+    _viewModel.entries.clear();
+    if(_viewModel.historyType == "Activity History"){
+      await createBlocks(_viewModel.historyDatabaseReference, 'Activities');
+      _view.updateEntries(_viewModel.entries);
+    }
+    else if (_viewModel.historyType == "Mood History"){
+      await createBlocks(_viewModel.moodDatabaseReference, 'Mood');
+      _view.updateEntries(_viewModel.entries);
+    }
   }
 }

@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 // since we are using the MVP model, the main.dart file should ONLY contain the calls to the
 //functionality in other files, i.e create files with the actual functionality and call them here
 //like is done with HomePage()
 
-void main() {
+/*void main() {
   runApp(const MyApp());
+}*/
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
