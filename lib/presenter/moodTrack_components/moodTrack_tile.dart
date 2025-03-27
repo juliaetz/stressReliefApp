@@ -36,7 +36,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           onTap: () {
             // will add function when pressed
           },
-          splashColor: Colors.red[900],
+          splashColor: Colors.pink[900],
           borderRadius: BorderRadius.circular(10),
           onTapDown: (_) {
             setState(() {
@@ -59,7 +59,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
               'lib/presenter/moodTrack_components/face_icons/angry.png',
               width: 65,
               height: 65,
-              color: Colors.red[700],
+              color: Colors.pink[700],
             ),
           ),
         ),
@@ -71,7 +71,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           onTap: () {
             // will add function when pressed
           },
-          splashColor: Colors.blue[900],
+          splashColor: Colors.cyan[900],
           borderRadius: BorderRadius.circular(10),
           onTapDown: (_) {
             setState(() {
@@ -94,7 +94,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
               'lib/presenter/moodTrack_components/face_icons/sad-face.png',
               width: 60,
               height: 60,
-              color: Colors.blue[700],
+              color: Colors.cyan[700],
             ),
           ),
         ),
@@ -105,7 +105,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           onTap: () {
             // will add function when pressed
           },
-          splashColor: Colors.yellow[900],
+          splashColor: Colors.amber[400],
           borderRadius: BorderRadius.circular(10),
           onTapDown: (_) {
             setState(() {
@@ -128,7 +128,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
               'lib/presenter/moodTrack_components/face_icons/neutral-face.png',
               width: 60,
               height: 60,
-              color: Colors.amber[700],
+              color: Colors.yellow[600],
             ),
           ),
         ),
@@ -162,7 +162,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
               'lib/presenter/moodTrack_components/face_icons/happiness.png',
               width: 60,
               height: 60,
-              color: Colors.green[700],
+              color: Colors.greenAccent[400],
             ),
           ),
         ),

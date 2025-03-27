@@ -14,7 +14,7 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.indigo[100],
+      backgroundColor: Colors.deepPurple[50],
 
 
       // APPBAR
@@ -26,15 +26,23 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepOrangeAccent[100],
+        backgroundColor: Colors.deepPurple[300],
       ),
 
 
       // MOOD TRACKER FACE BUTTONS
-      body: Column(
+      body: ListView(
         children: [
+          SizedBox(height: 20),
           MoodtrackTile(),
-          //Moodpie(),
+          SizedBox(height: 20),
+          ListTile(
+            subtitle: SizedBox(
+              height: 300,
+              width: 300,
+              child: Moodpie()
+            )
+          ),
         ]
       )
 
