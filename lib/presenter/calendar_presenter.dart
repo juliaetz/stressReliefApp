@@ -2,8 +2,8 @@
 //it contains logic for handling user interactions and fetching data
 
 import 'package:flutter/material.dart';
+import '../model/calendar_model.dart';
 
-import 'calendar_model.dart';
 
 class CalendarPresenter {
   final CalendarModel model; //model object
