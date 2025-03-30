@@ -26,7 +26,7 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple[300],
+        backgroundColor: Colors.orange[300],
       ),
 
 

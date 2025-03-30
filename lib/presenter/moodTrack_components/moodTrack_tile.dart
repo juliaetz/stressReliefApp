@@ -22,7 +22,7 @@ class _MoodTrackTileState extends State<MoodtrackTile> {
           child: Text(
             "SELECT YOUR MOOD:",
             style: TextStyle(
-              color: Colors.indigo[900],
+              color: Colors.deepPurple[500],
               fontWeight: FontWeight.w500,
               fontSize: 13,
             ),
