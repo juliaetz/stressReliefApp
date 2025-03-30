@@ -103,7 +103,7 @@ class HomePage extends StatelessWidget {
               onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HistoryPage(BasicHistoryPresenter(), title:'HISTORY',key: const Key('HISTORY'))),     // UPDATE THIS LINE SO BUTTON CAN NAVIGATE TO PAGE
+                  MaterialPageRoute(builder: (context) => HistoryPage(BasicHistoryPresenter(), title:'HISTORY',key: const Key('HISTORY'))),
                 );
               }, 
               icon: Icon(Icons.timer), 
