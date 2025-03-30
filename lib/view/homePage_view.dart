@@ -98,8 +98,6 @@ class HomePage extends StatelessWidget {
 
 
 
-            // CAN UN-COMMENT THIS WHEN READY TO USE
-
             // Navigate to Activity History Page
             ElevatedButton.icon(
               onPressed: (){
@@ -115,10 +113,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
 
-
-
-            // Activity History Button 
-            //Button(icon: Icons.timer, label: 'Activity History'),
+            
 
           ],
         ),
