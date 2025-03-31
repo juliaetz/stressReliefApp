@@ -14,9 +14,7 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.deepPurple[50],
-
-
+      //backgroundColor: Colors.deepPurple[50],
       // APPBAR
       appBar: AppBar(
         title: Text("MOOD TRACKER", 
@@ -26,7 +24,7 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple[300],
+        backgroundColor: Colors.deepPurple.shade200,
       ),
 
 
