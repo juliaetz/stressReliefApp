@@ -28,20 +28,34 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
       ),
 
 
-      // MOOD TRACKER FACE BUTTONS
       body: ListView(
         children: [
-          SizedBox(height: 20),
+          SizedBox(height: 20), // spacing
+          // MOOD TRACKER FACE BUTTONS
           MoodtrackTile(),
-          SizedBox(height: 20),
+
+          SizedBox(height: 20), // spacing
+          // PIE CHART
           ListTile(
             subtitle: SizedBox(
               height: 300,
               width: 300,
               child: Moodpie()
-            )
+            ),
           ),
-        ]
+
+          SizedBox(height: 30), // spacing
+          // TEXT FIELD FOR USER TO ENTER NOTES (thoughts, feelings, etc.)
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "How are you feeling?",
+              ),
+            ),
+          ),
+        ],
       )
 
 
