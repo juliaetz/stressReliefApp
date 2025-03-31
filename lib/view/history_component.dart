@@ -58,6 +58,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         leading: buildHomeButton(),
         title: Text('Daily Activity and Mood History'),
         centerTitle: true,
+        backgroundColor: Colors.deepPurple.shade200,
       ),
       body: Container(
         decoration: BoxDecoration(

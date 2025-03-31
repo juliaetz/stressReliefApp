@@ -26,7 +26,10 @@ class _CalendarViewState extends State<CalendarView> {
   Widget build(BuildContext Context) {
 
     return Scaffold(
-        appBar: AppBar(title: Text('Planner')),
+        appBar: AppBar(
+            title: Text('Planner'),
+            backgroundColor: Colors.deepPurple.shade200,
+        ),
         body: Column(
           children: [
             TableCalendar(
