@@ -23,6 +23,7 @@ class Button extends StatelessWidget{
   //currently all buttons go to the planner page as a placeholder
   @override
   Widget build(BuildContext context){
+    //creates a button and assigns what page it goes to by checking its PageID value
     return ElevatedButton.icon(
       onPressed: () {
         //check the given page id, and move to the page corresponding to the id.
@@ -91,6 +92,7 @@ class HomePage extends StatelessWidget {
             //Mood Tracker Button
             Button(icon: Icons.tag_faces, label: 'Mood Tracker', pageID: 2),
             SizedBox(height: 20), // Space between buttons
+            //Activity History Button
             Button(icon: Icons.timer, label: 'Activity History', pageID: 3),
           ],
         ),
