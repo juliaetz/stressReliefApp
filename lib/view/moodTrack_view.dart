@@ -26,7 +26,7 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.orange[300],
+        backgroundColor: Colors.amber[500],
       ),
 
 
@@ -37,7 +37,7 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
           MoodtrackTile(),
 
           SizedBox(height: 20), // spacing
-          // Pie chart
+          // PIE CHART
           ListTile(
             subtitle: SizedBox(
               height: 300,
@@ -47,7 +47,7 @@ class _MoodtrackPageState extends State<MoodtrackPage> {
           ),
 
           SizedBox(height: 30), // spacing
-          // Text Field for user to enter notes (thoughts, feelings, etc.)
+          // TEXT FIELD FOR USER TO ENTER NOTES (thoughts, feelings, etc.)
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
             child: TextField(
