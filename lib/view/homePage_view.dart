@@ -1,6 +1,7 @@
 //import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
+import 'package:stress_managment_app/view/history_component.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
@@ -42,14 +43,11 @@ class Button extends StatelessWidget{
               )
           );
         }else if(pageID == 3){
-          //UNCOMMENT WHEN HISTORYPAGE IS IMPLEMENTED
-          //Placeholder for now
-          /*
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HistoryPage()),     // UPDATE THIS LINE SO BUTTON CAN NAVIGATE TO PAGE
+              MaterialPageRoute(builder: (context) => HistoryPage(BasicHistoryPresenter(), title:'HISTORY',key: const Key('HISTORY'))),
           );
-           */
+
         }
 
 

@@ -24,15 +24,30 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
 
   String _dropdownValue = 'Activity History';
   String _history = "";
+  List<Widget> _entries = [];
+
+  void handleHistoryValueChanged(String? value){
+    this.widget.presenter.onOptionChanged(value!);
+  }
+
+  void updateScreen(){
+    this.widget.presenter.updateScreen();
+  }
 
   @override
-  void updateHistory(String option){
-    if(option == 'Activity History'){
-      _history = 'This will give your daily activity history';
-    } else if (option == 'Mood History'){
-      _history = 'This will give your daily mood history';
+  void updateHistory(String value){
+      setState(() {
+        _history = "This is the $value page";
+      });
     }
-  }
+
+    @override
+    void updateEntries(List<Widget> entries){
+      setState(() {
+        _entries = entries;
+      });
+    }
+
 
 
   @override
@@ -40,18 +55,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
-        leading: FilledButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.house, color:Colors.white),
-          style: FilledButton.styleFrom(
-            shape: CircleBorder(side: BorderSide(color: Colors.white, width: 8)),
-            padding: EdgeInsets.all(5),
-            backgroundColor: Colors.amber,
-            foregroundColor: Colors.amber,
-          ),
-        ),
+        leading: buildHomeButton(),
         title: Text('Daily Activity and Mood History'),
         centerTitle: true,
       ),
@@ -62,17 +66,31 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
             fit: BoxFit.cover,
           ),
         ),
+
         child: Column(
           children: [
             historySelectionRow(),
             Padding(padding: EdgeInsets.all(10)),
-            Container(
-              child: Text(_history),
-            )
+            buildHistoryScrollable(),
           ],
-        )
+        ),
       ),
     );
+  }
+
+  FilledButton buildHomeButton() {
+    return FilledButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.house, color:Colors.white),
+        style: FilledButton.styleFrom(
+          shape: CircleBorder(side: BorderSide(color: Colors.white, width: 8)),
+          padding: EdgeInsets.all(5),
+          backgroundColor: Colors.amber,
+          foregroundColor: Colors.amber,
+        ),
+      );
   }
 
   Row historySelectionRow() {
@@ -95,12 +113,23 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
                 onChanged: (String? newValue) {
                   setState(() {
                     _dropdownValue = newValue!;
-                    updateHistory(newValue);
+                    handleHistoryValueChanged(newValue);
+                    updateScreen();
                   });
                 },
               ),
             ],
           );
+  }
+
+  Expanded buildHistoryScrollable() {
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          children: _entries,
+        ),
+      ),
+    );
   }
 
 }
