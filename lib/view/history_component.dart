@@ -58,11 +58,12 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         leading: buildHomeButton(),
         title: Text('Daily Activity and Mood History'),
         centerTitle: true,
+        backgroundColor: Colors.deepPurple.shade200,
       ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/history_background.jpg"),
+            image: AssetImage("assets/purple_background.jpg"),
             fit: BoxFit.cover,
           ),
         ),
@@ -85,10 +86,10 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         },
         child: Icon(Icons.house, color:Colors.white),
         style: FilledButton.styleFrom(
-          shape: CircleBorder(side: BorderSide(color: Colors.white, width: 8)),
+          shape: CircleBorder(side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
           padding: EdgeInsets.all(5),
-          backgroundColor: Colors.amber,
-          foregroundColor: Colors.amber,
+          backgroundColor: Colors.deepPurple.shade700,
+          foregroundColor: Colors.deepPurple.shade700,
         ),
       );
   }
@@ -103,7 +104,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
               DropdownButton<String>(
                 value: _dropdownValue,
                 icon: const Icon(Icons.keyboard_arrow_down),
-                underline: Container(height: 2, color: Colors.amber),
+                underline: Container(height: 2, color: Colors.deepPurple.shade700),
                 items: <String>['Activity History', 'Mood History'].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
