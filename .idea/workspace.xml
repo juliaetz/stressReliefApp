@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Added functionality to journal_view.dart. Added a button on the home menu to access the journal page">
-      <change beforePath="$PROJECT_DIR$/lib/view/journal_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/journal_view.dart" afterDir="false" />
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="fixed formatting of early journal page. changed the naming scheme of the home page view">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presenter/journal_presenter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presenter/journal_presenter.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +123,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743708799757</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fixed formatting of early journal page. changed the naming scheme of the home page view">
+      <option name="closed" value="true" />
+      <created>1743709125651</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1743709125651</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -142,6 +151,7 @@
     <MESSAGE value="misc." />
     <MESSAGE value="Created MVP files for the journal" />
     <MESSAGE value="Added functionality to journal_view.dart. Added a button on the home menu to access the journal page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added functionality to journal_view.dart. Added a button on the home menu to access the journal page" />
+    <MESSAGE value="fixed formatting of early journal page. changed the naming scheme of the home page view" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed formatting of early journal page. changed the naming scheme of the home page view" />
   </component>
 </project>

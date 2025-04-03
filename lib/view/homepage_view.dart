@@ -1,5 +1,6 @@
 //import 'dart:ffi';
 import 'package:flutter/material.dart';
+import 'package:stress_managment_app/model/journal_model.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'package:stress_managment_app/presenter/journal_presenter.dart';
 import 'package:stress_managment_app/view/history_component.dart';
@@ -54,7 +55,7 @@ class Button extends StatelessWidget{
         }else if(pageID == 4){
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => JournalView(presenter: JournalPresenter()))
+              MaterialPageRoute(builder: (context) => JournalView(presenter: JournalPresenter(JournalModel({}))))
           );
         }
 
