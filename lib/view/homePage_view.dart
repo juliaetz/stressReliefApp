@@ -1,7 +1,8 @@
 //import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
-import 'package:stress_managment_app/view/history_component.dart';
+import 'package:stress_managment_app/view/history_view.dart';
+import 'package:stress_managment_app/view/rewards_view.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
@@ -48,7 +49,11 @@ class Button extends StatelessWidget{
             context,
               MaterialPageRoute(builder: (context) => HistoryPage(BasicHistoryPresenter(), title:'HISTORY',key: const Key('HISTORY'))),
           );
-
+        } else if(pageID == 4){
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RewardsView())
+          );
         }
 
 
@@ -94,6 +99,9 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20), // Space between buttons
             //Activity History Button
             Button(icon: Icons.timer, label: 'Activity History', pageID: 3),
+            SizedBox(height: 20), // Space between buttons
+            //Rewards Button
+            Button(icon: Icons.star, label: 'Rewards', pageID: 4),
           ],
         ),
       ),
