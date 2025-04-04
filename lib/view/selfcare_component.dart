@@ -19,12 +19,42 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   @override
   void initState() {
     super.initState();
-    //this.widget.presenter.selfcareView = this;
+    this.widget.presenter.selfcareView = this;
   }
 
+  int _selectedIndex = -1;
+  Widget _page = Placeholder();
+  String _currentIdea = "random idea here";
+
+  void handlePageChange(int index){
+    this.widget.presenter.updatePage(index);
+  }
+
+  @override
+  void updateSelectedIndex(int index){
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  void updatePage(Widget page){
+    setState(() {
+      _page = page;
+    });
+  }
+
+  @override
+  void testing(){
+    setState(() {
+      _currentIdea = "testing";
+    });
+  }
+  
 
   @override
   Widget build(BuildContext Context) {
+    //Widget page;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
@@ -33,24 +63,13 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
         centerTitle: true,
         backgroundColor: Colors.deepPurple.shade200,
       ),
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/purple_background.jpg"),
-            fit: BoxFit.fill,
-          ),
-        ),
 
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            buildIdeaCard(),
-            SizedBox(height: 5.0),
-            buildButtonRow()
-          ],
-        ),
+
+      body: Center(
+        child: _page,
       ),
+
+
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.deepPurple.shade700,
         iconSize: 30.0,
@@ -73,42 +92,16 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
               label: 'Favorites',
             ),
           ],
+        currentIndex: _selectedIndex,
+        onTap: (int index){
+          setState(() {
+            handlePageChange(index);
+          });
+        },
       ),
     );
   }
 
-  Row buildButtonRow() {
-    return Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.favorite, size: 20.0,),
-                  label: Text('Love', style: TextStyle(fontSize: 18.0)),
-              ),
-              SizedBox(width: 10.0),
-              ElevatedButton(
-                  onPressed: (){},
-                  child: Text('Next', style: TextStyle(fontSize: 18.0)),
-              )
-            ],
-          );
-  }
-
-  Card buildIdeaCard() {
-    return Card(
-              color: Colors.deepPurple.shade700,
-              margin: EdgeInsets.only(left: 40.0, right: 40.0),
-              child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                      'RANDOM SELF CARE IDEA HERE',
-                      style: TextStyle(fontSize: 25.0, color: Colors.white,),
-                      textAlign: TextAlign.center,
-                  )
-              )
-          );
-  }
 
   FilledButton buildHomeButton() {
     return FilledButton(
@@ -122,6 +115,74 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
         backgroundColor: Colors.deepPurple.shade700,
         foregroundColor: Colors.deepPurple.shade700,
       ),
+    );
+  }
+
+
+
+  @override
+  Container IdeasPage(){
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/purple_background.jpg"),
+          fit: BoxFit.fill,
+        ),
+      ),
+
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          buildIdeaCard(),
+          SizedBox(height: 5.0),
+          buildButtonRow()
+        ],
+      ),
+    );
+  }
+
+  Card buildIdeaCard() {
+    return Card(
+        color: Colors.deepPurple.shade700,
+        margin: EdgeInsets.only(left: 40.0, right: 40.0),
+        child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              _currentIdea,
+              //'RANDOM SELF CARE IDEA HERE',
+              style: TextStyle(fontSize: 25.0, color: Colors.white,),
+              textAlign: TextAlign.center,
+            )
+        )
+    );
+  }
+
+  Row buildButtonRow() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ElevatedButton.icon(
+          onPressed: () {},
+          icon: Icon(Icons.favorite, size: 20.0,),
+          label: Text('Love', style: TextStyle(fontSize: 18.0)),
+        ),
+        SizedBox(width: 10.0),
+        ElevatedButton(
+          onPressed: (){
+              testing();
+              handlePageChange(_selectedIndex);
+          },
+          child: Text('Next', style: TextStyle(fontSize: 18.0)),
+        )
+      ],
+    );
+  }
+
+  @override
+  Container FavoritesPage(){
+    return Container(
+      child: Text('this is the favorites page'),
     );
   }
 
