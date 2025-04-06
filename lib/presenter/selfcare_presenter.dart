@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 class SelfcarePresenter {
   void updatePage(int index){}
   void updateCurrentIdea(){}
+  void updateFilter(String value){}
   set selfcareView(SelfcareView value){}
 }
 
@@ -25,6 +26,7 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
 
   void _loadPageIndex() async {
     _viewModel.pageIndex = 0;
+    _viewModel.filterType = "No Filter";
     //_view.updateSelectedIndex(_viewModel.pageIndex);
   }
 
@@ -71,7 +73,12 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
   }
 
   Future<void> updateDatabase()async{
-    final QuerySnapshot snapshot = await _viewModel.ideasDatabaseReference.get();
+    final QuerySnapshot snapshot;
+    if(_viewModel.filterType != "No Filter"){
+      snapshot = await _viewModel.ideasDatabaseReference.where("Filter", isEqualTo: _viewModel.filterType).get();
+    } else {
+      snapshot = await _viewModel.ideasDatabaseReference.get();
+    }
     _viewModel.ideasList = snapshot.docs;
     _viewModel.databaseSize = _viewModel.ideasList.length;
   }
@@ -84,15 +91,30 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
 
   @override
   Future<void> updateCurrentIdea()async{
-    if(_viewModel.ideasList.length != _viewModel.databaseSize){
+    if(_viewModel.ideasList.length != _viewModel.databaseSize || _viewModel.filterType != "No Filter"){
       await updateDatabase();
     }
 
-    int newIdeaIndex = getRandomIndex();
-    _viewModel.currentIdeaIndex = newIdeaIndex;
-    String idea = _viewModel.ideasList.elementAt(newIdeaIndex).get("Idea");
+    String idea;
+    if(_viewModel.ideasList.isEmpty){
+      idea = "No more ideas under this filter";
+    } else {
+      int newIdeaIndex = getRandomIndex();
+      _viewModel.currentIdeaIndex = newIdeaIndex;
+      idea = _viewModel.ideasList.elementAt(newIdeaIndex).get("Idea");
+    }
     _view.updateIdea(idea);
     updatePage(_viewModel.pageIndex);
+  }
+
+  @override
+  void updateFilter(String value)async{
+    if(value != _viewModel.filterType){
+      _viewModel.filterType = value;
+      //filterDatabase(_viewModel.filterType);
+    }
+    _view.updateFilter(_viewModel.filterType);
+    updateCurrentIdea();
   }
 
 }

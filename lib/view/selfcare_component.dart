@@ -24,6 +24,7 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   }
 
   int _selectedIndex = 0;
+  String _filterValue = "No Filter";
   Widget _page = HomePage();
   String _currentIdea = "Loading...";
   bool _isLoading = true;
@@ -34,6 +35,10 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
 
   void handleNext(){
     this.widget.presenter.updateCurrentIdea();
+  }
+
+  void handleFilterValueChanged(String? newValue){
+    this.widget.presenter.updateFilter(newValue!);
   }
 
   @override
@@ -55,6 +60,12 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   void updateIdea(String idea){
     setState(() {
       _currentIdea = idea;
+    });
+  }
+
+  @override void updateFilter(String filter) {
+    setState(() {
+      _filterValue = filter;
     });
   }
   
@@ -138,12 +149,40 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
         ),
       ),
 
+
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          buildIdeaCard(),
-          SizedBox(height: 5.0),
-          buildButtonRow()
+
+          DropdownButton<String>(
+            value: _filterValue,
+            icon: const Icon(Icons.keyboard_arrow_down),
+            underline: Container(height: 2, color: Colors.deepPurple.shade700),
+            items: <String>['No Filter', 'Physical', 'Mental', 'Emotional', 'Social'].map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                _filterValue = newValue!;
+                handleFilterValueChanged(newValue);
+                //updateScreen();
+              });
+            },
+          ),
+
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                buildIdeaCard(),
+                SizedBox(height: 5.0),
+                buildButtonRow(),
+              ],
+            ),
+          ),
         ],
       ),
     );
