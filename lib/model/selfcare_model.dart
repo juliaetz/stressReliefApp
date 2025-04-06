@@ -4,6 +4,10 @@ import 'package:firebase_core/firebase_core.dart';
 
 class SelfcareModel{
   int pageIndex = 0;
+  final ideasDatabaseReference = FirebaseFirestore.instance.collection('Self_Care_Ideas');
+  int databaseSize = 0;
+  int currentIdeaIndex = 0;
+  List<DocumentSnapshot> ideasList = [];
 
   int get index => pageIndex;
   set selectedPageIndex(int setValue){

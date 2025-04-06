@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'selfcare_view.dart';
 import 'package:stress_managment_app/presenter/selfcare_presenter.dart';
+import 'homePage_view.dart';
 
 
 class SelfcarePage extends StatefulWidget {
@@ -22,12 +23,17 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
     this.widget.presenter.selfcareView = this;
   }
 
-  int _selectedIndex = -1;
-  Widget _page = Placeholder();
-  String _currentIdea = "random idea here";
+  int _selectedIndex = 0;
+  Widget _page = HomePage();
+  String _currentIdea = "Loading...";
+  bool _isLoading = true;
 
   void handlePageChange(int index){
     this.widget.presenter.updatePage(index);
+  }
+
+  void handleNext(){
+    this.widget.presenter.updateCurrentIdea();
   }
 
   @override
@@ -41,13 +47,14 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   void updatePage(Widget page){
     setState(() {
       _page = page;
+      _isLoading = false;
     });
   }
 
   @override
-  void testing(){
+  void updateIdea(String idea){
     setState(() {
-      _currentIdea = "testing";
+      _currentIdea = idea;
     });
   }
   
@@ -56,7 +63,7 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   Widget build(BuildContext Context) {
     //Widget page;
     return Scaffold(
-      appBar: AppBar(
+      appBar: _isLoading ? null : AppBar(
         toolbarHeight: 80,
         leading: buildHomeButton(),
         title: Text('Selfcare Ideas'),
@@ -70,7 +77,7 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
       ),
 
 
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: _isLoading ? null : BottomNavigationBar(
         backgroundColor: Colors.deepPurple.shade700,
         iconSize: 30.0,
 
@@ -170,8 +177,8 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
         SizedBox(width: 10.0),
         ElevatedButton(
           onPressed: (){
-              testing();
-              handlePageChange(_selectedIndex);
+              handleNext();
+              //handlePageChange(_selectedIndex);
           },
           child: Text('Next', style: TextStyle(fontSize: 18.0)),
         )
