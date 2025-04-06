@@ -5,8 +5,7 @@ import 'package:stress_managment_app/view/history_component.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
-//import '../view/moodTrack_view.dart';
-import '../view/mood_tracker_view.dart';
+import 'mood_tracker_screen/mood_tracker_view.dart';
 
 
 //class to help create buttons
