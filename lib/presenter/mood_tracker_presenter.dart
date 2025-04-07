@@ -19,5 +19,13 @@ class MoodTrackerPresenter {
     });
   }
 
+  // CLEAR ALL MOODS
+  Future<void> clearAllMoods() async{
+    var querySnapshot = await firestore.collection('Mood').get();
+    for(var doc in querySnapshot.docs){
+      await doc.reference.delete();
+    }
+  }
+
 
 }

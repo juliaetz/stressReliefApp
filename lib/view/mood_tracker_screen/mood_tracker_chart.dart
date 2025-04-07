@@ -11,6 +11,7 @@ class MoodTrackerChart extends StatelessWidget{
     required this.angryCount,
   });
 
+
   @override
   Widget build(BuildContext context){
     
@@ -18,26 +19,26 @@ class MoodTrackerChart extends StatelessWidget{
       PieChartSectionData(
         value: happyCount.toDouble(),
         color: Colors.greenAccent[400],
-        title: 'Happy\n$happyCount',
-        radius: 50,
+        title: 'HAPPY\n$happyCount',
+        radius: 70,
       ),
       PieChartSectionData(
         value: neutralCount.toDouble(),
         color: Colors.yellow[600],
-        title: 'Neutral\n$neutralCount',
-        radius: 50,
+        title: 'NEUTRAL\n$neutralCount',
+        radius: 70,
       ),
       PieChartSectionData(
         value: sadCount.toDouble(),
         color: Colors.cyan[700],
-        title: 'Sad\n$sadCount',
-        radius: 50,
+        title: 'SAD\n$sadCount',
+        radius: 70,
       ),
       PieChartSectionData(
         value: angryCount.toDouble(),
         color: Colors.pink[700],
-        title: 'Angry\n$angryCount',
-        radius: 50,
+        title: 'ANGRY\n$angryCount',
+        radius: 70,
       ),
     ];
 
@@ -45,8 +46,9 @@ class MoodTrackerChart extends StatelessWidget{
       PieChartData(
         sections: moodChartData,
         borderData: FlBorderData(show: true),
-        sectionsSpace: 3,
-        centerSpaceRadius: 50,
+        sectionsSpace: 5,
+        centerSpaceRadius: 60,
       ));
   }
+  
 }
