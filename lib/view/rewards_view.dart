@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../presenter/rewards_presenter.dart';
 
 class RewardsView extends StatefulWidget {
-  final RewardsPresenter presenter = RewardsPresenter();
   RewardsView({super.key});
 
   @override
@@ -10,9 +9,9 @@ class RewardsView extends StatefulWidget {
 }
 
 class _RewardsViewState extends State<RewardsView> {
-
+final RewardsPresenter presenter = RewardsPresenter();
 int _StreakCounter = 0;
-
+_StreakCounter = presenter.getStreakCount;
 @override
   Widget build(BuildContext context) {
     return Scaffold(
