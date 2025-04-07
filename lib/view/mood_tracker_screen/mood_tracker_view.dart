@@ -269,11 +269,18 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
             }
           )
         ),
-        SizedBox(height: 100),
+        SizedBox(height: 30),
         
         
         // BUTTON TO NAVIGATE TO MOOD HISTORY PAGE
+        ElevatedButton.icon(
+          onPressed: (){
 
+          }, 
+          icon: Icon(Icons.face_retouching_natural_sharp, color: Colors.indigo[600], size: 25),
+          label: Text("VIEW YOUR MOOD HISTORY!", style: TextStyle(fontSize: 13)),
+        ),
+        SizedBox(height: 100),
 
 
 
