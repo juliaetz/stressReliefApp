@@ -8,10 +8,11 @@
 .pub-cache/
 .pub/
 /build/
-ios
-linux
-windows
-macos
-android
+ios/
+linux/
+windows/
+macos/
+android/
 pubspec.lock
-.idea
+.idea/
+.metadata
