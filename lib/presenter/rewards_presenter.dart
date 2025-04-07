@@ -1,17 +1,29 @@
-import 'package:stress_managment_app/view/rewards_view.dart';
 import 'package:stress_managment_app/model/rewards_model.dart';
 
 class RewardsPresenter {
-final RewardsModel model;
-final Function(int) onStreakChange;
-RewardsPresenter({required this.model, required this.onStreakChange});
+  final RewardsModel model;
+  final Function(int) onStreakChange;
+  final Function(List<RewardButtonData>) onRewardsChange;
 
-void updateStreak() {
-  onStreakChange(model.StreakCounter);
-}
+  RewardsPresenter({required this.model, required this.onStreakChange, required this.onRewardsChange}) {
+    updateStreak();
+    updateRewards();
+  }
 
-void onButtonPressed() {
-  model.StreakCounter = model.StreakCounter + 1;
-  updateStreak();
-}
+  void updateStreak() {
+    onStreakChange(model.streakCounter);
+  }
+
+  void updateRewards() {
+    onRewardsChange(model.rewardButtons);
+  }
+
+  void onStreakButtonPressed() {
+    model.streakCounter = model.streakCounter + 1;
+    updateStreak();
+  }
+
+  void onRewardButtonPressed(int index) {
+    print('Button ${index + 1} pressed');
+  }
 }
