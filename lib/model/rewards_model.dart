@@ -1,10 +1,6 @@
 class RewardsModel{
   //Variable Initialization
-  int _StreakCounter = 0;
-  int get StreakCounter => _StreakCounter;
-  set StreakCounter(int newStreakNum) {
-    _StreakCounter = newStreakNum;
-  }
+  int StreakCounter = 0;
   //Constructor
   RewardsModel();
 }

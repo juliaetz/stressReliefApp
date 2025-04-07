@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stress_managment_app/model/rewards_model.dart';
 import '../presenter/rewards_presenter.dart';
 
 class RewardsView extends StatefulWidget {
@@ -9,23 +10,41 @@ class RewardsView extends StatefulWidget {
 }
 
 class _RewardsViewState extends State<RewardsView> {
-final RewardsPresenter presenter = RewardsPresenter();
-int _StreakCounter = 0;
-_StreakCounter = presenter.getStreakCount;
-@override
+
+  late RewardsPresenter presenter;
+  late int _streakCounter;
+
+  @override
+  void initState() {
+    presenter = RewardsPresenter(model: RewardsModel(), onStreakChange: (newStreak) {
+      setState(() {
+        _streakCounter = newStreak;
+      });
+    },);
+    presenter.updateStreak();
+    super.initState();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Rewards'),
         backgroundColor: Colors.deepPurple.shade200,
       ),
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: Container(
-            padding: EdgeInsets.all(50),
-            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.purple[200]),
-            child: Text('$_StreakCounter', style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold)),
-        ),
+      body: Column(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+                padding: EdgeInsets.all(50),
+                decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.purple[200]),
+                child: Text('$_streakCounter', style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold)),
+            ),
+          ),
+          ElevatedButton(onPressed: presenter.onButtonPressed, child: Text("Increment Streak Counter"))
+        ],
       )
     );
   }
