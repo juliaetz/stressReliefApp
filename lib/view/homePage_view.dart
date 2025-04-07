@@ -1,7 +1,7 @@
 //import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
-import 'package:stress_managment_app/view/history_view.dart';
+import 'package:stress_managment_app/view/history_component.dart';
 import 'package:stress_managment_app/view/rewards_view.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
