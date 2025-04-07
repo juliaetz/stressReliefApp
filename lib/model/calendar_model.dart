@@ -1,54 +1,82 @@
-// I THINK THIS IS FOR METHOD IMPLEMENTATION?
-
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+//this is pretty much a complete overhaul of the previous calendar_model
+//this version removed the prevoous map<DateTime, map<<Events> <TimeOfDay>>> because we couldnt convert DateTime to
+//a format that could be stored in our firebase
+
+
 class CalendarModel {
-  final Map<DateTime, List<String>> events; //this will store events for each date
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  CalendarModel(this.events); // constructor
+  // Adds an event to Firestore
+  Future<void> addEvent(DateTime date, String event, TimeOfDay time) async {
+    String formattedDate = _formatDate(date);
 
-  //Map a DateTime to a List of strings, the strings will be the notes
-  final Map<DateTime, List<Map<String, dynamic>>> _events = {};
+    // Convert TimeOfDay to a map
+    Map<String, int> timeData = {'hour': time.hour, 'minute': time.minute};
+
+    //A DocumentReference refers to a document location in our FirebaseFirestore
+    // database and can be used to write, read, or listen to the location.
+    DocumentReference docRef = _firestore.collection('events').doc(formattedDate);
 
 
-  //method for remving an event from a day in the calendar
-  void deleteEvent(DateTime date, String event){
-    //look for the event we want to delete
-    if(_events.containsKey(date)){
+    //wait to receive our date, events, and time
+    await docRef.set({
+      'date': Timestamp.fromDate(date),
+      'events': FieldValue.arrayUnion([
+        {'time': timeData, 'description': event}
+      ])
+    }, SetOptions(merge: true));
+  }
 
-      _events[date]!.removeWhere((e) => e['description'] == event);
-      if(_events[date]!.isEmpty){
-        _events.remove(date);
+  // Removes an event from Firestore
+  Future<void> deleteEvent(DateTime date, String event) async {
+    String formattedDate = _formatDate(date);
+    DocumentReference docRef = _firestore.collection('events').doc(formattedDate);
+
+    // Fetch current events
+    DocumentSnapshot doc = await docRef.get();
+    if (doc.exists) {
+      List<dynamic> events = (doc.data() as Map<String, dynamic>)['events'] ?? [];
+
+      // Remove the event with the matching description
+      events.removeWhere((e) => e['description'] == event);
+
+      // Update Firestore (delete the doc if empty)
+      if (events.isEmpty) {
+        await docRef.delete();
+      } else {
+        await docRef.update({'events': events});
       }
     }
   }
 
+  // Retrieves events for a specific date from Firestore
+  Future<List<Map<String, dynamic>>> getEventsForDay(DateTime date) async {
+    String formattedDate = _formatDate(date);
+    DocumentSnapshot doc = await _firestore.collection('events').doc(formattedDate).get();
 
-  //Method for add events to a specific day
-  void addEvent(DateTime date, String event, TimeOfDay time){
+    if (doc.exists) {
+      List<Map<String, dynamic>> events = List<Map<String, dynamic>>.from(
+          (doc.data() as Map<String, dynamic>)['events'] ?? []);
 
-    if (!_events.containsKey(date)){  //check if the date is in the map
-      _events[date] = [];   // if date not in map, initialize the map for that date
+      // Sort events by time
+      events.sort((a, b) {
+        Map<String, int> timeA = a['time'];
+        Map<String, int> timeB = b['time'];
+
+        return (timeA['hour']! * 60 + timeA['minute']!) - (timeB['hour']! * 60 + timeB['minute']!);
+      });
+
+      return events;
+    } else {
+      return [];
     }
-
-    //if already in map, add it to the string list for that date
-    _events[date]!.add({'time': time, 'description': event});
-
-
-    _events[date]!.sort((a,b) {
-      TimeOfDay timeA = a['time'];
-      TimeOfDay timeB = b['time'];
-      return (timeA.hour * 60 + timeA.minute) - (timeB.hour * 60 + timeB.minute);
-    });
   }
 
-
-
-
-  List<Map<String, dynamic>> getEventsForDay(DateTime date) {
-    return _events[date] ?? [];
+  // Formats DateTime as a string for Firestore doc IDs
+  String _formatDate(DateTime date) {
+    return "${date.year}-${date.month}-${date.day}";
   }
-
-
 }

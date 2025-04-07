@@ -11,33 +11,19 @@ class CalendarPresenter {
   CalendarPresenter(this.model); //constructor for model
 
 
-  void deleteEvent(DateTime date, String event){
-    model.deleteEvent(date, event);
+  Future<void> addEvent(DateTime date, String event, TimeOfDay time) async {
+    await model.addEvent(date, event, time);
   }
 
-  bool isSameDay(DateTime? selectedDay, DateTime day) {
-    return selectedDay != null &&
-        selectedDay.year == day.year &&
-        selectedDay.month == day.month &&
-        selectedDay.day == day.day;
+  Future<void> deleteEvent(DateTime date, String event) async {
+    await model.deleteEvent(date, event);
   }
 
-  void onDaySelected(DateTime selectedDay) {
-    //  settings a day/getting a day
-    print("Selected Day: $selectedDay ");
-  }
-
-  void addEvent(DateTime date, String event, TimeOfDay time) {
-    model.addEvent(date, event, time);
-  }
-
-  List<Map<String, dynamic>> getEventsForDay(DateTime day) {
-    return model.getEventsForDay(day); //gets events from the model
-
-
+  Future<List<Map<String, dynamic>>> getEventsForDay(DateTime date) async {
+    return await model.getEventsForDay(date);
   }
 }
-  
+
 
 
 
