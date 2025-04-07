@@ -5,6 +5,8 @@ class SelfcareView{
   void updatePage(Widget page){}
   void updateIdea(String idea){}
   void updateFilter(String filter){}
+  void updateHeartIcon(IconData icon){}
+  void updateFavorites(List<String> faves){}
   Container IdeasPage(){return Container();}
   Container FavoritesPage(){return Container();}
 }

@@ -11,6 +11,7 @@ class SelfcarePresenter {
   void updatePage(int index){}
   void updateCurrentIdea(){}
   void updateFilter(String value){}
+  void updateFavoritesList(){}
   set selfcareView(SelfcareView value){}
 }
 
@@ -27,6 +28,7 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
   void _loadPageIndex() async {
     _viewModel.pageIndex = 0;
     _viewModel.filterType = "No Filter";
+    _viewModel.heartIcon = Icons.favorite_border;
     //_view.updateSelectedIndex(_viewModel.pageIndex);
   }
 
@@ -41,6 +43,8 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
 
   void initializeIdea() async {
     await updateDatabase(); // Wait for ideas to load
+    await createFavorites();
+    _view.updateFavorites(_viewModel.favoritesList);
     _viewModel.pageIndex = 0;
 
     int initialIdeaIndex = getRandomIndex();
@@ -94,6 +98,10 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
     if(_viewModel.ideasList.length != _viewModel.databaseSize || _viewModel.filterType != "No Filter"){
       await updateDatabase();
     }
+    if(_viewModel.heartIcon != Icons.favorite_border){
+      _viewModel.heartIcon = Icons.favorite_border;
+      _view.updateHeartIcon(_viewModel.heartIcon);
+    }
 
     String idea;
     if(_viewModel.ideasList.isEmpty){
@@ -102,6 +110,7 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
       int newIdeaIndex = getRandomIndex();
       _viewModel.currentIdeaIndex = newIdeaIndex;
       idea = _viewModel.ideasList.elementAt(newIdeaIndex).get("Idea");
+      _viewModel.currentIdea = idea;
     }
     _view.updateIdea(idea);
     updatePage(_viewModel.pageIndex);
@@ -117,4 +126,47 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
     updateCurrentIdea();
   }
 
+  Future<void> createFavorites() async {
+    final QuerySnapshot snapshot = await _viewModel.favoritesDatabaseReference.get();
+    final List<DocumentSnapshot> documents = snapshot.docs;
+    documents.forEach((document) {
+      _viewModel.favoritesList.add(document.get("Idea"));
+    });
+  }
+
+  @override
+  void updateFavoritesList(){
+    _viewModel.favoritesListWidgets.clear();
+    if (_viewModel.heartIcon == Icons.favorite_border) {
+      String id = _viewModel.ideasList[_viewModel.currentIdeaIndex].id;
+      _viewModel.favoritesDatabaseReference.doc(id).set(
+          {
+            "Idea": _viewModel.ideasList[_viewModel.currentIdeaIndex].get("Idea"),
+            "Filter": _viewModel.ideasList[_viewModel.currentIdeaIndex].get("Filter"),
+          });
+      _viewModel.ideasDatabaseReference.doc(id).delete();
+      _viewModel.favoritesList.add(_viewModel.ideasList[_viewModel.currentIdeaIndex].get("Idea")); // adding the idea string
+
+      _viewModel.mostRecentFave = _viewModel.ideasList.elementAt(_viewModel.currentIdeaIndex);
+      _viewModel.ideasList.removeAt(_viewModel.currentIdeaIndex);
+
+      _viewModel.heartIcon = Icons.favorite;
+    } else {
+      _viewModel.ideasDatabaseReference.doc(_viewModel.mostRecentFave?.id).set(
+          {
+            "Idea": _viewModel.mostRecentFave?.get("Idea"),
+            "Filter": _viewModel.mostRecentFave?.get("Filter"),
+          });
+
+      _viewModel.favoritesDatabaseReference.doc(_viewModel.mostRecentFave?.id).delete();
+      _viewModel.favoritesList.removeLast();
+
+      _viewModel.heartIcon = Icons.favorite_border;
+    }
+
+    updateDatabase();
+    _view.updateHeartIcon(_viewModel.heartIcon);
+    _view.updateFavorites(_viewModel.favoritesList);
+    updatePage(_viewModel.pageIndex);
+  }
 }

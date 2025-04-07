@@ -28,6 +28,8 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   Widget _page = HomePage();
   String _currentIdea = "Loading...";
   bool _isLoading = true;
+  IconData _heart = Icons.favorite_border;
+  List<String> _favorites = [];
 
   void handlePageChange(int index){
     this.widget.presenter.updatePage(index);
@@ -35,6 +37,10 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
 
   void handleNext(){
     this.widget.presenter.updateCurrentIdea();
+  }
+
+  void handleFavorite(){
+    this.widget.presenter.updateFavoritesList();
   }
 
   void handleFilterValueChanged(String? newValue){
@@ -63,9 +69,24 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
     });
   }
 
-  @override void updateFilter(String filter) {
+  @override
+  void updateFilter(String filter) {
     setState(() {
       _filterValue = filter;
+    });
+  }
+
+  @override
+  void updateHeartIcon(IconData icon){
+    setState(() {
+      _heart = icon;
+    });
+  }
+
+  @override
+  void updateFavorites(List<String> faves){
+    setState(() {
+      _favorites = faves;
     });
   }
   
@@ -209,8 +230,10 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
       mainAxisSize: MainAxisSize.min,
       children: [
         ElevatedButton.icon(
-          onPressed: () {},
-          icon: Icon(Icons.favorite, size: 20.0,),
+          onPressed: () {
+            handleFavorite();
+          },
+          icon: Icon(_heart, size: 20.0,),
           label: Text('Love', style: TextStyle(fontSize: 18.0)),
         ),
         SizedBox(width: 10.0),
@@ -228,7 +251,12 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   @override
   Container FavoritesPage(){
     return Container(
-      child: Text('this is the favorites page'),
+      child: Column(
+        children: [
+          for(String faveIdea in _favorites)
+            Text(faveIdea),
+        ]
+      )
     );
   }
 

@@ -6,9 +6,15 @@ class SelfcareModel{
   int _pageIndex = 0;
   String _filterType = "No Filter";
   final ideasDatabaseReference = FirebaseFirestore.instance.collection('Self_Care_Ideas');
+  final favoritesDatabaseReference = FirebaseFirestore.instance.collection('Favorite_Ideas');
   int databaseSize = 0;
   int currentIdeaIndex = 0;
+  String currentIdea = "";
   List<DocumentSnapshot> ideasList = [];
+  DocumentSnapshot? mostRecentFave;
+  List<String> favoritesList = [];
+  List<Widget> favoritesListWidgets = [];
+  IconData _heartIcon = Icons.favorite_border;
 
   int get pageIndex => _pageIndex;
   set pageIndex(int setValue){
@@ -36,6 +42,20 @@ class SelfcareModel{
       _filterType = "No Filter";
     } else if (value == 1){
       _filterType = "Filter";
+    }
+  }
+
+  IconData get heartIcon => _heartIcon;
+  set heartIcon(IconData setValue){
+    _heartIcon = setValue;
+  }
+
+  int get value2 => (_heartIcon == Icons.favorite_border)?0 : 1; // returns value. MPG is 0.
+  set value2(int value){
+    if(value == 0){
+      _heartIcon = Icons.favorite_border;
+    } else if (value == 1){
+      _heartIcon = Icons.favorite;
     }
   }
 
