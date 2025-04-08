@@ -91,7 +91,13 @@ class _RewardsViewState extends State<RewardsView> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                               ),
-                              child: Center(child: Text(button.label)),
+                              child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      button.icon,
+                                      Text(button.label)
+                                    ],
+                                ),
                             )
                         ),
                       );
