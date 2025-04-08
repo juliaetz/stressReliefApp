@@ -31,6 +31,17 @@ class _JournalViewState extends State<JournalView>{
             Text(
                 'placeholder journal text'
             ),
+            //creates a textbox to enter journal entries into
+            SizedBox(
+              width: 250,
+              child: TextField(
+                decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'New Journal Entry'),
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                //onSubmitted: addEntry(),
+              ),
+            )
+
           ],
         ),
       ),
