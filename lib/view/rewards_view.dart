@@ -59,6 +59,7 @@ class _RewardsViewState extends State<RewardsView> {
           ElevatedButton(onPressed: presenter.onStreakButtonPressed, child: Text("Increment Streak Counter")),
 
           //Rewards Grid UI
+          //Google Gemini Assisted
           Expanded(
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
