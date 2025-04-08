@@ -12,6 +12,7 @@ class SelfcarePresenter {
   void updateCurrentIdea(){}
   void updateFilter(String value){}
   void updateFavoritesList(){}
+  void removeFavorite(String idea){}
   set selfcareView(SelfcareView value){}
 }
 
@@ -138,13 +139,10 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
   void updateFavoritesList(){
     _viewModel.favoritesListWidgets.clear();
     if (_viewModel.heartIcon == Icons.favorite_border) {
-      String id = _viewModel.ideasList[_viewModel.currentIdeaIndex].id;
-      _viewModel.favoritesDatabaseReference.doc(id).set(
-          {
-            "Idea": _viewModel.ideasList[_viewModel.currentIdeaIndex].get("Idea"),
-            "Filter": _viewModel.ideasList[_viewModel.currentIdeaIndex].get("Filter"),
-          });
-      _viewModel.ideasDatabaseReference.doc(id).delete();
+      DocumentSnapshot doc = _viewModel.ideasList[_viewModel.currentIdeaIndex];
+      String id = doc.id;
+      swapFaveAndIdea(id, doc, _viewModel.favoritesDatabaseReference, _viewModel.ideasDatabaseReference);
+
       _viewModel.favoritesList.add(_viewModel.ideasList[_viewModel.currentIdeaIndex].get("Idea")); // adding the idea string
 
       _viewModel.mostRecentFave = _viewModel.ideasList.elementAt(_viewModel.currentIdeaIndex);
@@ -152,21 +150,51 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
 
       _viewModel.heartIcon = Icons.favorite;
     } else {
-      _viewModel.ideasDatabaseReference.doc(_viewModel.mostRecentFave?.id).set(
-          {
-            "Idea": _viewModel.mostRecentFave?.get("Idea"),
-            "Filter": _viewModel.mostRecentFave?.get("Filter"),
-          });
-
-      _viewModel.favoritesDatabaseReference.doc(_viewModel.mostRecentFave?.id).delete();
+      swapFaveAndIdea(_viewModel.mostRecentFave?.id, _viewModel.mostRecentFave, _viewModel.ideasDatabaseReference, _viewModel.favoritesDatabaseReference);
       _viewModel.favoritesList.removeLast();
 
       _viewModel.heartIcon = Icons.favorite_border;
     }
 
+    updateAfterFavoritesHandle();
+  }
+
+  @override
+  void removeFavorite(String idea) async {
+    DocumentSnapshot? currDoc; // to get the current document
+    await _viewModel.favoritesDatabaseReference.get().then((results){
+      for(DocumentSnapshot docs in results.docs){
+        if(docs.get("Idea") == idea){
+          currDoc = docs;
+        }
+      }
+    });
+    String? id = currDoc?.id;
+    swapFaveAndIdea(id, currDoc, _viewModel.ideasDatabaseReference, _viewModel.favoritesDatabaseReference);
+    _viewModel.favoritesList.remove(idea);
+
+    if(_viewModel.mostRecentFave?.get("Idea") == idea){
+      _viewModel.heartIcon = Icons.favorite_border;
+    }
+
+    updateAfterFavoritesHandle();
+  }
+
+
+  void updateAfterFavoritesHandle(){
     updateDatabase();
     _view.updateHeartIcon(_viewModel.heartIcon);
     _view.updateFavorites(_viewModel.favoritesList);
     updatePage(_viewModel.pageIndex);
+  }
+
+  void swapFaveAndIdea(String? id, DocumentSnapshot? currDoc, CollectionReference refAdd, CollectionReference refRemove){
+    refAdd.doc(id).set(
+        {
+          "Idea": currDoc?.get("Idea"),
+          "Filter": currDoc?.get("Filter"),
+        });
+
+    refRemove.doc(id).delete();
   }
 }

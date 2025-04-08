@@ -47,6 +47,10 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
     this.widget.presenter.updateFilter(newValue!);
   }
 
+  void handleRemoveFavorite(String? idea){
+    this.widget.presenter.removeFavorite(idea!);
+  }
+
   @override
   void updateSelectedIndex(int index){
     setState(() {
@@ -163,12 +167,7 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   Container IdeasPage(){
     return Container(
       width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/purple_background.jpg"),
-          fit: BoxFit.fill,
-        ),
-      ),
+      decoration: addBackground(),
 
 
       child: Column(
@@ -205,6 +204,15 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  BoxDecoration addBackground() {
+    return BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage("assets/purple_background.jpg"),
+        fit: BoxFit.fill,
       ),
     );
   }
@@ -251,12 +259,25 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   @override
   Container FavoritesPage(){
     return Container(
+      width: double.infinity,
+      decoration: addBackground(),
+
       child: Column(
-        children: [
-          for(String faveIdea in _favorites)
-            Text(faveIdea),
-        ]
-      )
+        children: List.generate(_favorites.length, (index) {
+          return Row(
+            children: [
+              Padding(padding: EdgeInsets.all(12.0)),
+              Text(_favorites[index], style: TextStyle(fontSize: 18.0),),
+               IconButton(
+                   onPressed: (){
+                    handleRemoveFavorite(_favorites[index]);
+                  },
+                  icon: Icon(Icons.delete, color: Colors.deepPurple.shade700,),
+               ),
+            ],
+          );
+        }),
+      ),
     );
   }
 
