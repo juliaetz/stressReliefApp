@@ -16,6 +16,13 @@ class JournalModel{
         };
     }
 
+    static JournalModel fromMap(Map<String, dynamic> map){
+        return JournalModel(
+            text: map['text'],
+            timestamp: DateTime.parse(map['timestamp']),
+        );
+    }
+
 
 
 }
