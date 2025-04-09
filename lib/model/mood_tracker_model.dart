@@ -1,15 +1,15 @@
 class Mood {
   final String mood;
-  final String timeStamp;
+  final String date;
 
-  Mood({required this.mood, required this.timeStamp});
+  Mood({required this.mood, required this.date});
 
 
   // CONVERT MOOD OBJECT INTO MAP FOR DATABASE
   Map<String, dynamic> toMap(){
     return{
       'mood': mood,
-      'timestamp': timeStamp,
+      'date': date,
     };
   }
 
@@ -18,7 +18,7 @@ class Mood {
   factory Mood.fromMap(Map<String, dynamic> map){
     return Mood(
       mood: map['mood']??'',
-      timeStamp: map['timestamp']??'',
+      date: map['date']??'',
     );
   }
 }

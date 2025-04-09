@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'history_view.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
+import 'homePage_view.dart';
 
 
 class HistoryPage extends StatefulWidget {
@@ -79,11 +80,24 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     );
   }
 
+
   FilledButton buildHomeButton() {
     return FilledButton(
+      // HOME BUTTON TO RETURN TO HOME PAGE
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder:(context) => HomePage(),)
+        );
+      },
+
+      /*
+        // RETURNS TO PREVIOUS PAGE
         onPressed: () {
           Navigator.pop(context);
         },
+       */
+
         child: Icon(Icons.house, color:Colors.white),
         style: FilledButton.styleFrom(
           shape: CircleBorder(side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
@@ -93,6 +107,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         ),
       );
   }
+
 
   Row historySelectionRow() {
     return Row(
@@ -122,6 +137,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
             ],
           );
   }
+
 
   Expanded buildHistoryScrollable() {
     return Expanded(

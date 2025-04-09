@@ -4,11 +4,12 @@ import 'package:stress_managment_app/model/mood_tracker_model.dart';
 import 'package:stress_managment_app/presenter/mood_tracker_presenter.dart';
 import 'package:stress_managment_app/view/homePage_view.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_chart.dart';
+import '../../presenter/history_presenter.dart';
+import '../history_component.dart';
 
 
 // MOOD OPTIONS
 enum MoodType {happy, sad, neutral, angry}
-
 
 
 class MoodTrackerView extends StatefulWidget{
@@ -16,11 +17,14 @@ class MoodTrackerView extends StatefulWidget{
   _MoodTrackerPageState createState() => _MoodTrackerPageState();
 }
 
+
 class _MoodTrackerPageState extends State<MoodTrackerView>{
   final MoodTrackerPresenter _presenter = MoodTrackerPresenter(firestore: FirebaseFirestore.instance);
-  
+
+
   // START SELECTED MOOD AS NULL
   MoodType? _selectedMood;
+
 
   // CLEAR ALL MOODS
   void _clearSelection(){
@@ -28,6 +32,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
       _selectedMood = null;
     });
   }
+
 
   // CONFIRMATION TO DELETE ALL MOODS
   void _showConfirmDialog(){
@@ -60,6 +65,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
   // CLEAR MOOD DATA FROM FIRESTORE DATABASE
   Future<void> _clearMoodData() async{
     await _presenter.clearAllMoods();
+    // BAR TO NOTIFY ALL MOOD ENTRIES ARE DELETED
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("All mood entries have been cleared!")),
     );
@@ -75,7 +81,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
       String moodString = _selectedMood.toString().split('.').last;
       String timestamp = DateTime.now().toString();
 
-      _presenter.saveMood(Mood(mood: moodString, timeStamp: timestamp));
+      _presenter.saveMood(Mood(mood: moodString, date: timestamp));
     }
   }
 
@@ -199,6 +205,8 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
+
               // BUTTON TO NAVIGATE TO JOURNAL PAGE (WILL ADD WHEN IT'S READY!)
               ElevatedButton.icon(
                 icon: Icon(Icons.book_outlined, color: Colors.deepPurpleAccent[700], size: 25),
@@ -270,13 +278,16 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
           )
         ),
         SizedBox(height: 30),
-        
+
+
         
         // BUTTON TO NAVIGATE TO MOOD HISTORY PAGE
         ElevatedButton.icon(
           onPressed: (){
-
-          }, 
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HistoryPage(BasicHistoryPresenter(), title:'HISTORY',key: const Key('HISTORY')))
+            );
+          },
           icon: Icon(Icons.face_retouching_natural_sharp, color: Colors.indigo[600], size: 25),
           label: Text("VIEW YOUR MOOD HISTORY!", style: TextStyle(fontSize: 13)),
         ),
