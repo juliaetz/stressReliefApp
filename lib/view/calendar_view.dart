@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../presenter/calendar_presenter.dart';
 
+//ISSUES IN VIEW:
+//making calls to the firebase is REALLY slow and doesnt work a lot of time, we get this error:
+//[ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: [cloud_firestore/unavailable]
+//maybe firestore being down or too many requests made ?
+
 class CalendarView extends StatefulWidget {
   final CalendarPresenter presenter;
 
@@ -29,9 +34,11 @@ class _CalendarViewState extends State<CalendarView> {
   Future<void> _loadEvents() async {
     if (_selectedDay == null) return;
     List<Map<String, dynamic>> events = await widget.presenter.getEventsForDay(_selectedDay!);
+    print("event print here: $events");
     setState(() {
       _events = events;
     });
+    print("event 2 print here: $events");
   }
 
   @override
