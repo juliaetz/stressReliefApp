@@ -13,7 +13,7 @@ class _RewardsViewState extends State<RewardsView> {
 
   late RewardsPresenter presenter;
   late int _streakCounter;
-  late List<RewardData> _rewardButtons;
+  late List<RewardData> _rewards;
 
   @override
   void initState() {
@@ -24,9 +24,9 @@ class _RewardsViewState extends State<RewardsView> {
           _streakCounter = newStreak;
         });
       },
-      rewardsUpdate: (List<RewardData> newButtons) {
+      rewardsUpdate: (List<RewardData> newRewards) {
         setState(() {
-          _rewardButtons = newButtons;
+          _rewards = newRewards;
         });
       },
     );
@@ -55,37 +55,74 @@ class _RewardsViewState extends State<RewardsView> {
             ),
           ),
 
-          //Update Streak Counter (Just for Testing)
+          //Update Streak Counter Button (Just for Testing)
           ElevatedButton(onPressed: presenter.onStreakButtonPressed, child: Text("Increment Streak Counter")),
-          ElevatedButton(onPressed: presenter.onLockToggleButtonPressed, child: Text("Toggle Unlock/locked Icons")),
 
-          //Rewards Grid UI
+          //Unlocked Rewards/ Locked Rewards Buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: presenter.onUnlockedButtonPressed, child: Text("Unlocked Rewards")),
+              Padding(padding: EdgeInsets.all(10)),
+              ElevatedButton(onPressed: presenter.onLockedButtonPressed, child: Text("Locked Rewards")),
+            ],
+          ),
+
+          //Rewards Pop-Up
+          //Google Gemini Assisted
+          ElevatedButton(onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Dialog(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.4, // height of the pop-up
+                    width: MediaQuery.of(context).size.width * 0.9, // width of the pop-up
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(_rewards.first.iconShape, size: 100, color: _rewards.first.iconColor),
+                          Text('Award Name Here', style: TextStyle(fontSize: 25)),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            height: 10,
+                            child: LinearProgressIndicator(value: 0.5),
+                          ),
+                        ],
+                      ),
+                  ),
+                );
+              },
+            );
+          },
+          child: Text('Show Pop-Up'),
+          ),
+
+          //Rewards Grid
           //Google Gemini Assisted
           Expanded(
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
                   return GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
+                      crossAxisCount: 3
                     ),
-                    itemCount: _rewardButtons.length,
+                    itemCount: _rewards.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final button = _rewardButtons[index];
+                      final reward = _rewards[index];
                       return AspectRatio(
                         aspectRatio: 1,
                         child: Container(
                             padding: const EdgeInsets.all(8),
                             child: ElevatedButton(
-                              onPressed: button.isUnlocked
+                              onPressed: reward.isUnlocked
                               ? () {
                                 presenter.onRewardButtonPressed(index);
                               }
                               : null,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: button.isUnlocked
+                                backgroundColor: reward.isUnlocked
                                   ? Colors.purple[200]
                                   : Colors.grey[300],
                                 shape: RoundedRectangleBorder(
@@ -95,8 +132,8 @@ class _RewardsViewState extends State<RewardsView> {
                               child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      button.icon,
-                                      Text(button.label)
+                                      reward.icon,
+                                      Text(reward.label, textAlign: TextAlign.center)
                                     ],
                                 ),
                             )

@@ -27,14 +27,11 @@ class RewardsPresenter {
     print('Button ${index + 1} pressed');
   }
 
-  String toggleLockStatus = 'Unlocked';
-  void onLockToggleButtonPressed() {
-    if (toggleLockStatus == 'Unlocked') {
-      toggleLockStatus = 'Locked';
-      rewardsUpdate(model.getLockedRewards());
-    } else {
-      toggleLockStatus = 'Unlocked';
-      rewardsUpdate(model.getUnlockedRewards());
-    }
+  void onUnlockedButtonPressed() {
+    rewardsUpdate(model.getUnlockedRewards());
+  }
+
+  void onLockedButtonPressed() {
+    rewardsUpdate(model.getLockedRewards());
   }
 }
