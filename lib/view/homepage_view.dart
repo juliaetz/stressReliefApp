@@ -55,7 +55,7 @@ class Button extends StatelessWidget{
         }else if(pageID == 4){
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => JournalView(presenter: JournalPresenter(JournalModel({}))))
+              MaterialPageRoute(builder: (context) => JournalView(presenter: JournalPresenter(JournalModel(text: 'test', timestamp: DateTime.now()))))
           );
         }
 

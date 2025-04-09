@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
 class JournalModel{
-    final Map<DateTime, List<String>> entries;
-    JournalModel (this.entries);
-    final Map<DateTime, List<Map<String, dynamic>>> _entries = {};
+    String text;
+    DateTime timestamp;
 
-    void addEntry(String text, DateTime date, TimeOfDay time){
+    JournalModel ({
+        required this.text,
+        required this.timestamp,
+    });
 
+    Map<String, dynamic> toMap(){
+        return{
+            text: 'text',
+            timestamp.toIso8601String(): 'timestamp'
+        };
     }
 
-    void deleteEntry(DateTime date, String entry){
 
-    }
 
-    void getEntries(){
-
-    }
 }
