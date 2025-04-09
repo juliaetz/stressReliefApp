@@ -96,7 +96,7 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
 
   @override
   Future<void> updateCurrentIdea()async{
-    if(_viewModel.ideasList.length != _viewModel.databaseSize || _viewModel.filterType != "No Filter"){
+    if(_viewModel.ideasList.length != _viewModel.databaseSize || _viewModel.filterType != "No Filter" || _viewModel.ideasList.length == 0){
       await updateDatabase();
     }
     if(_viewModel.heartIcon != Icons.favorite_border){

@@ -265,15 +265,25 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
       child: Column(
         children: List.generate(_favorites.length, (index) {
           return Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(padding: EdgeInsets.all(12.0)),
-              Text(_favorites[index], style: TextStyle(fontSize: 18.0),),
-               IconButton(
-                   onPressed: (){
-                    handleRemoveFavorite(_favorites[index]);
-                  },
-                  icon: Icon(Icons.delete, color: Colors.deepPurple.shade700,),
-               ),
+            Padding(padding: EdgeInsets.all(10.0)),
+              Flexible(
+                fit: FlexFit.tight,
+                flex: 8,
+                child: Text(_favorites[index], style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
+              ),    
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: (){
+                      handleRemoveFavorite(_favorites[index]);
+                    },
+                    icon: Icon(Icons.delete, color: Colors.deepPurple.shade700, size: 30.0,),
+                  ),
+                ],
+              ),
             ],
           );
         }),
