@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Reworked the Journal Model">
-      <change beforePath="$PROJECT_DIR$/lib/model/journal_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/journal_model.dart" afterDir="false" />
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Added a function to convert Maps into JournalModel Objects">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presenter/journal_presenter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presenter/journal_presenter.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +163,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744234530843</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added a function to convert Maps into JournalModel Objects">
+      <option name="closed" value="true" />
+      <created>1744235223906</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1744235223906</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -187,6 +196,7 @@
     <MESSAGE value="Created the skeleton for a few methods" />
     <MESSAGE value="Added a textbox used to enter journal entries." />
     <MESSAGE value="Reworked the Journal Model" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reworked the Journal Model" />
+    <MESSAGE value="Added a function to convert Maps into JournalModel Objects" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a function to convert Maps into JournalModel Objects" />
   </component>
 </project>
