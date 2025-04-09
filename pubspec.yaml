@@ -35,7 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  firebase_core: ^3.5.0
+  firebase_core: ^3.13.0
   cloud_firestore: ^5.4.2
   fl_chart: ^0.70.2
 
@@ -63,7 +63,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/presenter/moodTrack_components/face_icons/
+    - lib/view/mood_tracker_screen/face_icons/
   #   - images/a_dot_ham.jpeg
     - assets/history_background.jpg
     - assets/purple_background.jpg
