@@ -15,7 +15,7 @@ class MoodTrackerPresenter {
   Stream<List<Mood>> getMoods(){
     return firestore.collection('Mood').snapshots().map((snapshot){
       return snapshot.docs
-        .map((doc)=>Mood.fromMap(doc.data())).toList();
+        .map((doc)=>Mood.fromMap(doc.data() as Map<String, dynamic>)).toList();
     });
   }
 
