@@ -13,18 +13,18 @@ class _RewardsViewState extends State<RewardsView> {
 
   late RewardsPresenter presenter;
   late int _streakCounter;
-  late List<RewardButtonData> _rewardButtons;
+  late List<RewardData> _rewardButtons;
 
   @override
   void initState() {
     presenter = RewardsPresenter(
       model: RewardsModel(),
-      onStreakChange: (int newStreak) {
+      streakUpdate: (int newStreak) {
         setState(() {
           _streakCounter = newStreak;
         });
       },
-      onRewardsChange: (List<RewardButtonData> newButtons) {
+      rewardsUpdate: (List<RewardData> newButtons) {
         setState(() {
           _rewardButtons = newButtons;
         });
@@ -57,6 +57,7 @@ class _RewardsViewState extends State<RewardsView> {
 
           //Update Streak Counter (Just for Testing)
           ElevatedButton(onPressed: presenter.onStreakButtonPressed, child: Text("Increment Streak Counter")),
+          ElevatedButton(onPressed: presenter.onLockToggleButtonPressed, child: Text("Toggle Unlock/locked Icons")),
 
           //Rewards Grid UI
           //Google Gemini Assisted
