@@ -5,7 +5,7 @@ class RewardsModel{
 
   //Constructor
   RewardsModel() {
-    rewards = getRewardButtons();
+    rewards = getRewards();
   }
 
   //Variable Initialization
@@ -13,29 +13,22 @@ class RewardsModel{
   List<RewardData> rewards = [];
 
   //Initialize Reward Buttons (Called from constructor)
-  List<RewardData> getRewardButtons() {
-    List<RewardData> initialRewardButtons = [];
-    for (int i = 1; i <= 7; i++) {
-      initialRewardButtons.add(RewardData(
-        label: 'Unlocked Reward \n$i',
-        icon: Icon(Icons.star),
-        isUnlocked: true,
-      ));
-    }
-    initialRewardButtons.add(RewardData(
-      label: 'Locked Reward',
-      icon: Icon(UniconsLine.award_alt),
-      isUnlocked: false,
-    ));
-    initialRewardButtons.add(RewardData(
-      label: 'Locked Reward',
-      icon: Icon(UniconsLine.award),
-    ));
-    initialRewardButtons.add(RewardData(
-      label: 'Locked Reward',
-      icon: Icon(UniconsLine.medal),
-    ));
-    return initialRewardButtons;
+  List<RewardData> getRewards() {
+    List<RewardData> initialRewards = [];
+    initialRewards.add(RewardData(label: 'Bronze Mood Tracking', iconShape: UniconsLine.award_alt, iconColor: Colors.brown));
+    initialRewards.add(RewardData(label: 'Silver Mood Tracking', iconShape: UniconsLine.award, iconColor: Colors.grey));
+    initialRewards.add(RewardData(label: 'Gold Mood Tracking', iconShape: UniconsLine.medal, iconColor: Colors.yellow));
+    initialRewards.add(RewardData(label: 'Diamond Mood Tracking', iconShape: UniconsLine.diamond, iconColor: Colors.cyanAccent));
+
+    initialRewards.add(RewardData(label: 'Bronze Streak', iconShape: UniconsLine.award_alt, iconColor: Colors.brown));
+    initialRewards.add(RewardData(label: 'Silver Streak', iconShape: UniconsLine.award, iconColor: Colors.grey));
+    initialRewards.add(RewardData(label: 'Gold Streak', iconShape: UniconsLine.medal, iconColor: Colors.yellow));
+    initialRewards.add(RewardData(label: 'Diamond Streak', iconShape: UniconsLine.diamond, iconColor: Colors.cyanAccent));
+
+    initialRewards.add(RewardData(label: 'Bronze Streak', iconShape: UniconsLine.award_alt, iconColor: Colors.brown));
+    initialRewards.add(RewardData(label: 'Silver Streak', iconShape: UniconsLine.award, iconColor: Colors.grey));
+    initialRewards.add(RewardData(label: 'Gold Streak', iconShape: UniconsLine.medal, iconColor: Colors.yellow));
+    return initialRewards;
   }
 
   List<RewardData> getUnlockedRewards() {
@@ -61,8 +54,13 @@ class RewardsModel{
 
 class RewardData {
   String label;
-  Icon icon;
   bool isUnlocked;
 
-  RewardData({required this.label, required this.icon, this.isUnlocked=false});
+  late Icon icon;
+  IconData iconShape;
+  Color iconColor;
+
+  RewardData({required this.label, this.isUnlocked=false, required this.iconShape, required this.iconColor,}) {
+    icon = Icon(iconShape, color: iconColor);
+  }
 }
