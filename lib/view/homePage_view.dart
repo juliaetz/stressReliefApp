@@ -32,7 +32,7 @@ class Button extends StatelessWidget{
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CalendarView(presenter: CalendarPresenter(CalendarModel({}))),
+                builder: (context) => CalendarView(presenter: CalendarPresenter(CalendarModel())),
               )
           );
         }else if(pageID == 2){
