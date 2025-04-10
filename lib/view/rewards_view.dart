@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/model/rewards_model.dart';
 import '../presenter/rewards_presenter.dart';
+import '../view/reward_Dialog_Pop_Up.dart';
 
 class RewardsView extends StatefulWidget {
   RewardsView({super.key});
@@ -14,6 +15,10 @@ class _RewardsViewState extends State<RewardsView> {
   late RewardsPresenter presenter;
   late int _streakCounter;
   late List<RewardData> _rewards;
+
+  void showRewardPopUp(BuildContext context, IconData iconShape, Color iconColor, String rewardName) {
+
+  }
 
   @override
   void initState() {
@@ -29,11 +34,18 @@ class _RewardsViewState extends State<RewardsView> {
           _rewards = newRewards;
         });
       },
+      showRewardPopUp: (BuildContext context, IconData iconShape, Color iconColor, String rewardName) {
+        RewardPopUp.show(
+          context,
+          iconShape: iconShape,
+          iconColor: iconColor,
+          rewardName: rewardName,
+          progressValue: 0.5,
+        );
+      }
     );
-    presenter.updateStreak();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -69,31 +81,13 @@ class _RewardsViewState extends State<RewardsView> {
           ),
 
           //Rewards Pop-Up
-          //Google Gemini Assisted
           ElevatedButton(onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Dialog(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.4, // height of the pop-up
-                    width: MediaQuery.of(context).size.width * 0.9, // width of the pop-up
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(_rewards.first.iconShape, size: 100, color: _rewards.first.iconColor),
-                          Text('Award Name Here', style: TextStyle(fontSize: 25)),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            height: 10,
-                            child: LinearProgressIndicator(value: 0.5),
-                          ),
-                        ],
-                      ),
-                  ),
-                );
-              },
+              return RewardPopUp.show(
+                context,
+                iconShape: _rewards.first.iconShape,
+                iconColor: _rewards.first.iconColor,
+                rewardName: _rewards.first.label,
+                progressValue: 0.5,
             );
           },
           child: Text('Show Pop-Up'),

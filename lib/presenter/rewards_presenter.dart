@@ -4,8 +4,9 @@ class RewardsPresenter {
   final RewardsModel model;
   final Function(int) streakUpdate;
   final Function(List<RewardData>) rewardsUpdate;
+  final Function showRewardPopUp;
 
-  RewardsPresenter({required this.model, required this.streakUpdate, required this.rewardsUpdate}) {
+  RewardsPresenter({required this.model, required this.streakUpdate, required this.rewardsUpdate, required this.showRewardPopUp}) {
     updateStreak();
     updateRewards();
   }
@@ -25,6 +26,7 @@ class RewardsPresenter {
 
   void onRewardButtonPressed(int index) {
     print('Button ${index + 1} pressed');
+    showRewardPopUp(model.rewards[index].iconShape, model.rewards[index].iconColor, model.rewards[index].label);
   }
 
   void onUnlockedButtonPressed() {
