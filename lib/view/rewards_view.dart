@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/model/rewards_model.dart';
 import '../presenter/rewards_presenter.dart';
-import '../view/reward_Dialog_Pop_Up.dart';
+import '../view/reward_pop_up.dart';
 
 class RewardsView extends StatefulWidget {
   RewardsView({super.key});
@@ -15,10 +15,6 @@ class _RewardsViewState extends State<RewardsView> {
   late RewardsPresenter presenter;
   late int _streakCounter;
   late List<RewardData> _rewards;
-
-  void showRewardPopUp(BuildContext context, IconData iconShape, Color iconColor, String rewardName) {
-
-  }
 
   @override
   void initState() {
@@ -34,15 +30,15 @@ class _RewardsViewState extends State<RewardsView> {
           _rewards = newRewards;
         });
       },
-      showRewardPopUp: (BuildContext context, IconData iconShape, Color iconColor, String rewardName) {
+      showRewardPopUp: (BuildContext context, RewardData reward) {
         RewardPopUp.show(
           context,
-          iconShape: iconShape,
-          iconColor: iconColor,
-          rewardName: rewardName,
+          iconShape: reward.iconShape,
+          iconColor: reward.iconColor,
+          rewardName: reward.label,
           progressValue: 0.5,
         );
-      }
+      },
     );
     super.initState();
   }
@@ -110,11 +106,7 @@ class _RewardsViewState extends State<RewardsView> {
                         child: Container(
                             padding: const EdgeInsets.all(8),
                             child: ElevatedButton(
-                              onPressed: reward.isUnlocked
-                              ? () {
-                                presenter.onRewardButtonPressed(index);
-                              }
-                              : null,
+                              onPressed: () => presenter.onRewardButtonPressed(context, reward),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: reward.isUnlocked
                                   ? Colors.purple[200]

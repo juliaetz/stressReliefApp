@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Rewards Pop-up takes in a build context and an individual reward and displays the reward's data
 //Google Gemini Assisted
 class RewardPopUp extends StatelessWidget {
   final IconData iconShape;
