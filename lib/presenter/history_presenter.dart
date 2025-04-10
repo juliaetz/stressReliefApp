@@ -3,12 +3,14 @@ import 'package:stress_managment_app/model/history_model.dart';
 import 'package:stress_managment_app/view/history_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_view.dart';
 
 class HistoryPresenter {
   set historyView(HistoryView value){}
   void onOptionChanged(String value) {}
   void updateScreen(){}
   void createBlocks(CollectionReference database, String field){}
+  void updatePage(int index){}
 }
 
 class BasicHistoryPresenter extends HistoryPresenter{
@@ -23,12 +25,14 @@ class BasicHistoryPresenter extends HistoryPresenter{
   void _loadUnit() async {
     _viewModel.historyType = "N/A";
     _view.updateHistory(_viewModel.historyType);
+    _viewModel.pageIndex = 0;
   }
 
   @override
   set historyView(HistoryView value) {
     _view = value;
     _view.updateHistory(_viewModel.historyType);
+    updatePage(_viewModel.pageIndex);
   }
 
   @override
@@ -77,5 +81,28 @@ class BasicHistoryPresenter extends HistoryPresenter{
       await createBlocks(_viewModel.moodDatabaseReference, 'Mood');
       _view.updateEntries(_viewModel.entries);
     }
+  }
+
+  @override
+  void updatePage(int index){
+    if(index != _viewModel.pageIndex){
+      _viewModel.pageIndex = index;
+      _view.updateSelectedIndex(_viewModel.pageIndex);
+    }
+
+    Widget page;
+    if(_viewModel.pageIndex == 0){
+      page = _view.DailyHistoryPage();
+      _viewModel.onMoodTracker = false;
+    } else if(_viewModel.pageIndex == 1) {
+      page = _view.ActivityGraph();
+      _viewModel.onMoodTracker = false;
+    } else {
+      page = MoodTrackerView();
+      _viewModel.onMoodTracker = true;
+    }
+
+    _view.updateOnMoodTracker(_viewModel.onMoodTracker);
+    _view.updatePage(page);
   }
 }

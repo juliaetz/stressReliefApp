@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 
 class HistoryModel{
   String _historyType = "Activity History";
+  int _pageIndex = 0;
+  bool _onMoodTracker = false;
   final historyDatabaseReference = FirebaseFirestore.instance.collection('Activities');
   final moodDatabaseReference = FirebaseFirestore.instance.collection('Mood');
   List<Widget> entries = [];
@@ -20,6 +22,25 @@ class HistoryModel{
     } else if (value == 1){
       _historyType = "Mood History";
     }
+  }
+
+  int get pageIndex => _pageIndex;
+  set pageIndex(int setValue){
+    _pageIndex = setValue;
+  }
+
+  int get value1 => (_pageIndex == 0)?0 : 1; // returns value. MPG is 0.
+  set value1(int value){
+    if(value == 0){
+      _pageIndex = 0;
+    } else if (value == 1){
+      _pageIndex = 1;
+    }
+  }
+
+  bool get onMoodTracker => _onMoodTracker;
+  set onMoodTracker(bool setValue){
+    _onMoodTracker = setValue;
   }
 
   HistoryModel();
