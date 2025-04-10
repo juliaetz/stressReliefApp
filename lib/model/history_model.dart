@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class HistoryModel{
   String _historyType = "Activity History";
   final historyDatabaseReference = FirebaseFirestore.instance.collection('Activities');
   final moodDatabaseReference = FirebaseFirestore.instance.collection('Mood');
+  final eventDatabaseReference = FirebaseFirestore.instance.collection('events');
   List<Widget> entries = [];
 
   String get historyType => _historyType;
