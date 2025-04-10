@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Created a function to add journal entries">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Added a button that adds the written journal entry (Will be added to the database later)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/presenter/journal_presenter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presenter/journal_presenter.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/journal_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/journal_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/homepage_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/homepage_view.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +180,23 @@
       <option name="project" value="LOCAL" />
       <updated>1744236228201</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Fixed the Journal button on the home screen">
+      <option name="closed" value="true" />
+      <created>1744313293557</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1744313293557</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added a button that adds the written journal entry (Will be added to the database later)">
+      <option name="closed" value="true" />
+      <created>1744313343250</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1744313343250</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -208,6 +223,8 @@
     <MESSAGE value="Reworked the Journal Model" />
     <MESSAGE value="Added a function to convert Maps into JournalModel Objects" />
     <MESSAGE value="Created a function to add journal entries" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created a function to add journal entries" />
+    <MESSAGE value="Fixed the Journal button on the home screen" />
+    <MESSAGE value="Added a button that adds the written journal entry (Will be added to the database later)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a button that adds the written journal entry (Will be added to the database later)" />
   </component>
 </project>
