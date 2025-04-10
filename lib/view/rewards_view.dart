@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stress_managment_app/model/rewards_model.dart';
 import '../presenter/rewards_presenter.dart';
 import '../view/reward_pop_up.dart';
+import 'package:unicons/unicons.dart';
 
 class RewardsView extends StatefulWidget {
   RewardsView({super.key});
@@ -66,27 +67,16 @@ class _RewardsViewState extends State<RewardsView> {
           //Update Streak Counter Button (Just for Testing)
           ElevatedButton(onPressed: presenter.onStreakButtonPressed, child: Text("Increment Streak Counter")),
 
-          //Unlocked Rewards/ Locked Rewards Buttons
+          //Unlocked/All/Locked Rewards Buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(onPressed: presenter.onUnlockedButtonPressed, child: Text("Unlocked Rewards")),
+              ElevatedButton.icon(onPressed: presenter.onUnlockedButtonPressed, icon: Icon(UniconsLine.unlock), label: Text("Unlocked")),
               Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton(onPressed: presenter.onLockedButtonPressed, child: Text("Locked Rewards")),
+              ElevatedButton.icon(onPressed: presenter.onAllRewardsButtonPressed, icon: Icon(Icons.list), label: Text("All")),
+              Padding(padding: EdgeInsets.all(10)),
+              ElevatedButton.icon(onPressed: presenter.onLockedButtonPressed, icon: Icon(Icons.lock), label: Text("Locked")),
             ],
-          ),
-
-          //Rewards Pop-Up
-          ElevatedButton(onPressed: () {
-              return RewardPopUp.show(
-                context,
-                iconShape: _rewards.first.iconShape,
-                iconColor: _rewards.first.iconColor,
-                rewardName: _rewards.first.label,
-                progressValue: 0.5,
-            );
-          },
-          child: Text('Show Pop-Up'),
           ),
 
           //Rewards Grid
@@ -98,6 +88,7 @@ class _RewardsViewState extends State<RewardsView> {
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3
                     ),
+                    padding: const EdgeInsets.all(12),
                     itemCount: _rewards.length,
                     itemBuilder: (BuildContext context, int index) {
                       final reward = _rewards[index];
@@ -112,7 +103,7 @@ class _RewardsViewState extends State<RewardsView> {
                                   ? Colors.purple[200]
                                   : Colors.grey[300],
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
                               child: Column(

@@ -33,6 +33,10 @@ class RewardsPresenter {
     rewardsUpdate(model.getUnlockedRewards());
   }
 
+  void onAllRewardsButtonPressed() {
+    rewardsUpdate(model.rewards);
+  }
+
   void onLockedButtonPressed() {
     rewardsUpdate(model.getLockedRewards());
   }
