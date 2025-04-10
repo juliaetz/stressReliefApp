@@ -3,13 +3,14 @@ import 'package:stress_managment_app/model/history_model.dart';
 import 'package:stress_managment_app/view/history_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_view.dart';
+import 'package:intl/intl.dart';
 
 class HistoryPresenter {
   set historyView(HistoryView value){}
   void onOptionChanged(String value) {}
   void updateScreen(){}
-  void createBlocks(CollectionReference database, String field){}
+  void createBlocksActivity(){}
+  void createBlocksMood(){}
   void updatePage(int index){}
 }
 
@@ -24,14 +25,12 @@ class BasicHistoryPresenter extends HistoryPresenter{
 
   void _loadUnit() async {
     _viewModel.historyType = "N/A";
-    _view.updateHistory(_viewModel.historyType);
     _viewModel.pageIndex = 0;
   }
 
   @override
   set historyView(HistoryView value) {
     _view = value;
-    _view.updateHistory(_viewModel.historyType);
     updatePage(_viewModel.pageIndex);
   }
 
@@ -39,23 +38,57 @@ class BasicHistoryPresenter extends HistoryPresenter{
   void onOptionChanged(String value){
     if (value != _viewModel.historyType) {
       _viewModel.historyType = value;
-      _view.updateHistory(_viewModel.historyType);
     }
   }
 
+  // FUNCTIONS RELATED TO DISPLAYING HISTORY DATA
   @override
-  Future<void> createBlocks(CollectionReference database, String field) async {
-    final QuerySnapshot snapshot = await database.get();
+  Future<void> createBlocksActivity() async{
+    final QuerySnapshot snapshot = await _viewModel.historyDatabaseReference.get();
     final List<DocumentSnapshot> documents = snapshot.docs;
     documents.forEach((document) {
-      var date = document.get("Date");
-      var data = document.get(field);
-      Container entry = createEntryContainer(date, field, data);
+      var date = DateFormat('yMMMMd').format(document.get('date').toDate());
+      List<dynamic> events = document.get("events");
+      events.forEach((map) {
+        var activity = map.values.first;
+        var hour = map.values.last.values.first;
+        var minute = map.values.last.values.last;
+
+        // at some point I would like to find a better solution to switching from
+        // military time to 12 hour time. I admit this is awful but it's what I
+        // could come up with without using build context
+        var tempDate = DateTime.parse('1969-07-20 01:01:04Z');
+        if(minute < 10){
+          tempDate = DateTime.parse('1969-07-20 $hour:0$minute:04Z');
+        } else if (hour < 10){
+          tempDate = DateTime.parse('1969-07-20 0$hour:$minute:04Z');
+        } else if (minute < 10 && hour < 10){
+          tempDate = DateTime.parse('1969-07-20 0$hour:0$minute:04Z');
+        } else {
+          tempDate = DateTime.parse('1969-07-20 $hour:$minute:04Z');
+        }
+        String time = DateFormat('h:mm a').format(tempDate);
+
+        Container entry = createEntryContainer(date, "Activity", activity, time: time);
+        _viewModel.entries.add(entry);
+      });
+    });
+  }
+
+
+  @override
+  Future<void> createBlocksMood() async{
+    final QuerySnapshot snapshot = await _viewModel.moodDatabaseReference.get();
+    final List<DocumentSnapshot> documents = snapshot.docs;
+    documents.forEach((document) {
+      var date = document.get("date").toString().substring(0,10);
+      var data = document.get("mood");
+      Container entry = createEntryContainer(date, "Mood", data);
       _viewModel.entries.add(entry);
     });
   }
 
-  Container createEntryContainer(date, String field, data) {
+  Container createEntryContainer(date, String field, data, {String time = ""}) {
     return Container(
       decoration: BoxDecoration(color: Colors.white,),
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -63,7 +96,7 @@ class BasicHistoryPresenter extends HistoryPresenter{
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('$date', style: TextStyle(fontSize: 16),),
+          Text('$date $time', style: TextStyle(fontSize: 16),),
           Text('$field: $data', style: TextStyle(fontSize: 20),),
         ],
       ),
@@ -74,35 +107,34 @@ class BasicHistoryPresenter extends HistoryPresenter{
   Future<void> updateScreen() async{
     _viewModel.entries.clear();
     if(_viewModel.historyType == "Activity History"){
-      await createBlocks(_viewModel.historyDatabaseReference, 'Activities');
+      await createBlocksActivity();
       _view.updateEntries(_viewModel.entries);
     }
     else if (_viewModel.historyType == "Mood History"){
-      await createBlocks(_viewModel.moodDatabaseReference, 'Mood');
+      await createBlocksMood();
       _view.updateEntries(_viewModel.entries);
     }
+
+    updatePage(_viewModel.pageIndex);
   }
 
   @override
   void updatePage(int index){
+    int prevIndex = _viewModel.pageIndex;
     if(index != _viewModel.pageIndex){
       _viewModel.pageIndex = index;
       _view.updateSelectedIndex(_viewModel.pageIndex);
     }
 
     Widget page;
-    if(_viewModel.pageIndex == 0){
-      page = _view.DailyHistoryPage();
-      _viewModel.onMoodTracker = false;
-    } else if(_viewModel.pageIndex == 1) {
-      page = _view.ActivityGraph();
-      _viewModel.onMoodTracker = false;
+    List<Widget> pages = [_view.DailyHistoryPage(), _view.ActivityGraph()];
+    if(_viewModel.pageIndex < 2) {
+      page = pages.elementAt(_viewModel.pageIndex);
     } else {
-      page = MoodTrackerView();
-      _viewModel.onMoodTracker = true;
+      page = pages.elementAt(prevIndex);
     }
 
-    _view.updateOnMoodTracker(_viewModel.onMoodTracker);
     _view.updatePage(page);
   }
+  // END OF FUNCTIONS RELATED TO HISTORY DATA
 }

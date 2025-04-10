@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_view.dart';
 import 'history_view.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'homePage_view.dart';
@@ -24,11 +25,9 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   }
 
   String _dropdownValue = 'Activity History';
-  String _history = "";
   List<Widget> _entries = [];
   int _selectedIndex = 0;
   Widget _page = Placeholder();
-  bool _onMoodTracker = false;
 
   void handleHistoryValueChanged(String? value){
     this.widget.presenter.onOptionChanged(value!);
@@ -42,19 +41,13 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     this.widget.presenter.updatePage(index);
   }
 
-  @override
-  void updateHistory(String value){
-      setState(() {
-        _history = "This is the $value page";
-      });
-    }
 
-    @override
-    void updateEntries(List<Widget> entries){
-      setState(() {
-        _entries = entries;
-      });
-    }
+  @override
+  void updateEntries(List<Widget> entries){
+    setState(() {
+      _entries = entries;
+    });
+  }
 
   @override
   void updateSelectedIndex(int index){
@@ -70,29 +63,21 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       });
     }
 
-    @override
-    void updateOnMoodTracker(bool value){
-      setState(() {
-        _onMoodTracker = value;
-      });
-    }
-
-
 
   @override
   Widget build(BuildContext Context) {
     return Scaffold(
-      appBar: _onMoodTracker ? null:AppBar(
+      appBar: AppBar(
         toolbarHeight: 80,
         leading: buildHomeButton(),
         title: Text('Daily Activity and Mood History'),
         centerTitle: true,
         backgroundColor: Colors.deepPurple.shade200,
       ),
+
       body: Center(
         child: _page,
       ),
-
 
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.deepPurple.shade700,
@@ -124,12 +109,19 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         onTap: (int index){
           setState(() {
             handlePageChange(index);
+            if(_selectedIndex == 2){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder:(context) => MoodTrackerView(),)
+              );
+            }
           });
         },
       ),
     );
   }
 
+  // START OF FUNCTIONS RELATED TO HISTORY VIEW
   @override
   Container DailyHistoryPage(){
     return Container(
@@ -146,6 +138,47 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     );
   }
 
+  Row historySelectionRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(padding: EdgeInsets.all(8)),
+        Text('Daily History:  ', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+        DropdownButton<String>(
+          value: _dropdownValue,
+          icon: const Icon(Icons.keyboard_arrow_down),
+          underline: Container(height: 2, color: Colors.deepPurple.shade700),
+          items: <String>['Activity History', 'Mood History'].map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),),
+            );
+          }).toList(),
+          onChanged: (String? newValue) {
+            setState(() {
+              _dropdownValue = newValue!;
+              handleHistoryValueChanged(newValue);
+              updateScreen();
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+
+  Expanded buildHistoryScrollable() {
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          children: _entries,
+        ),
+      ),
+    );
+  }
+  // END OF FUNCTIONS RELATED TO HISTORY VIEW
+
+  // ACTIVITY GRAPH VIEW
   @override
   Container ActivityGraph(){
     return Container(
@@ -160,7 +193,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     );
   }
 
-
+  // START OF MISC UI ELEMENTS
   FilledButton buildHomeButton() {
     return FilledButton(
       // HOME BUTTON TO RETURN TO HOME PAGE
@@ -171,60 +204,12 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         );
       },
 
-      /*
-        // RETURNS TO PREVIOUS PAGE
-        onPressed: () {
-          Navigator.pop(context);
-        },
-       */
-
-        child: Icon(Icons.house, color:Colors.white),
-        style: FilledButton.styleFrom(
-          shape: CircleBorder(side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
-          padding: EdgeInsets.all(5),
-          backgroundColor: Colors.deepPurple.shade700,
-          foregroundColor: Colors.deepPurple.shade700,
-        ),
-      );
-  }
-
-
-  Row historySelectionRow() {
-    return Row(
-            //child: Text("History Page"),
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(padding: EdgeInsets.all(8)),
-              Text('Daily History:  ', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-              DropdownButton<String>(
-                value: _dropdownValue,
-                icon: const Icon(Icons.keyboard_arrow_down),
-                underline: Container(height: 2, color: Colors.deepPurple.shade700),
-                items: <String>['Activity History', 'Mood History'].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    _dropdownValue = newValue!;
-                    handleHistoryValueChanged(newValue);
-                    updateScreen();
-                  });
-                },
-              ),
-            ],
-          );
-  }
-
-
-  Expanded buildHistoryScrollable() {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          children: _entries,
-        ),
+      child: Icon(Icons.house, color:Colors.white),
+      style: FilledButton.styleFrom(
+        shape: CircleBorder(side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
+        padding: EdgeInsets.all(5),
+        backgroundColor: Colors.deepPurple.shade700,
+        foregroundColor: Colors.deepPurple.shade700,
       ),
     );
   }
@@ -237,5 +222,5 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       ),
     );
   }
-
+  // END OF MISC UI ELEMENTS
 }
