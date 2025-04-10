@@ -2,8 +2,8 @@ import '../model/journal_model.dart';
 import '../view/journal_view.dart';
 
 class JournalPresenter{
-    final JournalView view;
-    JournalPresenter(this.view);
+    final JournalModel model;
+    JournalPresenter(this.model);
 
     //creates a new journal entry
     void addEntry(String text){
