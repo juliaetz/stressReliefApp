@@ -91,6 +91,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
+        leading: buildHomeButton(),
         backgroundColor: Colors.deepPurple[200],
         title: Text("Mood Tracker",
           style: TextStyle(
@@ -299,5 +300,27 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
         ],
       ),
     );
+  }
+
+  FilledButton buildHomeButton() {
+    return FilledButton(
+      // HOME BUTTON TO RETURN TO HOME PAGE
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder:(context) => HomePage(),)
+        );
+      },
+
+      child: Icon(Icons.house, color:Colors.white),
+      style: FilledButton.styleFrom(
+        shape: CircleBorder(side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
+        padding: EdgeInsets.all(5),
+        backgroundColor: Colors.deepPurple.shade700,
+        foregroundColor: Colors.deepPurple.shade700,
+      ),
+    );
+
+
   }
 }
