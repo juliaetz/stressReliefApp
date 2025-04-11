@@ -6,7 +6,8 @@ class RewardPopUp extends StatelessWidget {
   final IconData iconShape;
   final Color iconColor;
   final String rewardName;
-  final double progressValue;
+  final int currentProgress;
+  final int maxProgress;
 
   // Constructor for pop up (Should not be called directly)
   const RewardPopUp({
@@ -14,7 +15,8 @@ class RewardPopUp extends StatelessWidget {
     required this.iconShape,
     required this.iconColor,
     required this.rewardName,
-    required this.progressValue,
+    required this.currentProgress,
+    required this.maxProgress,
   }) : super(key: key);
 
   // Method to set up pop-up information and show it (Should be called directly)
@@ -23,7 +25,8 @@ class RewardPopUp extends StatelessWidget {
         required IconData iconShape,
         required Color iconColor,
         required String rewardName,
-        required double progressValue,
+        required int currentProgress,
+        required int maxProgress,
       }) {
     showDialog(
       context: context,
@@ -32,7 +35,8 @@ class RewardPopUp extends StatelessWidget {
           iconShape: iconShape,
           iconColor: iconColor,
           rewardName: rewardName,
-          progressValue: progressValue,
+          currentProgress: currentProgress,
+          maxProgress: maxProgress,
         );
       },
     );
@@ -54,7 +58,7 @@ class RewardPopUp extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.5,
               height: 10,
-              child: LinearProgressIndicator(value: 0.5),
+              child: LinearProgressIndicator(value: currentProgress.toDouble() / maxProgress.toDouble()),
             ),
           ],
         ),

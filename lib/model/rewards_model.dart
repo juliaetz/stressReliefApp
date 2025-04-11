@@ -15,19 +15,19 @@ class RewardsModel{
   //Initialize Rewards (Called from constructor)
   List<RewardData> getRewards() {
     List<RewardData> rewards = [];
-    rewards.add(RewardData(label: 'Bronze Mood Tracking', iconShape: UniconsLine.award_alt, iconColor: Colors.brown, isUnlocked: true));
-    rewards.add(RewardData(label: 'Silver Mood Tracking', iconShape: UniconsLine.award, iconColor: Colors.grey, isUnlocked: true));
-    rewards.add(RewardData(label: 'Gold Mood Tracking', iconShape: UniconsLine.medal, iconColor: Colors.yellow));
-    rewards.add(RewardData(label: 'Diamond Mood Tracking', iconShape: UniconsLine.diamond, iconColor: Colors.cyanAccent));
+    rewards.add(RewardData(label: 'Bronze Mood Tracking', iconShape: UniconsLine.award_alt, iconColor: Colors.brown, maxProgress: 10));
+    rewards.add(RewardData(label: 'Silver Mood Tracking', iconShape: UniconsLine.award, iconColor: Colors.grey, maxProgress: 30));
+    rewards.add(RewardData(label: 'Gold Mood Tracking', iconShape: UniconsLine.medal, iconColor: Colors.yellow, maxProgress: 50));
+    rewards.add(RewardData(label: 'Diamond Mood Tracking', iconShape: UniconsLine.diamond, iconColor: Colors.cyanAccent, maxProgress: 100));
 
-    rewards.add(RewardData(label: 'Bronze Activity Logging', iconShape: UniconsLine.award_alt, iconColor: Colors.brown));
-    rewards.add(RewardData(label: 'Silver Activity Logging', iconShape: UniconsLine.award, iconColor: Colors.grey));
-    rewards.add(RewardData(label: 'Gold Activity Logging', iconShape: UniconsLine.medal, iconColor: Colors.yellow));
-    rewards.add(RewardData(label: 'Diamond Activity Logging', iconShape: UniconsLine.diamond, iconColor: Colors.cyanAccent));
+    rewards.add(RewardData(label: 'Bronze Activity Logging', iconShape: UniconsLine.award_alt, iconColor: Colors.brown, maxProgress: 5));
+    rewards.add(RewardData(label: 'Silver Activity Logging', iconShape: UniconsLine.award, iconColor: Colors.grey, maxProgress: 15));
+    rewards.add(RewardData(label: 'Gold Activity Logging', iconShape: UniconsLine.medal, iconColor: Colors.yellow, maxProgress: 25));
+    rewards.add(RewardData(label: 'Diamond Activity Logging', iconShape: UniconsLine.diamond, iconColor: Colors.cyanAccent, maxProgress: 50));
 
-    rewards.add(RewardData(label: 'Bronze Self Care Finding', iconShape: UniconsLine.award_alt, iconColor: Colors.brown));
-    rewards.add(RewardData(label: 'Silver Streak Finding', iconShape: UniconsLine.award, iconColor: Colors.grey));
-    rewards.add(RewardData(label: 'Gold Streak Finding', iconShape: UniconsLine.medal, iconColor: Colors.yellow));
+    rewards.add(RewardData(label: 'Bronze Self Care Finding', iconShape: UniconsLine.award_alt, iconColor: Colors.brown, maxProgress: 1));
+    rewards.add(RewardData(label: 'Silver Streak Finding', iconShape: UniconsLine.award, iconColor: Colors.grey, maxProgress: 5));
+    rewards.add(RewardData(label: 'Gold Streak Finding', iconShape: UniconsLine.medal, iconColor: Colors.yellow, maxProgress: 10));
     return rewards;
   }
 
@@ -54,13 +54,16 @@ class RewardsModel{
 
 class RewardData {
   String label;
-  bool isUnlocked;
+  bool isUnlocked = false;
 
   late Icon icon;
   IconData iconShape;
   Color iconColor;
 
-  RewardData({required this.label, this.isUnlocked=false, required this.iconShape, required this.iconColor,}) {
+  int currentProgress = 0;
+  int maxProgress;
+
+  RewardData({required this.label, required this.iconShape, required this.iconColor, required this.maxProgress}) {
     icon = Icon(iconShape, color: iconColor);
   }
 }

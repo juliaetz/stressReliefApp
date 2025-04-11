@@ -37,7 +37,8 @@ class _RewardsViewState extends State<RewardsView> {
           iconShape: reward.iconShape,
           iconColor: reward.iconColor,
           rewardName: reward.label,
-          progressValue: 0.5,
+          currentProgress: reward.currentProgress,
+          maxProgress: reward.maxProgress,
         );
       },
     );
