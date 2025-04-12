@@ -11,13 +11,13 @@ class RewardPopUp extends StatelessWidget {
 
   // Constructor for pop up (Should not be called directly)
   const RewardPopUp({
-    Key? key,
+    super.key,
     required this.iconShape,
     required this.iconColor,
     required this.rewardName,
     required this.currentProgress,
     required this.maxProgress,
-  }) : super(key: key);
+  });
 
   // Method to set up pop-up information and show it (Should be called directly)
   static void show(
@@ -57,8 +57,18 @@ class RewardPopUp extends StatelessWidget {
             Text(rewardName, style: TextStyle(fontSize: 25)),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.5,
-              height: 10,
-              child: LinearProgressIndicator(value: currentProgress.toDouble() / maxProgress.toDouble()),
+              child: Column(
+                children: [
+                  LinearProgressIndicator(value: (currentProgress.toDouble() / maxProgress.toDouble()), minHeight: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(currentProgress.toString()),
+                      Text(maxProgress.toString()),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
