@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="optimized the button creation logic. merged with master.">
+      <change afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_history_summary.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presenter/mood_tracker_presenter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presenter/mood_tracker_presenter.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_chart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_chart.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_view.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

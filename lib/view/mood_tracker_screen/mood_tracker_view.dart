@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:stress_managment_app/model/mood_tracker_model.dart';
 import 'package:stress_managment_app/presenter/mood_tracker_presenter.dart';
 import 'package:stress_managment_app/view/homePage_view.dart';
+import 'package:stress_managment_app/view/mood_tracker_screen/mood_history_summary.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_chart.dart';
 import '../../presenter/history_presenter.dart';
 import '../history_component.dart';
@@ -92,12 +93,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[200],
-        title: Text("Mood Tracker",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
-          )),
+        title: Text("Mood Tracker"),
       ),
       body: Column(
         children: [
@@ -112,7 +108,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
           SizedBox(height: 10),
 
 
-          // MOOD ICONS ROW
+          // MOOD ICONS ROW -- FACE BUTTONS
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -283,9 +279,16 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
         
         // BUTTON TO NAVIGATE TO MOOD HISTORY PAGE
         ElevatedButton.icon(
+          /*
           onPressed: (){
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HistoryPage(BasicHistoryPresenter(), title:'HISTORY',key: const Key('HISTORY')))
+            );
+          },
+          */
+          onPressed: (){
+            Navigator.push(
+              context, MaterialPageRoute(builder: (context) => MoodHistorySummary())
             );
           },
           icon: Icon(Icons.face_retouching_natural_sharp, color: Colors.indigo[600], size: 25),

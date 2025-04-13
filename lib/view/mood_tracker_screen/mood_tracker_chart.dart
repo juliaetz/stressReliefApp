@@ -11,6 +11,8 @@ class MoodTrackerChart extends StatelessWidget{
     required this.angryCount,
   });
 
+  int touchedIndex = -1;
+
 
   @override
   Widget build(BuildContext context){
@@ -44,11 +46,13 @@ class MoodTrackerChart extends StatelessWidget{
 
     return PieChart(
       PieChartData(
+        
         sections: moodChartData,
         borderData: FlBorderData(show: true),
         sectionsSpace: 5,
         centerSpaceRadius: 60,
-      ));
+      ),
+    );
   }
   
 }
