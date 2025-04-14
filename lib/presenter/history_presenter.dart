@@ -131,20 +131,35 @@ class BasicHistoryPresenter extends HistoryPresenter{
         //We need to see every day that has an event, and then increment out dayCounts map by 1, based on the day/
         Timestamp timestamp = doc['date'];
         DateTime eventDate = timestamp.toDate();
-
         //determine day of the week string
         String weekday = _getWeekdayName(eventDate.weekday);
+
+        List<dynamic> events = doc['events'];
+        //get the length of the event field
+        int numEvents = events.length;
+
+        print("$numEvents event(s) on $weekday (${eventDate.toLocal()})");
+
 
         //if 'weekday' is in our map 'dayCount'
         if(dayCounts.containsKey(weekday)) {
           //increment weekday by + 1
-          dayCounts[weekday] = dayCounts[weekday]! + 1;
+          print("Processing doc: ${doc.id} with data: ${doc.data()}");
+
+          dayCounts[weekday] = dayCounts[weekday]! + numEvents;
+
+          print("Event found on ${eventDate.toLocal()} (${weekday})");
+
         }
+
+        print('Total docs fetched: ${snapshot.docs.length}');
+
       } catch (e) {
         print('Error with data from doc ${doc.id}: $e');
       }
     }
     //return our incremented map
+    print("Final counts: $dayCounts");
     return dayCounts;
 
   }

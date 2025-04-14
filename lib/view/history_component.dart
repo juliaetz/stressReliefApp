@@ -21,11 +21,11 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     super.initState();
     this.widget.presenter.historyView = this;
 
-    //DELETE THIS BEFORE MERGE: TEST FUNCTION CALL
+    //DELETE THIS BEFORE FINAL MERGE: TEST FUNCTION CALL
     fetchEventCounts();
   }
 
-  //DELETE THIS BEFORE MERGE: TEST FUNCTION
+  //DELETE THIS BEFORE FINAL MERGE: TEST FUNCTION
   void fetchEventCounts() async {
     // Call the function that gets the event counts and logs them to the console
     Map<String, int> eventCounts = await widget.presenter.getEventCountsByDay();
