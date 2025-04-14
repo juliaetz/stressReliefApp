@@ -196,22 +196,17 @@ class BasicHistoryPresenter extends HistoryPresenter{
         //if 'weekday' is in our map 'dayCount'
         if(dayCounts.containsKey(weekday)) {
           //increment weekday by + 1
-          print("Processing doc: ${doc.id} with data: ${doc.data()}");
 
           dayCounts[weekday] = dayCounts[weekday]! + numEvents;
 
-          print("Event found on ${eventDate.toLocal()} (${weekday})");
 
         }
-
-        print('Total docs fetched: ${snapshot.docs.length}');
 
       } catch (e) {
         print('Error with data from doc ${doc.id}: $e');
       }
     }
     //return our incremented map
-    print("Final counts: $dayCounts");
     return dayCounts;
 
   }

@@ -24,8 +24,6 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     super.initState();
     this.widget.presenter.historyView = this;
 
-    //DELETE THIS BEFORE FINAL MERGE: TEST FUNCTION CALL
-    fetchEventCounts();
   }
 
   //DELETE THIS BEFORE FINAL MERGE: TEST FUNCTION
@@ -41,15 +39,6 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   Widget _page = Placeholder();
 
 
-  //DELETE THIS BEF0RE MERGE: TEST FUNCTION
-  @override
-  void showEventCounts(Map<String, int> dayCounts) {
-    // Log the event counts to the console
-    print("Event Counts by Day:");
-    dayCounts.forEach((day, count) {
-      print('$day: $count');
-    });
-  }
 
   void handleHistoryValueChanged(String? value){
     this.widget.presenter.onOptionChanged(value!);
@@ -210,6 +199,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   //going to need to call the getEventsByCoutns() for the map<string, int>
   @override
   Widget ActivityGraph(){
+    fetchEventCounts();
     return FutureBuilder<Map<String, int>>(
       future: widget.presenter.getEventCountsByDay(),
       builder: (context, snapshot){
@@ -235,9 +225,9 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
                   color: Colors.deepPurpleAccent,
                 )
               ],
-              titlesData: FlTitlesData(show: false),
-              borderData: FlBorderData(show: false),
-              gridData: FlGridData(show: false)
+              titlesData: FlTitlesData(show: true),
+              borderData: FlBorderData(show: true),
+              gridData: FlGridData(show: true)
             )
           ),
         );
