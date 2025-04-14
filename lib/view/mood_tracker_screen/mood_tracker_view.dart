@@ -4,6 +4,8 @@ import 'package:stress_managment_app/model/mood_tracker_model.dart';
 import 'package:stress_managment_app/presenter/mood_tracker_presenter.dart';
 import 'package:stress_managment_app/view/homePage_view.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_chart.dart';
+import '../../presenter/history_presenter.dart';
+import '../history_component.dart';
 
 
 // MOOD OPTIONS
@@ -274,30 +276,17 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
         SizedBox(height: 30),
 
 
-        /*
         // BUTTON TO NAVIGATE TO MOOD HISTORY PAGE
         ElevatedButton.icon(
-          /*
           onPressed: (){
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HistoryPage(BasicHistoryPresenter(), title:'HISTORY',key: const Key('HISTORY')))
             );
           },
-          */
-          onPressed: (){
-            Navigator.push(
-              context, MaterialPageRoute(builder: (context) => MoodHistorySummary())
-            );
-          },
           icon: Icon(Icons.face_retouching_natural_sharp, color: Colors.indigo[600], size: 25),
-          label: Text("VIEW YOUR MOOD HISTORY!", style: TextStyle(fontSize: 13)),
+          label: Text("VIEW YOUR HISTORY!", style: TextStyle(fontSize: 13)),
         ),
-         */
-
         SizedBox(height: 100),
-
-
-
 
         ],
       ),
