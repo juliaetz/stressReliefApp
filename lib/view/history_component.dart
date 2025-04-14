@@ -4,7 +4,7 @@ import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_view.
 import 'history_view.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'homePage_view.dart';
-
+import 'package:fl_chart/fl_chart.dart';
 
 class HistoryPage extends StatefulWidget {
   final HistoryPresenter presenter;
@@ -207,18 +207,42 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
 
 
   // ACTIVITY GRAPH VIEW
+  //going to need to call the getEventsByCoutns() for the map<string, int>
   @override
-  Container ActivityGraph(){
-    return Container(
-      width: double.infinity,
-      decoration: addBackground(),
+  Widget ActivityGraph(){
+    return FutureBuilder<Map<String, int>>(
+      future: widget.presenter.getEventCountsByDay(),
+      builder: (context, snapshot){
+        if (!snapshot.hasData) {
+          return const Center(child:  CircularProgressIndicator());
+        }
+        final data = snapshot.data!;
+        final spots = <FlSpot>[];
+        int index = 0;
 
-      child: Column(
-        children: [
-          Text('this will be the graph'),
-        ],
-      ),
-    );
+        for (var value in data.values) {
+          spots.add(FlSpot(index.toDouble(), value.toDouble()));
+          index++;
+      }
+        return SizedBox(
+          height: 250,
+          child: LineChart(
+            LineChartData(
+              lineBarsData: [
+                LineChartBarData(
+                  spots: spots,
+                  isCurved: true,
+                  color: Colors.deepPurpleAccent,
+                )
+              ],
+              titlesData: FlTitlesData(show: false),
+              borderData: FlBorderData(show: false),
+              gridData: FlGridData(show: false)
+            )
+          ),
+        );
+    });
+
   }
 
   // START OF MISC UI ELEMENTS
@@ -251,4 +275,6 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     );
   }
   // END OF MISC UI ELEMENTS
+
+
 }
