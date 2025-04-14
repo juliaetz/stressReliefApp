@@ -198,42 +198,67 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   // ACTIVITY GRAPH VIEW
   //going to need to call the getEventsByCoutns() for the map<string, int>
   @override
-  Widget ActivityGraph(){
-    fetchEventCounts();
+  Widget ActivityGraph() {
     return FutureBuilder<Map<String, int>>(
       future: widget.presenter.getEventCountsByDay(),
-      builder: (context, snapshot){
+      builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Center(child:  CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
+
         final data = snapshot.data!;
         final spots = <FlSpot>[];
+        final xLabels = <String>[];
         int index = 0;
 
-        for (var value in data.values) {
-          spots.add(FlSpot(index.toDouble(), value.toDouble()));
+        for (var entry in data.entries) {
+          spots.add(FlSpot(index.toDouble(), entry.value.toDouble()));
+          xLabels.add(entry.key);
           index++;
-      }
+        }
+
         return SizedBox(
           height: 250,
           child: LineChart(
             LineChartData(
+              gridData: FlGridData(show: true),
+              titlesData: FlTitlesData(
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: true),
+                ),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    interval: 1,
+                    getTitlesWidget: (value, meta) {
+                      final index = value.toInt();
+                      if ( value % 1 != 0 || index < 0 || index >= xLabels.length) {
+                        return const SizedBox.shrink();
+                      }
+                      return Text(
+                        xLabels[index],
+                        style: const TextStyle(fontSize: 10),
+                      );
+                    },
+                  ),
+                ),
+              ),
               lineBarsData: [
                 LineChartBarData(
                   spots: spots,
                   isCurved: true,
-                  color: Colors.deepPurpleAccent,
-                )
+                  color: Colors.blue,
+                  barWidth: 2,
+                ),
               ],
-              titlesData: FlTitlesData(show: true),
               borderData: FlBorderData(show: true),
-              gridData: FlGridData(show: true)
-            )
+            ),
           ),
         );
-    });
-
+      },
+    );
   }
+
 
   // START OF MISC UI ELEMENTS
   FilledButton buildHomeButton() {
