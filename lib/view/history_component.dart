@@ -22,12 +22,33 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   void initState() {
     super.initState();
     this.widget.presenter.historyView = this;
+
+    //DELETE THIS BEFORE FINAL MERGE: TEST FUNCTION CALL
+    fetchEventCounts();
+  }
+
+  //DELETE THIS BEFORE FINAL MERGE: TEST FUNCTION
+  void fetchEventCounts() async {
+    // Call the function that gets the event counts and logs them to the console
+    Map<String, int> eventCounts = await widget.presenter.getEventCountsByDay();
+    print("Event Counts: $eventCounts");
   }
 
   String _dropdownValue = 'Activity History';
   List<Widget> _entries = [];
   int _selectedIndex = 0;
   Widget _page = Placeholder();
+
+
+  //DELETE THIS BEF0RE MERGE: TEST FUNCTION
+  @override
+  void showEventCounts(Map<String, int> dayCounts) {
+    // Log the event counts to the console
+    print("Event Counts by Day:");
+    dayCounts.forEach((day, count) {
+      print('$day: $count');
+    });
+  }
 
   void handleHistoryValueChanged(String? value){
     this.widget.presenter.onOptionChanged(value!);
