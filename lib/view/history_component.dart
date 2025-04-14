@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stress_managment_app/view/mood_tracker_screen/mood_history_summary.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_view.dart';
 import 'history_view.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
@@ -101,20 +102,25 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
             label: 'Activity Graph',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.pie_chart),
+            icon: Icon(Icons.bar_chart_rounded),
             label: 'Mood Graph'
           )
         ],
+
         currentIndex: _selectedIndex,
         onTap: (int index){
           setState(() {
             handlePageChange(index);
+
+
             if(_selectedIndex == 2){
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder:(context) => MoodTrackerView(),)
+                  MaterialPageRoute(builder:(context) => MoodHistorySummary(),)
               );
             }
+
+
           });
         },
       ),
@@ -177,6 +183,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     );
   }
   // END OF FUNCTIONS RELATED TO HISTORY VIEW
+
 
   // ACTIVITY GRAPH VIEW
   @override
