@@ -56,6 +56,7 @@ class RewardsModel{
 
   // Google Gemini created from outline of tasks
   Future<void> updateRewardsProgress() async {
+
     // Mood Tracking
     List<String> trackedDates = [];
     final moodSnapshot = await firestore.collection('Mood').get();
@@ -65,16 +66,13 @@ class RewardsModel{
       String month = date.substring(5, 7); //6th and 7th
       String day = date.substring(8, 10); //9th and 10th
       String formattedDate = "$month-$day";
-
       if (!trackedDates.contains(formattedDate)) {
         trackedDates.add(formattedDate);
       }
     }
-
     streakCounter = trackedDates.length;
-
     for (int i = 0; i <= 3; i++) {
-      rewards[i].currentProgress = trackedDates.length;
+      rewards[i].setCurrentProgress(trackedDates.length);
     }
 
     // Activity Logging
@@ -85,9 +83,8 @@ class RewardsModel{
       console.log("Activities: $activities");
       activityCounter += activities.length;
     }
-
     for (int i = 4; i <= 7; i++) {
-      rewards[i].currentProgress = activityCounter;
+      rewards[i].setCurrentProgress(activityCounter);
     }
 
     // Self Care Finding
@@ -95,7 +92,7 @@ class RewardsModel{
     await firestore.collection('Favorite_Ideas').get();
     console.log("Self Care: $selfCareSnapshot.docs.length");
     for (int i = 8; i <= 10; i++) {
-      rewards[i].currentProgress = selfCareSnapshot.docs.length;
+      rewards[i].setCurrentProgress(selfCareSnapshot.docs.length);
     }
   }
 }
@@ -110,6 +107,13 @@ class RewardData {
 
   int currentProgress = 0;
   int maxProgress;
+
+  void setCurrentProgress(int progress) {
+    currentProgress = progress;
+    if (progress >= maxProgress) {
+      isUnlocked = true;
+    }
+  }
 
   RewardData({required this.label, required this.iconShape, required this.iconColor, required this.maxProgress}) {
     icon = Icon(iconShape, color: iconColor);
