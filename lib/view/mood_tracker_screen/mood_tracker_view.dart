@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/model/mood_tracker_model.dart';
+import 'package:stress_managment_app/presenter/journal_presenter.dart';
 import 'package:stress_managment_app/presenter/mood_tracker_presenter.dart';
 import 'package:stress_managment_app/view/homePage_view.dart';
+import 'package:stress_managment_app/view/journal_view.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_chart.dart';
 import '../../presenter/history_presenter.dart';
 import '../history_component.dart';
@@ -210,7 +212,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder:(context) => HomePage(),)
+                    MaterialPageRoute(builder:(context) => JournalView(presenter: JournalPresenter(),),)
                   );
                 }
               ),
