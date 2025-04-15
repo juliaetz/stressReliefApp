@@ -219,12 +219,30 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
 
         return SizedBox(
           height: 250,
+          width: 330,
           child: LineChart(
             LineChartData(
+              minX: 0,
+              maxX: (xLabels.length - 1 ).toDouble(),
               gridData: FlGridData(show: true),
               titlesData: FlTitlesData(
                 leftTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: true),
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    interval: 1,
+                    getTitlesWidget: (value, meta) {
+                      final index = value.toInt();
+                      if (value % 1 != 0 || index < 0 || index >= xLabels.length) {
+                        return const SizedBox.shrink();
+                      }
+                      return Text(
+                        value.toInt().toString(),
+                        style: const TextStyle(fontSize: 10),
+                      );
+                    }
+
+                  ),
+
                 ),
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
@@ -232,17 +250,24 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
                     interval: 1,
                     getTitlesWidget: (value, meta) {
                       final index = value.toInt();
-                      if ( value % 1 != 0 || index < 0 || index >= xLabels.length) {
+                      if (value % 1 != 0 || index < 0 || index >= xLabels.length) {
                         return const SizedBox.shrink();
                       }
                       return Text(
                         xLabels[index],
-                        style: const TextStyle(fontSize: 10),
+                        style: const TextStyle(fontSize: 7),
                       );
                     },
                   ),
                 ),
+                rightTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                topTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
               ),
+
               lineBarsData: [
                 LineChartBarData(
                   spots: spots,
