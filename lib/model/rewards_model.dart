@@ -30,8 +30,8 @@ class RewardsModel{
     rewards.add(RewardData(label: 'Diamond Activity Logging', iconShape: UniconsLine.diamond, iconColor: Colors.cyanAccent, maxProgress: 50));
 
     rewards.add(RewardData(label: 'Bronze Self Care Finding', iconShape: UniconsLine.award_alt, iconColor: Colors.brown, maxProgress: 1));
-    rewards.add(RewardData(label: 'Silver Streak Finding', iconShape: UniconsLine.award, iconColor: Colors.grey, maxProgress: 5));
-    rewards.add(RewardData(label: 'Gold Streak Finding', iconShape: UniconsLine.medal, iconColor: Colors.yellow, maxProgress: 10));
+    rewards.add(RewardData(label: 'Silver Self Care Finding', iconShape: UniconsLine.award, iconColor: Colors.grey, maxProgress: 5));
+    rewards.add(RewardData(label: 'Gold Self Care Finding', iconShape: UniconsLine.medal, iconColor: Colors.yellow, maxProgress: 10));
     return rewards;
   }
 
