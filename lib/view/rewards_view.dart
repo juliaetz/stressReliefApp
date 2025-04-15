@@ -81,11 +81,6 @@ class _RewardsViewState extends State<RewardsView> {
                   ),
                 ),
 
-                //Update Streak Counter Button (Just for Testing)
-                ElevatedButton(
-                    onPressed: presenter.onStreakButtonPressed,
-                    child: Text("Increment Streak Counter")),
-
                 //Unlocked/All/Locked Rewards Buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

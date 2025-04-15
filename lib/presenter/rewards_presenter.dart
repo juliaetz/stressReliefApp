@@ -9,22 +9,13 @@ class RewardsPresenter {
   late Future<void> rewardsLoadedFuture;
 
   RewardsPresenter({required this.model, required this.streakUpdate, required this.rewardsUpdate, required this.showRewardPopUp}) {
-    updateStreak();
-    rewardsLoadedFuture = updateRewards();
+    rewardsLoadedFuture = updateStreakAndRewards();
   }
 
-  void updateStreak() {
+  Future<void> updateStreakAndRewards() async {
+    await model.updateProgressFromDatabase();
     streakUpdate(model.streakCounter);
-  }
-
-  Future<void> updateRewards() async {
-    await model.updateRewardsProgress();
     rewardsUpdate(model.rewards);
-  }
-
-  void onStreakButtonPressed() {
-    model.streakCounter = model.streakCounter + 1;
-    updateStreak();
   }
 
   void onRewardButtonPressed(BuildContext context, RewardData reward) {

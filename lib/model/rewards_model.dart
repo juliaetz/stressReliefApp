@@ -55,7 +55,7 @@ class RewardsModel{
   }
 
   // Google Gemini created from outline of tasks
-  Future<void> updateRewardsProgress() async {
+  Future<void> updateProgressFromDatabase() async {
 
     // Mood Tracking
     List<String> trackedDates = [];
@@ -72,7 +72,7 @@ class RewardsModel{
     }
     streakCounter = trackedDates.length;
     for (int i = 0; i <= 3; i++) {
-      rewards[i].setCurrentProgress(trackedDates.length);
+      rewards[i].setCurrentProgress(streakCounter);
     }
 
     // Activity Logging
