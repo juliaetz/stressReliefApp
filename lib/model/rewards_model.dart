@@ -76,11 +76,8 @@ class RewardsModel{
     int eventCounter = 0;
     final eventSnapshot = await firestore.collection('events').get();
     for (var doc in eventSnapshot.docs) {
-      print(doc['events']);
       List events = doc['events'];
-      print(events);
       eventCounter += events.length;
-      print(eventCounter);
     }
     for (int i = 4; i <= 7; i++) {
       rewards[i].setCurrentProgress(eventCounter);
