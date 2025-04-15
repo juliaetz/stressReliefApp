@@ -1,6 +1,5 @@
 //import 'dart:ffi';
 import 'package:flutter/material.dart';
-import 'package:stress_managment_app/model/journal_model.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'package:stress_managment_app/presenter/journal_presenter.dart';
 import 'package:stress_managment_app/presenter/selfcare_presenter.dart';
@@ -101,11 +100,16 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Placeholder Title',
+              'Overworked?',
               style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+            Text('Ease your stress',
+            style: TextStyle(
+              fontSize: 20,
+            ),
             ),
 
             SizedBox(height: 40,), //space between title and buttons
