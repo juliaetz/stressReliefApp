@@ -4,7 +4,7 @@ import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_view.
 import 'history_view.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'homePage_view.dart';
-
+import 'package:fl_chart/fl_chart.dart';
 
 class HistoryPage extends StatefulWidget {
   final HistoryPresenter presenter;
@@ -24,8 +24,6 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     super.initState();
     this.widget.presenter.historyView = this;
 
-    //DELETE THIS BEFORE FINAL MERGE: TEST FUNCTION CALL
-    fetchEventCounts();
   }
 
   //DELETE THIS BEFORE FINAL MERGE: TEST FUNCTION
@@ -41,15 +39,6 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   Widget _page = Placeholder();
 
 
-  //DELETE THIS BEF0RE MERGE: TEST FUNCTION
-  @override
-  void showEventCounts(Map<String, int> dayCounts) {
-    // Log the event counts to the console
-    print("Event Counts by Day:");
-    dayCounts.forEach((day, count) {
-      print('$day: $count');
-    });
-  }
 
   void handleHistoryValueChanged(String? value){
     this.widget.presenter.onOptionChanged(value!);
@@ -207,19 +196,94 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
 
 
   // ACTIVITY GRAPH VIEW
+  //going to need to call the getEventsByCoutns() for the map<string, int>
   @override
-  Container ActivityGraph(){
-    return Container(
-      width: double.infinity,
-      decoration: addBackground(),
+  Widget ActivityGraph() {
+    return FutureBuilder<Map<String, int>>(
+      future: widget.presenter.getEventCountsByDay(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-      child: Column(
-        children: [
-          Text('this will be the graph'),
-        ],
-      ),
+        final data = snapshot.data!;
+        final spots = <FlSpot>[];
+        final xLabels = <String>[];
+        int index = 0;
+
+        for (var entry in data.entries) {
+          spots.add(FlSpot(index.toDouble(), entry.value.toDouble()));
+          xLabels.add(entry.key);
+          index++;
+        }
+
+        return SizedBox(
+          height: 250,
+          width: 330,
+          child: LineChart(
+            LineChartData(
+              minX: 0,
+              maxX: (xLabels.length - 1 ).toDouble(),
+              gridData: FlGridData(show: true),
+              titlesData: FlTitlesData(
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    interval: 1,
+                    getTitlesWidget: (value, meta) {
+                      final index = value.toInt();
+                      if (value % 1 != 0 || index < 0 || index >= xLabels.length) {
+                        return const SizedBox.shrink();
+                      }
+                      return Text(
+                        value.toInt().toString(),
+                        style: const TextStyle(fontSize: 10),
+                      );
+                    }
+
+                  ),
+
+                ),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    interval: 1,
+                    getTitlesWidget: (value, meta) {
+                      final index = value.toInt();
+                      if (value % 1 != 0 || index < 0 || index >= xLabels.length) {
+                        return const SizedBox.shrink();
+                      }
+                      return Text(
+                        xLabels[index],
+                        style: const TextStyle(fontSize: 7),
+                      );
+                    },
+                  ),
+                ),
+                rightTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                topTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+              ),
+
+              lineBarsData: [
+                LineChartBarData(
+                  spots: spots,
+                  isCurved: true,
+                  color: Colors.blue,
+                  barWidth: 2,
+                ),
+              ],
+              borderData: FlBorderData(show: true),
+            ),
+          ),
+        );
+      },
     );
   }
+
 
   // START OF MISC UI ELEMENTS
   FilledButton buildHomeButton() {
@@ -251,4 +315,6 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     );
   }
   // END OF MISC UI ELEMENTS
+
+
 }
