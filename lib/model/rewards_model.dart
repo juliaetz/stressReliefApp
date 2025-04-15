@@ -73,14 +73,17 @@ class RewardsModel{
     }
 
     // Activity Logging
-    int activityCounter = 0;
-    final activitySnapshot = await firestore.collection('Activities').get();
-    for (var doc in activitySnapshot.docs) {
-      List activities = doc['Activities'].split(',');
-      activityCounter += activities.length;
+    int eventCounter = 0;
+    final eventSnapshot = await firestore.collection('events').get();
+    for (var doc in eventSnapshot.docs) {
+      print(doc['events']);
+      List events = doc['events'];
+      print(events);
+      eventCounter += events.length;
+      print(eventCounter);
     }
     for (int i = 4; i <= 7; i++) {
-      rewards[i].setCurrentProgress(activityCounter);
+      rewards[i].setCurrentProgress(eventCounter);
     }
 
     // Self Care Finding
