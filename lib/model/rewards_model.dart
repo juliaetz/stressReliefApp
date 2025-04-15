@@ -1,5 +1,3 @@
-import 'dart:developer' as console;
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
@@ -62,7 +60,6 @@ class RewardsModel{
     final moodSnapshot = await firestore.collection('Mood').get();
     for (var doc in moodSnapshot.docs) {
       String date = doc['date'];
-      console.log("Date: $date");
       String month = date.substring(5, 7); //6th and 7th
       String day = date.substring(8, 10); //9th and 10th
       String formattedDate = "$month-$day";
@@ -80,7 +77,6 @@ class RewardsModel{
     final activitySnapshot = await firestore.collection('Activities').get();
     for (var doc in activitySnapshot.docs) {
       List activities = doc['Activities'].split(',');
-      console.log("Activities: $activities");
       activityCounter += activities.length;
     }
     for (int i = 4; i <= 7; i++) {
@@ -89,7 +85,6 @@ class RewardsModel{
 
     // Self Care Finding
     final selfCareSnapshot = await firestore.collection('Favorite_Ideas').get();
-    console.log("Self Care: $selfCareSnapshot.docs.length");
     for (int i = 8; i <= 10; i++) {
       rewards[i].setCurrentProgress(selfCareSnapshot.docs.length);
     }
