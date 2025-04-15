@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../presenter/journal_presenter.dart';
+import '../model/journal_model.dart';
 
 class JournalView extends StatefulWidget {
   final JournalPresenter presenter;
@@ -14,11 +15,15 @@ class JournalView extends StatefulWidget {
 }
 
 class _JournalViewState extends State<JournalView>{
-  final _controller = TextEditingController();
+  final controller = TextEditingController();
 
   void addEntry(String text){
     widget.presenter.addEntry(text);
-    _controller.clear();
+    controller.clear();
+
+    setState(() {
+
+    });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Entry added!')),
     );
@@ -26,7 +31,7 @@ class _JournalViewState extends State<JournalView>{
 
   @override
   void dispose(){
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -42,14 +47,23 @@ class _JournalViewState extends State<JournalView>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-                'placeholder journal text'
+            Expanded(
+                child: ListView.builder(
+                  itemCount: widget.presenter.getEntries().length,
+                    itemBuilder: (context, index){
+                    JournalModel entry = widget.presenter.getEntries()[index];
+                    return ListTile(
+                      title: Text(entry.text),
+                      subtitle: Text('${entry.timestamp.toLocal()}'.split(' ')[0]),
+                      );
+                    }
+                ),
             ),
             //creates a textbox to enter journal entries into
             SizedBox(
               width: 250,
               child: TextField(
-                controller: _controller,
+                controller: controller,
                 decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'New Journal Entry'),
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
@@ -59,8 +73,8 @@ class _JournalViewState extends State<JournalView>{
             SizedBox(height: 10,),
             ElevatedButton(
                 onPressed: (){
-                  if(_controller.text.trim().isNotEmpty){
-                    addEntry(_controller.text.trim());
+                  if(controller.text.trim().isNotEmpty){
+                    addEntry(controller.text.trim());
                   }
                 },
                 child: Text('Add Entry'),
