@@ -88,8 +88,7 @@ class RewardsModel{
     }
 
     // Self Care Finding
-    final selfCareSnapshot =
-    await firestore.collection('Favorite_Ideas').get();
+    final selfCareSnapshot = await firestore.collection('Favorite_Ideas').get();
     console.log("Self Care: $selfCareSnapshot.docs.length");
     for (int i = 8; i <= 10; i++) {
       rewards[i].setCurrentProgress(selfCareSnapshot.docs.length);
