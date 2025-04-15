@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../view/homePage_view.dart';
+import '../view/homepage_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 // since we are using the MVP model, the main.dart file should ONLY contain the calls to the
