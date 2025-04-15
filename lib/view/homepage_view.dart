@@ -4,11 +4,13 @@ import 'package:stress_managment_app/model/journal_model.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'package:stress_managment_app/presenter/journal_presenter.dart';
 import 'package:stress_managment_app/view/history_component.dart';
+import 'package:stress_managment_app/view/rewards_view.dart';
 import 'package:stress_managment_app/view/journal_view.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
-import '../view/moodTrack_view.dart';
+import 'mood_tracker_screen/mood_tracker_view.dart';
+
 
 //class to help create buttons
 class Button extends StatelessWidget{
@@ -35,7 +37,7 @@ class Button extends StatelessWidget{
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CalendarView(presenter: CalendarPresenter(CalendarModel({}))),
+                builder: (context) => CalendarView(presenter: CalendarPresenter(CalendarModel())),
               )
           );
         }else if(pageID == 2){
@@ -43,7 +45,7 @@ class Button extends StatelessWidget{
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => MoodtrackPage()
+                  builder: (context) => MoodTrackerView()
               )
           );
         }else if(pageID == 3){
@@ -56,6 +58,11 @@ class Button extends StatelessWidget{
           Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => JournalView(presenter: JournalPresenter()))
+          );
+        } else if(pageID == 5){
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RewardsView())
           );
         }
 
@@ -78,6 +85,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text('Home Page'),
           backgroundColor: Colors.deepPurple.shade200,
       ),
@@ -104,6 +112,9 @@ class HomePage extends StatelessWidget {
             Button(icon: Icons.timer, label: 'Activity History', pageID: 3),
             SizedBox(height: 20),
             Button(icon: Icons.create, label: 'Journal', pageID: 4),
+            SizedBox(height: 20), // Space between buttons
+            //Rewards Button
+            Button(icon: Icons.star, label: 'Rewards', pageID: 5),
           ],
         ),
       ),
