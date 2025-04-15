@@ -12,7 +12,6 @@ class RewardsView extends StatefulWidget {
 }
 
 class _RewardsViewState extends State<RewardsView> {
-
   late RewardsPresenter presenter;
   late int _streakCounter;
   late List<RewardData> _rewards;
@@ -52,77 +51,109 @@ class _RewardsViewState extends State<RewardsView> {
         title: Text('Rewards'),
         backgroundColor: Colors.deepPurple.shade200,
       ),
-      body: Column(
-        children: [
 
-          //Streak Counter UI
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-                padding: EdgeInsets.all(50),
-                decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.purple[200]),
-                child: Text('$_streakCounter', style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold)),
-            ),
-          ),
+      //Wait for rewards to load
+      //Google Gemini Created
+      body: FutureBuilder(
+        future: presenter.rewardsLoadedFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Still loading, show a loading indicator
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            // Handle errors
+            return Center(child: Text('Error loading rewards'));
+          } else {
 
-          //Update Streak Counter Button (Just for Testing)
-          ElevatedButton(onPressed: presenter.onStreakButtonPressed, child: Text("Increment Streak Counter")),
+            //Rewards Page UI
+            return Column(
+              children: [
+                //Streak Counter UI
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    padding: EdgeInsets.all(50),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.purple[200]),
+                    child: Text('$_streakCounter',
+                        style: TextStyle(
+                            fontSize: 50, fontWeight: FontWeight.bold)),
+                  ),
+                ),
 
-          //Unlocked/All/Locked Rewards Buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton.icon(onPressed: presenter.onUnlockedButtonPressed, icon: Icon(UniconsLine.unlock), label: Text("Unlocked")),
-              Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton.icon(onPressed: presenter.onAllRewardsButtonPressed, icon: Icon(Icons.list), label: Text("All")),
-              Padding(padding: EdgeInsets.all(10)),
-              ElevatedButton.icon(onPressed: presenter.onLockedButtonPressed, icon: Icon(Icons.lock), label: Text("Locked")),
-            ],
-          ),
+                //Update Streak Counter Button (Just for Testing)
+                ElevatedButton(
+                    onPressed: presenter.onStreakButtonPressed,
+                    child: Text("Increment Streak Counter")),
 
-          //Rewards Grid
-          //Google Gemini Assisted
-          Expanded(
-            child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3
-                    ),
-                    padding: const EdgeInsets.all(12),
-                    itemCount: _rewards.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final reward = _rewards[index];
-                      return AspectRatio(
-                        aspectRatio: 1,
-                        child: Container(
+                //Unlocked/All/Locked Rewards Buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton.icon(
+                        onPressed: presenter.onUnlockedButtonPressed,
+                        icon: Icon(UniconsLine.unlock),
+                        label: Text("Unlocked")),
+                    Padding(padding: EdgeInsets.all(10)),
+                    ElevatedButton.icon(
+                        onPressed: presenter.onAllRewardsButtonPressed,
+                        icon: Icon(Icons.list),
+                        label: Text("All")),
+                    Padding(padding: EdgeInsets.all(10)),
+                    ElevatedButton.icon(
+                        onPressed: presenter.onLockedButtonPressed,
+                        icon: Icon(Icons.lock),
+                        label: Text("Locked")),
+                  ],
+                ),
+
+                //Rewards Grid
+                //Google Gemini Assisted
+                Expanded(
+                  child: LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3),
+                      padding: const EdgeInsets.all(12),
+                      itemCount: _rewards.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final reward = _rewards[index];
+                        return AspectRatio(
+                          aspectRatio: 1,
+                          child: Container(
                             padding: const EdgeInsets.all(8),
                             child: ElevatedButton(
-                              onPressed: () => presenter.onRewardButtonPressed(context, reward),
+                              onPressed: () => presenter.onRewardButtonPressed(
+                                  context, reward),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: reward.isUnlocked
-                                  ? Colors.purple[200]
-                                  : Colors.grey[300],
+                                    ? Colors.purple[200]
+                                    : Colors.grey[300],
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
                               child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      reward.icon,
-                                      Text(reward.label, textAlign: TextAlign.center)
-                                    ],
-                                ),
-                            )
-                        ),
-                      );
-                    },
-                  );
-                }
-            ),
-          ),
-        ],
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  reward.icon,
+                                  Text(reward.label,
+                                      textAlign: TextAlign.center)
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }),
+                ),
+              ],
+            );
+          }
+        },
       ),
     );
   }

@@ -6,17 +6,19 @@ class RewardsPresenter {
   final Function(int) streakUpdate;
   final Function(List<RewardData>) rewardsUpdate;
   final Function(BuildContext context, RewardData reward) showRewardPopUp;
+  late Future<void> rewardsLoadedFuture;
 
   RewardsPresenter({required this.model, required this.streakUpdate, required this.rewardsUpdate, required this.showRewardPopUp}) {
     updateStreak();
-    updateRewards();
+    rewardsLoadedFuture = updateRewards();
   }
 
   void updateStreak() {
     streakUpdate(model.streakCounter);
   }
 
-  void updateRewards() {
+  Future<void> updateRewards() async {
+    await model.updateRewardsProgress();
     rewardsUpdate(model.rewards);
   }
 

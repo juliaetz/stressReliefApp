@@ -1,3 +1,6 @@
+import 'dart:developer' as console;
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
@@ -11,6 +14,7 @@ class RewardsModel{
   //Variable Initialization
   int streakCounter = 0;
   List<RewardData> rewards = [];
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   //Initialize Rewards (Called from constructor)
   List<RewardData> getRewards() {
@@ -50,6 +54,50 @@ class RewardsModel{
     return lockedRewards;
   }
 
+  // Google Gemini created from outline of tasks
+  Future<void> updateRewardsProgress() async {
+    // Mood Tracking
+    List<String> trackedDates = [];
+    final moodSnapshot = await firestore.collection('Mood').get();
+    for (var doc in moodSnapshot.docs) {
+      String date = doc['date'];
+      console.log("Date: $date");
+      String month = date.substring(5, 7); //6th and 7th
+      String day = date.substring(8, 10); //9th and 10th
+      String formattedDate = "$month-$day";
+
+      if (!trackedDates.contains(formattedDate)) {
+        trackedDates.add(formattedDate);
+      }
+    }
+
+    streakCounter = trackedDates.length;
+
+    for (int i = 0; i <= 3; i++) {
+      rewards[i].currentProgress = trackedDates.length;
+    }
+
+    // Activity Logging
+    int activityCounter = 0;
+    final activitySnapshot = await firestore.collection('Activities').get();
+    for (var doc in activitySnapshot.docs) {
+      List activities = doc['Activities'].split(',');
+      console.log("Activities: $activities");
+      activityCounter += activities.length;
+    }
+
+    for (int i = 4; i <= 7; i++) {
+      rewards[i].currentProgress = activityCounter;
+    }
+
+    // Self Care Finding
+    final selfCareSnapshot =
+    await firestore.collection('Favorite_Ideas').get();
+    console.log("Self Care: $selfCareSnapshot.docs.length");
+    for (int i = 8; i <= 10; i++) {
+      rewards[i].currentProgress = selfCareSnapshot.docs.length;
+    }
+  }
 }
 
 class RewardData {
