@@ -125,7 +125,7 @@ class HomePage extends StatelessWidget {
             Button(icon: Icons.create, label: 'Journal', pageID: 4),
             SizedBox(height: 20), // Space between buttons
             //Rewards Button
-            Button(icon: Icons.star, label: 'Rewards', pageID: 5),
+            Button(icon: Icons.lock, label: 'Rewards', pageID: 5),
             SizedBox(height: 20), // Space between buttons
             Button(icon: Icons.star, label: 'Self Care Ideas', pageID: 6),
           ],
