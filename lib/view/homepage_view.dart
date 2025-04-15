@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:stress_managment_app/model/journal_model.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'package:stress_managment_app/presenter/journal_presenter.dart';
+import 'package:stress_managment_app/presenter/selfcare_presenter.dart';
 import 'package:stress_managment_app/view/history_component.dart';
 import 'package:stress_managment_app/view/rewards_view.dart';
 import 'package:stress_managment_app/view/journal_view.dart';
+import 'package:stress_managment_app/view/selfcare_component.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
@@ -64,6 +66,11 @@ class Button extends StatelessWidget{
               context,
               MaterialPageRoute(builder: (context) => RewardsView())
           );
+        } else if(pageID == 6){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SelfcarePage(BasicSelfcarePresenter(), title:'SELFCARE',key: const Key('SELFCARE'))),
+          );
         }
 
 
@@ -115,6 +122,8 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20), // Space between buttons
             //Rewards Button
             Button(icon: Icons.star, label: 'Rewards', pageID: 5),
+            SizedBox(height: 20), // Space between buttons
+            Button(icon: Icons.star, label: 'Self Care Ideas', pageID: 6),
           ],
         ),
       ),
