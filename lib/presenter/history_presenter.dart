@@ -152,7 +152,7 @@ class BasicHistoryPresenter extends HistoryPresenter{
       'Saturday',
       'Sunday'
     ];
-    return days[weekday - 1];
+    return days[weekday];
   }
 
   //create a new method to get the event counts by day of the week
