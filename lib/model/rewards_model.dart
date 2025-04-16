@@ -60,13 +60,32 @@ class RewardsModel{
     final moodSnapshot = await firestore.collection('Mood').get();
     for (var doc in moodSnapshot.docs) {
       String date = doc['date'];
-      String month = date.substring(5, 7); //6th and 7th
-      String day = date.substring(8, 10); //9th and 10th
-      String formattedDate = "$month-$day";
+      print(date);
+      String formattedDate = date.substring(0, 10);
       if (!trackedDates.contains(formattedDate)) {
         trackedDates.add(formattedDate);
       }
     }
+    print(trackedDates);
+    //Sort dates from most recent to oldest
+    trackedDates.sort((b, a) => a.compareTo(b));
+    print(trackedDates);
+    String formattedToday = DateTime.now().toString().substring(0, 10);
+    String formattedYesterday = DateTime.now().subtract(Duration(days: 1)).toString().substring(0, 10);
+    print(formattedToday);
+    //Check that streak is still active
+    if (trackedDates[0] == formattedToday || trackedDates[0] == formattedYesterday) {
+      String lastDate = trackedDates[0];
+      //Iterate through days to check how long streak is
+      for (var date in trackedDates) {
+        if (date == lastDate) {
+
+        })
+      })
+    }
+
+
+
     streakCounter = trackedDates.length;
     for (int i = 0; i <= 3; i++) {
       rewards[i].setCurrentProgress(streakCounter);
