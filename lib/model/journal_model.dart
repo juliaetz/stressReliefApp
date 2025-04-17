@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-
-class JournalModel{
+class Entry{
     final String text;
     final String date;
 
-    JournalModel ({
+    Entry({
         required this.text,
         required this.date,
     });
@@ -16,10 +14,10 @@ class JournalModel{
         };
     }
 
-    static JournalModel fromMap(Map<String, dynamic> map){
-        return JournalModel(
-            text: map['text'],
-            date: map['timestamp'],
+    factory Entry.fromMap(Map<String, dynamic> map){
+        return Entry(
+            text: map['text']??'',
+            date: map['date']??'',
         );
     }
 

@@ -18,7 +18,7 @@ class _JournalViewState extends State<JournalView>{
   final controller = TextEditingController();
 
   void addEntry(String text){
-    widget.presenter.addEntry(text);
+    //widget.presenter.addEntry();
     controller.clear();
 
     setState(() {
@@ -51,7 +51,7 @@ class _JournalViewState extends State<JournalView>{
                 child: ListView.builder(
                   itemCount: widget.presenter.getEntries().length,
                     itemBuilder: (context, index){
-                    JournalModel entry = widget.presenter.getEntries()[index];
+                    Entry entry = widget.presenter.getEntries()[index];
                     return ListTile(
                       title: Text(entry.text),
                       subtitle: Text('${entry.date}'.split(' ')[0]),
@@ -67,7 +67,6 @@ class _JournalViewState extends State<JournalView>{
                 decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'New Journal Entry'),
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                //onSubmitted: addEntry(),
               ),
             ),
             SizedBox(height: 10,),
