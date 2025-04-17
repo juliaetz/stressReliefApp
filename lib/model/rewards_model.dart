@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
+
 class RewardsModel{
 
   //Constructor
@@ -55,38 +56,36 @@ class RewardsModel{
   // Google Gemini created from outline of tasks
   Future<void> updateProgressFromDatabase() async {
 
-    // Mood Tracking
-    List<String> trackedDates = [];
+    // Mood Tracking (Altered after Gemini)
+    List<DateTime> trackedDates = [];
     final moodSnapshot = await firestore.collection('Mood').get();
     for (var doc in moodSnapshot.docs) {
-      String date = doc['date'];
-      print(date);
-      String formattedDate = date.substring(0, 10);
-      if (!trackedDates.contains(formattedDate)) {
-        trackedDates.add(formattedDate);
+      int year = int.parse(doc['date'].substring(0, 4));
+      int month = int.parse(doc['date'].substring(5, 7));
+      int day = int.parse(doc['date'].substring(8, 10));
+      DateTime date = DateTime(year, month, day);
+      if (!trackedDates.contains(date)) {
+        trackedDates.add(date);
       }
     }
-    print(trackedDates);
-    //Sort dates from most recent to oldest
-    trackedDates.sort((b, a) => a.compareTo(b));
-    print(trackedDates);
-    String formattedToday = DateTime.now().toString().substring(0, 10);
-    String formattedYesterday = DateTime.now().subtract(Duration(days: 1)).toString().substring(0, 10);
-    print(formattedToday);
+    trackedDates.sort((b, a) => a.compareTo(b)); //Sort dates from most recent to oldest
+    DateTime today = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    DateTime yesterday = today.subtract(Duration(days: 1));
     //Check that streak is still active
-    if (trackedDates[0] == formattedToday || trackedDates[0] == formattedYesterday) {
-      String lastDate = trackedDates[0];
+    DateTime mostRecentDate = trackedDates[0];
+    if (mostRecentDate == today || mostRecentDate == yesterday) {
       //Iterate through days to check how long streak is
+      DateTime lastDateChecked = mostRecentDate;
       for (var date in trackedDates) {
-        if (date == lastDate) {
-
-        })
-      })
+        //Keeps increasing streak as long as dates are consecutive and stops once it finds a day that was missed
+        if (date == (lastDateChecked.subtract(Duration(days: 1))) || date == mostRecentDate) {
+          streakCounter++;
+          lastDateChecked = date;
+        } else {
+          break;
+        }
+      }
     }
-
-
-
-    streakCounter = trackedDates.length;
     for (int i = 0; i <= 3; i++) {
       rewards[i].setCurrentProgress(streakCounter);
     }
