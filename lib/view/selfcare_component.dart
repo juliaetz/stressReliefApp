@@ -30,6 +30,7 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   bool _isLoading = true;
   IconData _heart = Icons.favorite_border;
   List<String> _favorites = [];
+  final controller = TextEditingController();
 
   void handlePageChange(int index){
     this.widget.presenter.updatePage(index);
@@ -262,33 +263,68 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
       width: double.infinity,
       decoration: addBackground(),
 
-      child: Column(
-        children: List.generate(_favorites.length, (index) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-            Padding(padding: EdgeInsets.all(10.0)),
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 8,
-                child: Text(_favorites[index], style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
-              ),    
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: (){
-                      handleRemoveFavorite(_favorites[index]);
-                    },
-                    icon: Icon(Icons.delete, color: Colors.deepPurple.shade700, size: 30.0,),
-                  ),
-                ],
+      child: Container(
+        child: Column(
+          children: [
+            createFavorites(),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: TextField(
+                controller: controller,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Add your own favorite idea!',
+                  labelStyle: TextStyle(fontSize: 25.0, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+                style: TextStyle(fontSize: 25.0, color: Colors.black),
+                onSubmitted: (String value) async {
+                  print(value);
+                  controller.clear();
+                },
               ),
-            ],
-          );
-        }),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  Expanded createFavorites() {
+    return Expanded(
+      flex: 9,
+      child: SingleChildScrollView(
+        child: Column(
+          children: createFavoritesRows(),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> createFavoritesRows() {
+    return List.generate(_favorites.length, (index) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(padding: EdgeInsets.all(10.0)),
+          Flexible(
+            fit: FlexFit.tight,
+            flex: 8,
+            child: Text(_favorites[index], style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                onPressed: (){
+                  handleRemoveFavorite(_favorites[index]);
+                  },
+                icon: Icon(Icons.delete, color: Colors.deepPurple.shade700, size: 30.0,),
+              ),
+            ],
+          ),
+        ],
+      );
+    });
   }
 
 }
