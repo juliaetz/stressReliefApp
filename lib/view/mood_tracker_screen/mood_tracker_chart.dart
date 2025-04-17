@@ -41,6 +41,8 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
     // COUNTS TOTAL MOOD ENTRIES TO CONVERT TO PERCENTAGE
     final total = counts.fold(0, (sum, value) => sum + value);
 
+
+    // USE ASPECT RATIO TO INCLUDE CHART ANIMATION
     return AspectRatio(
       aspectRatio: 2.0,
       child: Row(
@@ -84,6 +86,7 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                     final percentage = total == 0
                         ? 0
                         : ((counts[i] / total) * 100).toStringAsFixed(0);
+
 
                     return PieChartSectionData(
                       color: colors[i],

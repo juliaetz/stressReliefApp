@@ -8,12 +8,15 @@
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/mood_tracker_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/mood_tracker_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presenter/mood_tracker_presenter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presenter/mood_tracker_presenter.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_history_summary.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_history_summary.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_bar.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_chart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_chart.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
