@@ -54,7 +54,7 @@ class _JournalViewState extends State<JournalView>{
                     JournalModel entry = widget.presenter.getEntries()[index];
                     return ListTile(
                       title: Text(entry.text),
-                      subtitle: Text('${entry.timestamp.toLocal()}'.split(' ')[0]),
+                      subtitle: Text('${entry.date}'.split(' ')[0]),
                       );
                     }
                 ),

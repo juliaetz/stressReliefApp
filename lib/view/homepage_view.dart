@@ -11,6 +11,7 @@ import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
 import 'mood_tracker_screen/mood_tracker_view.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 //class to help create buttons
@@ -58,7 +59,7 @@ class Button extends StatelessWidget{
         }else if(pageID == 4){
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => JournalView(presenter: JournalPresenter()))
+              MaterialPageRoute(builder:(context) => JournalView(presenter: JournalPresenter(firestore: FirebaseFirestore.instance),),)
           );
         } else if(pageID == 5){
           Navigator.push(

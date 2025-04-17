@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 
 class JournalModel{
-    String text;
-    DateTime timestamp;
+    final String text;
+    final String date;
 
     JournalModel ({
         required this.text,
-        required this.timestamp,
+        required this.date,
     });
 
     Map<String, dynamic> toMap(){
         return{
-            text: 'text',
-            timestamp.toIso8601String(): 'timestamp'
+            'text': text,
+            'date': date,
         };
     }
 
     static JournalModel fromMap(Map<String, dynamic> map){
         return JournalModel(
             text: map['text'],
-            timestamp: DateTime.parse(map['timestamp']),
+            date: map['timestamp'],
         );
     }
 

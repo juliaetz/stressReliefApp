@@ -212,7 +212,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView>{
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder:(context) => JournalView(presenter: JournalPresenter(),),)
+                    MaterialPageRoute(builder:(context) => JournalView(presenter: JournalPresenter(firestore: FirebaseFirestore.instance),),)
                   );
                 }
               ),
