@@ -52,6 +52,10 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
     this.widget.presenter.removeFavorite(idea!);
   }
 
+  void handleUserFavorite(String? idea){
+    this.widget.presenter.makeUserFavorite(idea!);
+  }
+
   @override
   void updateSelectedIndex(int index){
     setState(() {
@@ -278,7 +282,7 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
                 ),
                 style: TextStyle(fontSize: 25.0, color: Colors.black),
                 onSubmitted: (String value) async {
-                  print(value);
+                  handleUserFavorite(value);
                   controller.clear();
                 },
               ),

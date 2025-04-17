@@ -13,6 +13,7 @@ class SelfcarePresenter {
   void updateFilter(String value){}
   void updateFavoritesList(){}
   void removeFavorite(String idea){}
+  void makeUserFavorite(String idea){}
   set selfcareView(SelfcareView value){}
 }
 
@@ -70,7 +71,6 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
     if(_viewModel.pageIndex == 0){
       page = _view.IdeasPage();
     } else {
-      //page = FavoritesPage();
       page = _view.FavoritesPage();
     }
 
@@ -196,5 +196,18 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
         });
 
     refRemove.doc(id).delete();
+  }
+
+  @override
+  void makeUserFavorite(String idea) async {
+    _viewModel.favoritesDatabaseReference.doc().set(
+      {
+        "Idea": idea,
+        "Filter": 'User made',
+      });
+    _viewModel.favoritesList.add(idea);
+
+    _view.updateFavorites(_viewModel.favoritesList);
+    updatePage(_viewModel.pageIndex);
   }
 }
