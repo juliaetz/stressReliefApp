@@ -41,14 +41,10 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
     // COUNTS TOTAL MOOD ENTRIES TO CONVERT TO PERCENTAGE
     final total = counts.fold(0, (sum, value) => sum + value);
 
-
     return AspectRatio(
       aspectRatio: 2.0,
       child: Row(
-
         children: <Widget>[
-
-
           Expanded(
             child: AspectRatio(
               aspectRatio: 1,
@@ -57,7 +53,6 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                   pieTouchData: PieTouchData(
                     touchCallback: (event, pieTouchResponse) {
                       setState(() {
-
                         // RESET TOUCH INDEX IF NOTHING IS BEING TOUCHED
                         if (!event.isInterestedForInteractions ||
                             pieTouchResponse == null ||
@@ -66,11 +61,11 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                           return;
                         }
                         // SET TOUCHED INDEX TO HIGHLIGHT SECTION
-                        touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                        touchedIndex = pieTouchResponse
+                            .touchedSection!.touchedSectionIndex;
                       });
                     },
                   ),
-
 
                   borderData: FlBorderData(show: false),
                   sectionsSpace: 5,
@@ -81,18 +76,18 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                     final isTouched = i == touchedIndex;
                     final double radius = isTouched ? 70 : 60;
                     final double fontSize = isTouched ? 18 : 14;
-                    final shadows = [const Shadow(color: Colors.black45, blurRadius: 2)];
-
+                    final shadows = [
+                      const Shadow(color: Colors.black45, blurRadius: 2)
+                    ];
 
                     // CALCULATE PERCENTAGE FOR EACH SECTION
-                    final percentage = total == 0 ? 0 : ((counts[i] / total) * 100).toStringAsFixed(0);
-
-
+                    final percentage = total == 0
+                        ? 0
+                        : ((counts[i] / total) * 100).toStringAsFixed(0);
 
                     return PieChartSectionData(
                       color: colors[i],
-                      value: counts[i].toDouble(),  // NUMERIC VALUE
-                      //title: '${moods[i].toUpperCase()}\n$percentage%',   // MOOD LABEL AND % VALUE
+                      value: counts[i].toDouble(),  // NUMERIC VALUE FORM
                       title: '$percentage%',    // ONLY SHOW PERCENTAGE
                       radius: radius,
                       titleStyle: TextStyle(
@@ -110,7 +105,6 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
 
           const SizedBox(width: 24),
 
-
           // MOOD LEGEND
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +114,6 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Row(
                   children: [
-
                     // THE COLORED CIRCLES FOR LEGEND
                     Container(
                       width: 12,
@@ -140,13 +133,8 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
             }),
           ),
           const SizedBox(width: 13),
-
-
-
-
         ],
       ),
     );
   }
 }
-
