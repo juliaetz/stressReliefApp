@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'selfcare_view.dart';
 import 'package:stress_managment_app/presenter/selfcare_presenter.dart';
 import 'homePage_view.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 
 class SelfcarePage extends StatefulWidget {
@@ -54,6 +55,10 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
 
   void handleUserFavorite(String? idea){
     this.widget.presenter.makeUserFavorite(idea!);
+  }
+
+  void handleScheduledIdea(String? idea, DateTime? date, TimeOfDay? time){
+
   }
 
   @override
@@ -318,6 +323,26 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+              IconButton(
+                  onPressed: () async {
+                    DateTime? scheduledDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2025),
+                        lastDate: DateTime(2100),
+                    );
+                    if(scheduledDate != null) {
+                      TimeOfDay? scheduledTime = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                      if(scheduledTime != null){
+                        handleScheduledIdea(_favorites[index], scheduledDate, scheduledTime);
+                      }
+                    }
+                  },
+                  icon: Icon(Icons.calendar_month, color: Colors.deepPurple.shade700, size: 30.0,),
+              ),
               IconButton(
                 onPressed: (){
                   handleRemoveFavorite(_favorites[index]);
