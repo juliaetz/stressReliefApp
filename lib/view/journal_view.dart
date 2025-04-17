@@ -18,7 +18,7 @@ class _JournalViewState extends State<JournalView>{
   final controller = TextEditingController();
 
   void addEntry(String text){
-    //widget.presenter.addEntry();
+    widget.presenter.addEntry(Entry(text: text, date: DateTime.now().toString()));
     controller.clear();
 
     setState(() {
