@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
+
 class RewardsModel{
 
   //Constructor
@@ -10,9 +11,10 @@ class RewardsModel{
   }
 
   //Variable Initialization
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   int streakCounter = 0;
   List<RewardData> rewards = [];
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
 
   //Initialize Rewards (Called from constructor)
   List<RewardData> getRewards() {
@@ -55,32 +57,56 @@ class RewardsModel{
   // Google Gemini created from outline of tasks
   Future<void> updateProgressFromDatabase() async {
 
-    // Mood Tracking
-    List<String> trackedDates = [];
+    final variableSnapshot = await firestore.collection('Persistent_Variables').get();
+    int maxStreak = variableSnapshot.docs[0]['maxStreak'];
+
+    // Mood Tracking (Altered after Gemini)
+    List<DateTime> trackedDates = [];
     final moodSnapshot = await firestore.collection('Mood').get();
     for (var doc in moodSnapshot.docs) {
-      String date = doc['date'];
-      String month = date.substring(5, 7); //6th and 7th
-      String day = date.substring(8, 10); //9th and 10th
-      String formattedDate = "$month-$day";
-      if (!trackedDates.contains(formattedDate)) {
-        trackedDates.add(formattedDate);
+      int year = int.parse(doc['date'].substring(0, 4));
+      int month = int.parse(doc['date'].substring(5, 7));
+      int day = int.parse(doc['date'].substring(8, 10));
+      DateTime date = DateTime(year, month, day);
+      if (!trackedDates.contains(date)) {
+        trackedDates.add(date);
       }
     }
-    streakCounter = trackedDates.length;
+    trackedDates.sort((b, a) => a.compareTo(b)); //Sort dates from most recent to oldest
+    DateTime today = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+    DateTime yesterday = today.subtract(Duration(days: 1));
+    //Check that streak is still active
+    DateTime mostRecentDate = trackedDates[0];
+    if (mostRecentDate == today || mostRecentDate == yesterday) {
+      //Iterate through days to check how long streak is
+      DateTime lastDateChecked = mostRecentDate;
+      for (var date in trackedDates) {
+        //Keeps increasing streak as long as dates are consecutive and stops once it finds a day that was missed
+        if (date == (lastDateChecked.subtract(Duration(days: 1))) || date == mostRecentDate) {
+          streakCounter++;
+          lastDateChecked = date;
+        } else {
+          break;
+        }
+      }
+    }
+    if (streakCounter > maxStreak) {
+      maxStreak = streakCounter;
+      await variableSnapshot.docs[0].reference.update({'maxStreak': maxStreak});
+    }
     for (int i = 0; i <= 3; i++) {
-      rewards[i].setCurrentProgress(streakCounter);
+      rewards[i].setCurrentProgress(maxStreak);
     }
 
     // Activity Logging
-    int activityCounter = 0;
-    final activitySnapshot = await firestore.collection('Activities').get();
-    for (var doc in activitySnapshot.docs) {
-      List activities = doc['Activities'].split(',');
-      activityCounter += activities.length;
+    int eventCounter = 0;
+    final eventSnapshot = await firestore.collection('events').get();
+    for (var doc in eventSnapshot.docs) {
+      List events = doc['events'];
+      eventCounter += events.length;
     }
     for (int i = 4; i <= 7; i++) {
-      rewards[i].setCurrentProgress(activityCounter);
+      rewards[i].setCurrentProgress(eventCounter);
     }
 
     // Self Care Finding
