@@ -11,9 +11,10 @@ class RewardsModel{
   }
 
   //Variable Initialization
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   int streakCounter = 0;
   List<RewardData> rewards = [];
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
 
   //Initialize Rewards (Called from constructor)
   List<RewardData> getRewards() {
@@ -56,6 +57,9 @@ class RewardsModel{
   // Google Gemini created from outline of tasks
   Future<void> updateProgressFromDatabase() async {
 
+    final variableSnapshot = await firestore.collection('Persistent_Variables').get();
+    int maxStreak = variableSnapshot.docs[0]['maxStreak'];
+
     // Mood Tracking (Altered after Gemini)
     List<DateTime> trackedDates = [];
     final moodSnapshot = await firestore.collection('Mood').get();
@@ -86,8 +90,12 @@ class RewardsModel{
         }
       }
     }
+    if (streakCounter > maxStreak) {
+      maxStreak = streakCounter;
+      await variableSnapshot.docs[0].reference.update({'maxStreak': maxStreak});
+    }
     for (int i = 0; i <= 3; i++) {
-      rewards[i].setCurrentProgress(streakCounter);
+      rewards[i].setCurrentProgress(maxStreak);
     }
 
     // Activity Logging
