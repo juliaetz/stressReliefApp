@@ -3,72 +3,108 @@ import 'package:flutter/material.dart';
 import 'package:stress_managment_app/presenter/mood_tracker_presenter.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_bar.dart';
 
-// MOOD OPTIONS
-enum MoodType { happy, neutral, sad, angry }
-
-// MAKE THE PAGE
-class MoodHistorySummary extends StatefulWidget {
-  @override
-  _MoodHistorySummaryState createState() => _MoodHistorySummaryState();
-}
-
-class _MoodHistorySummaryState extends State<MoodHistorySummary> {
+class MoodHistorySummary extends StatelessWidget {
   final MoodTrackerPresenter _presenter =
       MoodTrackerPresenter(firestore: FirebaseFirestore.instance);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurple[200],
-        title: Text("Mood Summary"),
+    return Container(
+
+      // BACKGROUND IMAGE
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/purple_background.jpg"),
+          fit: BoxFit.cover,
+        ),
       ),
-      body: Column(
-        children: [
-          SizedBox(height: 100),
 
-          // DISPLAY SAVED MOODS FROM DATABASE ON CHART
-          Expanded(
-            child: StreamBuilder(
-                stream: _presenter.getMoods(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text("No moods saved yet!"));
-                  }
-                  final moods = snapshot.data!;
 
-                  // COUNT THE USER CLICKS
-                  int happyCount = 0;
-                  int neutralCount = 0;
-                  int sadCount = 0;
-                  int angryCount = 0;
+      child: StreamBuilder(
+        stream: _presenter.getMoods(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text("NOTHING SAVED YET!"));
+          }
 
-                  for (var mood in moods) {
-                    if (mood.mood == 'happy') {
-                      happyCount++;
-                    } else if (mood.mood == 'neutral') {
-                      neutralCount++;
-                    } else if (mood.mood == 'sad') {
-                      sadCount++;
-                    } else if (mood.mood == 'angry') {
-                      angryCount++;
-                    }
-                  }
+          final moods = snapshot.data!;
+          int happyCount = 0;
+          int neutralCount = 0;
+          int sadCount = 0;
+          int angryCount = 0;
 
-                  // DISPLAY BAR CHART
-                  return MoodTrackerBarChart(
-                      happyCount: happyCount,
-                      neutralCount: neutralCount,
-                      sadCount: sadCount,
-                      angryCount: angryCount);
-                }),
-          ),
+          for (var mood in moods) {
+            switch (mood.mood) {
+              case 'happy':
+                happyCount++;
+                break;
+              case 'neutral':
+                neutralCount++;
+                break;
+              case 'sad':
+                sadCount++;
+                break;
+              case 'angry':
+                angryCount++;
+                break;
+            }
+          }
 
-          SizedBox(height: 100),
-        ],
+          // MAP TO THE MOST FREQUENT MOOD
+          Map<String, int> moodCounts = {
+            'happy': happyCount,
+            'neutral': neutralCount,
+            'sad': sadCount,
+            'angry': angryCount,
+          };
+          String mostFrequentMood =
+              moodCounts.entries.reduce((a, b) => a.value >= b.value ? a : b).key;
+
+          // MAP THE MOOD TO DESIGNATED EMOJI
+          Map<String, String> moodEmojis = {
+            'happy': '😊',
+            'neutral': '😐',
+            'sad': '😢',
+            'angry': '😠',
+          };
+
+          // DISPLAY MESSAGE
+          String moodEmoji = moodEmojis[mostFrequentMood] ?? '';
+          String moodMessage =
+              "the mood you've been frequently feeling is $moodEmoji ${mostFrequentMood.toUpperCase()}!";
+
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // MOOD MESSAGE
+              Padding(
+                padding: const EdgeInsets.all(23.0),
+                child: Text(
+                  moodMessage,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple,
+                  ),
+                ),
+              ),
+
+              // DISPLAY BAR CHART
+              Expanded(
+                child: MoodTrackerBarChart(
+                  happyCount: happyCount,
+                  neutralCount: neutralCount,
+                  sadCount: sadCount,
+                  angryCount: angryCount,
+                ),
+              ),
+              SizedBox(height: 40),
+            ],
+          );
+        },
       ),
     );
   }

@@ -21,8 +21,10 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
   final MoodTrackerPresenter _presenter =
       MoodTrackerPresenter(firestore: FirebaseFirestore.instance);
 
+
   // START SELECTED MOOD AS NULL
   MoodType? _selectedMood;
+
 
   // CLEAR ALL MOODS
   void _clearSelection() {
@@ -30,6 +32,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
       _selectedMood = null;
     });
   }
+
 
   // CONFIRMATION TO DELETE ALL MOODS
   void _showConfirmDialog() {
@@ -41,13 +44,16 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
             content: Text(
                 "Are you sure you would like to delete ALL mood data? This action CANNOT be undone!"),
             actions: [
+
+              // CANCEL BUTTON
               TextButton(
                 onPressed: () {
-                  // CANCEL BUTTON
                   Navigator.of(context).pop();
                 },
                 child: Text("CANCEL"),
               ),
+
+
               TextButton(
                   onPressed: () async {
                     // DELETE ALL MOODS AND CLOSE DIALOG BOX
@@ -60,6 +66,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
         });
   }
 
+
   // CLEAR MOOD DATA FROM FIRESTORE DATABASE
   Future<void> _clearMoodData() async {
     await _presenter.clearAllMoods();
@@ -68,6 +75,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
       SnackBar(content: Text("All mood entries have been cleared!")),
     );
   }
+
 
   // SAVE MOODS TO DATABASE
   void _saveMood() {
@@ -80,6 +88,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,195 +97,208 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
         backgroundColor: Colors.deepPurple[200],
         title: Text("Mood Tracker"),
       ),
-      body: Column(
-        children: [
-          // TEXT "HOW ARE YOU FEELING TODAY?"
-          Padding(
-            padding: EdgeInsets.all(3.0),
-            child: Text(
-              "How are you feeling today?",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple[600]),
+      body: Container(
+
+        // BACKGROUND IMAGE
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/purple_background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+
+
+        child: Column(
+          children: [
+
+            // TEXT "HOW ARE YOU FEELING TODAY?"
+            Padding(
+              padding: EdgeInsets.all(3.0),
+              child: Text(
+                "How are you feeling today?",
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurple[600]),
+              ),
             ),
-          ),
-          SizedBox(height: 10),
+            SizedBox(height: 10),
 
-          // MOOD ICONS ROW -- FACE BUTTONS
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // HAPPY ICON BUTTON
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedMood = MoodType.happy;
-                  });
-                },
-                child: Image.asset(
-                    'lib/view/mood_tracker_screen/face_icons/happiness.png',
-                    width: 70,
-                    height: 70,
-                    color: _selectedMood == MoodType.happy
-                        ? Colors.greenAccent[400]
-                        : Colors.black),
-              ),
-              SizedBox(width: 15),
 
-              // NEUTRAL ICON BUTTON
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedMood = MoodType.neutral;
-                  });
-                },
-                child: Image.asset(
-                    'lib/view/mood_tracker_screen/face_icons/neutral-face.png',
-                    width: 70,
-                    height: 70,
-                    color: _selectedMood == MoodType.neutral
-                        ? Colors.yellow[600]
-                        : Colors.black),
-              ),
-              SizedBox(width: 15),
+            // MOOD ICONS ROW -- FACE BUTTONS
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
 
-              // SAD ICON BUTTON
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedMood = MoodType.sad;
-                  });
-                },
-                child: Image.asset(
-                    'lib/view/mood_tracker_screen/face_icons/sad-face.png',
-                    width: 70,
-                    height: 70,
-                    color: _selectedMood == MoodType.sad
-                        ? Colors.cyan[700]
-                        : Colors.black),
-              ),
-              SizedBox(width: 15),
+                // HAPPY ICON BUTTON
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedMood = MoodType.happy;
+                    });
+                  },
+                  child: Image.asset(
+                      'lib/view/mood_tracker_screen/face_icons/happiness.png',
+                      width: 70,
+                      height: 70,
+                      color: _selectedMood == MoodType.happy
+                          ? Colors.greenAccent[400]
+                          : Colors.blueGrey),
+                ),
+                SizedBox(width: 15),
 
-              // ANGRY ICON BUTTON
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedMood = MoodType.angry;
-                  });
-                },
-                child: Image.asset(
-                    'lib/view/mood_tracker_screen/face_icons/angry.png',
-                    width: 77,
-                    height: 77,
-                    color: _selectedMood == MoodType.angry
-                        ? Colors.pink[700]
-                        : Colors.black),
-              ),
-            ],
-          ),
+                // NEUTRAL ICON BUTTON
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedMood = MoodType.neutral;
+                    });
+                  },
+                  child: Image.asset(
+                      'lib/view/mood_tracker_screen/face_icons/neutral-face.png',
+                      width: 70,
+                      height: 70,
+                      color: _selectedMood == MoodType.neutral
+                          ? Colors.yellow[600]
+                          : Colors.blueGrey),
+                ),
+                SizedBox(width: 15),
 
-          // SAVES MOOD
-          SizedBox(height: 15),
-          ElevatedButton(
-            onPressed: _saveMood,
-            child: Text('SAVE THIS SELECTION',
-                style: TextStyle(fontSize: 17, color: Colors.deepPurple[700])),
-          ),
-          SizedBox(height: 20),
+                // SAD ICON BUTTON
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedMood = MoodType.sad;
+                    });
+                  },
+                  child: Image.asset(
+                      'lib/view/mood_tracker_screen/face_icons/sad-face.png',
+                      width: 70,
+                      height: 70,
+                      color: _selectedMood == MoodType.sad
+                          ? Colors.cyan[500]
+                          : Colors.blueGrey),
+                ),
+                SizedBox(width: 15),
 
-          // ADDITIONAL BUTTONS
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // BUTTON TO NAVIGATE TO JOURNAL PAGE (WILL ADD WHEN IT'S READY!)
-              ElevatedButton.icon(
-                  icon: Icon(Icons.book_outlined,
-                      color: Colors.deepPurpleAccent[700], size: 25),
-                  label: Text("JOURNAL!", style: TextStyle(fontSize: 12)),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => JournalView(
-                            presenter: JournalPresenter(),
-                          ),
-                        ));
-                  }),
-              SizedBox(width: 10),
+                // ANGRY ICON BUTTON
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedMood = MoodType.angry;
+                    });
+                  },
+                  child: Image.asset(
+                      'lib/view/mood_tracker_screen/face_icons/angry.png',
+                      width: 77,
+                      height: 77,
+                      color: _selectedMood == MoodType.angry
+                          ? Colors.pink[700]
+                          : Colors.blueGrey),
+                ),
+              ],
+            ),
 
-              // BUTTON TO CLEAR ALL MOOD DATA
-              ElevatedButton.icon(
-                onPressed: _showConfirmDialog,
-                icon: Icon(Icons.delete_forever,
-                    color: Colors.red[700], size: 25),
-                label: Text("CLEAR MOOD DATA", style: TextStyle(fontSize: 12)),
-              ),
-            ],
-          ),
 
-          // DISPLAY THE SAVED MOODS
-          Expanded(
-              child: StreamBuilder(
-                  stream: _presenter.getMoods(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return Center(child: Text("THERE'S NOTHING HERE..."));
-                    }
-                    final moods = snapshot.data!;
+            // SAVES MOOD
+            SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: _saveMood,
+              child: Text('SAVE THIS SELECTION',
+                  style: TextStyle(fontSize: 17, color: Colors.deepPurple[700])),
+            ),
+            SizedBox(height: 20),
 
-                    // COUNT THE NUMBER OF TIMES USER CLICKS ON A MOOD
-                    int happyCount = 0;
-                    int neutralCount = 0;
-                    int sadCount = 0;
-                    int angryCount = 0;
 
-                    for (var mood in moods) {
-                      if (mood.mood == 'happy') {
-                        happyCount++;
-                      } else if (mood.mood == 'neutral') {
-                        neutralCount++;
-                      } else if (mood.mood == 'sad') {
-                        sadCount++;
-                      } else if (mood.mood == 'angry') {
-                        angryCount++;
+            // ADDITIONAL BUTTONS
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // BUTTON TO NAVIGATE TO JOURNAL PAGE (WILL ADD WHEN IT'S READY!)
+                ElevatedButton.icon(
+                    icon: Icon(Icons.book_outlined,
+                        color: Colors.deepPurpleAccent[700], size: 25),
+                    label: Text("JOURNAL!", style: TextStyle(fontSize: 12)),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => JournalView(
+                              presenter: JournalPresenter(),
+                            ),
+                          ));
+                    }),
+                SizedBox(width: 10),
+
+                // BUTTON TO CLEAR ALL MOOD DATA
+                ElevatedButton.icon(
+                  onPressed: _showConfirmDialog,
+                  icon: Icon(Icons.delete_forever,
+                      color: Colors.red[700], size: 25),
+                  label: Text("CLEAR MOOD DATA", style: TextStyle(fontSize: 12)),
+                ),
+              ],
+            ),
+
+            // DISPLAY THE SAVED MOODS
+            Expanded(
+                child: StreamBuilder(
+                    stream: _presenter.getMoods(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
                       }
-                    }
+                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return Center(child: Text("THERE'S NOTHING HERE..."));
+                      }
+                      final moods = snapshot.data!;
 
-                    // DISPLAY THE CHART
-                    return MoodTrackerChart(
-                        happyCount: happyCount,
-                        neutralCount: neutralCount,
-                        sadCount: sadCount,
-                        angryCount: angryCount);
-                  })),
-          SizedBox(height: 30),
+                      // COUNT THE NUMBER OF TIMES USER CLICKS ON A MOOD
+                      int happyCount = 0;
+                      int neutralCount = 0;
+                      int sadCount = 0;
+                      int angryCount = 0;
 
-          // BUTTON TO NAVIGATE TO MOOD HISTORY PAGE
-          ElevatedButton.icon(
-            // CHANGE BUTTON COLOR WHEN PRESSED
-            style: ButtonStyle(
+                      for (var mood in moods) {
+                        if (mood.mood == 'happy') {
+                          happyCount++;
+                        } else if (mood.mood == 'neutral') {
+                          neutralCount++;
+                        } else if (mood.mood == 'sad') {
+                          sadCount++;
+                        } else if (mood.mood == 'angry') {
+                          angryCount++;
+                        }
+                      }
 
+                      // DISPLAY THE CHART
+                      return MoodTrackerChart(
+                          happyCount: happyCount,
+                          neutralCount: neutralCount,
+                          sadCount: sadCount,
+                          angryCount: angryCount);
+                    })),
+            SizedBox(height: 30),
+
+            // BUTTON TO NAVIGATE TO MOOD HISTORY PAGE
+            ElevatedButton.icon(
+              // CHANGE BUTTON COLOR WHEN PRESSED
+              style: ButtonStyle(),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HistoryPage(BasicHistoryPresenter(),
+                            title: 'HISTORY', key: const Key('HISTORY'))));
+              },
+              icon: Icon(Icons.face_retouching_natural_sharp,
+                  color: Colors.indigo[600], size: 25),
+              label: Text("VIEW YOUR HISTORY!", style: TextStyle(fontSize: 13)),
             ),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HistoryPage(BasicHistoryPresenter(),
-                          title: 'HISTORY', key: const Key('HISTORY'))));
-            },
-            icon: Icon(Icons.face_retouching_natural_sharp,
-                color: Colors.indigo[600], size: 25),
-            label: Text("VIEW YOUR HISTORY!", style: TextStyle(fontSize: 13)),
-          ),
-          SizedBox(height: 100),
-        ],
+            SizedBox(height: 100),
+          ],
+        ),
       ),
-
-
     );
   }
 
@@ -290,18 +312,17 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
               builder: (context) => HomePage(),
             ));
       },
+
       // "HOME" ICON BUTTON
       child: Icon(Icons.house, color: Colors.white),
       style: FilledButton.styleFrom(
         shape: CircleBorder(
-            side: BorderSide(color: Colors.deepPurple.shade200, width: 8)
-        ),
+            side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
         padding: EdgeInsets.all(5),
         backgroundColor: Colors.deepPurple.shade700,
         foregroundColor: Colors.deepPurple.shade700,
       ),
     );
+
   }
-
-
 }

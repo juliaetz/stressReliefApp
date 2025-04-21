@@ -34,15 +34,14 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
     final colors = [
       Colors.greenAccent[400]!,
       Colors.yellow[600]!,
-      Colors.cyan[700]!,
+      Colors.cyan[500]!,
       Colors.pink[700]!,
     ];
 
     // COUNTS TOTAL MOOD ENTRIES TO CONVERT TO PERCENTAGE
     final total = counts.fold(0, (sum, value) => sum + value);
 
-
-    // USE ASPECT RATIO TO INCLUDE CHART ANIMATION
+    // USE ASPECT RATIO FOR SPACING AND CHART ANIMATION
     return AspectRatio(
       aspectRatio: 2.0,
       child: Row(
@@ -52,6 +51,7 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
               aspectRatio: 1,
               child: PieChart(
                 PieChartData(
+                  // PIE CHART ANIMATION
                   pieTouchData: PieTouchData(
                     touchCallback: (event, pieTouchResponse) {
                       setState(() {
@@ -62,7 +62,7 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                           touchedIndex = -1;
                           return;
                         }
-                        // SET TOUCHED INDEX TO HIGHLIGHT SECTION
+                        // SET TOUCHED INDEX TO "HIGHLIGHTED" SECTION
                         touchedIndex = pieTouchResponse
                             .touchedSection!.touchedSectionIndex;
                       });
@@ -70,14 +70,14 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                   ),
 
                   borderData: FlBorderData(show: false),
-                  sectionsSpace: 5,
-                  centerSpaceRadius: 60,
+                  sectionsSpace: 7,
+                  centerSpaceRadius: 50,
 
-                  // BUILD PIE CHART SECTIONS
+                  // PIE CHART SECTIONS
                   sections: List.generate(4, (i) {
                     final isTouched = i == touchedIndex;
-                    final double radius = isTouched ? 70 : 60;
-                    final double fontSize = isTouched ? 18 : 14;
+                    final double radius = isTouched ? 100 : 80;
+                    final double fontSize = isTouched ? 23 : 17;
                     final shadows = [
                       const Shadow(color: Colors.black45, blurRadius: 2)
                     ];
@@ -87,15 +87,17 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                         ? 0
                         : ((counts[i] / total) * 100).toStringAsFixed(0);
 
-
+                    // FORMAT PIE CHART SECTIONS
                     return PieChartSectionData(
                       color: colors[i],
-                      value: counts[i].toDouble(),  // NUMERIC VALUE FORM
-                      title: '$percentage%',    // ONLY SHOW PERCENTAGE
+                      value: counts[i].toDouble(),
+                      // NUMERIC VALUE FORM
+                      title: '$percentage%',
+                      // ONLY SHOW PERCENTAGE
                       radius: radius,
                       titleStyle: TextStyle(
                         fontSize: fontSize,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         color: Colors.black,
                         shadows: shadows,
                       ),

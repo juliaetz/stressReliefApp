@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_history_summary.dart';
-import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_view.dart';
 import 'history_view.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'homePage_view.dart';
@@ -48,8 +47,21 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     this.widget.presenter.updateScreen();
   }
 
+
   void handlePageChange(int index){
-    this.widget.presenter.updatePage(index);
+    setState((){
+      _selectedIndex = index;
+
+      if(index == 0){
+        _page = DailyHistoryPage();
+      }
+      else if (index == 1){
+        _page = ActivityGraph();
+      }
+      else if (index == 2){
+        _page = MoodHistorySummary();
+      }
+    });
   }
 
 
@@ -108,7 +120,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
             label: 'History',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
+            icon: Icon(Icons.stacked_line_chart_outlined),
             label: 'Activity Graph',
           ),
           BottomNavigationBarItem(
@@ -117,20 +129,11 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
           )
         ],
 
+
         currentIndex: _selectedIndex,
         onTap: (int index){
           setState(() {
             handlePageChange(index);
-
-
-            if(_selectedIndex == 2){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder:(context) => MoodHistorySummary(),)
-              );
-            }
-
-
           });
         },
       ),
