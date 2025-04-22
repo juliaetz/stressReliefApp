@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Began refactoring the journal MVP files to better allow for Firebase integation">
-      <change beforePath="$PROJECT_DIR$/lib/model/journal_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/journal_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presenter/journal_presenter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presenter/journal_presenter.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/journal_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/journal_view.dart" afterDir="false" />
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Fixed the addEntry call in the view">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,7 +226,23 @@
       <option name="project" value="LOCAL" />
       <updated>1744918695155</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="created a function that adds entries to firebase">
+      <option name="closed" value="true" />
+      <created>1744919964905</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1744919964905</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Fixed the addEntry call in the view">
+      <option name="closed" value="true" />
+      <created>1744920010975</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1744920010975</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -261,6 +275,8 @@
     <MESSAGE value="Final Commit for the day" />
     <MESSAGE value="initial commit" />
     <MESSAGE value="Began refactoring the journal MVP files to better allow for Firebase integation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Began refactoring the journal MVP files to better allow for Firebase integation" />
+    <MESSAGE value="created a function that adds entries to firebase" />
+    <MESSAGE value="Fixed the addEntry call in the view" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed the addEntry call in the view" />
   </component>
 </project>
