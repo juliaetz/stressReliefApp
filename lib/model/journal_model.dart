@@ -15,6 +15,10 @@ class Entry{
     }
 
     factory Entry.fromMap(Map<String, dynamic> map){
+        if(!map.containsKey('text') || !map.containsKey('date')){
+            throw Exception('Invalid entry map');
+        }
+
         return Entry(
             text: map['text']??'',
             date: map['date']??'',
