@@ -48,7 +48,14 @@ class _CalendarViewState extends State<CalendarView> {
             title: Text('Planner'),
             backgroundColor: Colors.deepPurple.shade200,
         ),
-        body: Column(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+            image: AssetImage("assets/purple_background.jpg"),
+            fit: BoxFit.cover,
+            ),
+          ),
+        child: Column(
           children: [
             TableCalendar(
               focusedDay: _focusedDay,
@@ -136,6 +143,7 @@ class _CalendarViewState extends State<CalendarView> {
               ),
             ),
           ],
+        ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
