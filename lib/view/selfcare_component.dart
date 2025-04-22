@@ -58,7 +58,7 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   }
 
   void handleScheduledIdea(String? idea, DateTime? date, TimeOfDay? time){
-
+    this.widget.presenter.scheduleIdea(idea!, date!, time!);
   }
 
   @override
@@ -325,6 +325,7 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
             children: [
               IconButton(
                   onPressed: () async {
+                    TimeOfDay? scheduledTime;
                     DateTime? scheduledDate = await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
@@ -332,13 +333,13 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
                         lastDate: DateTime(2100),
                     );
                     if(scheduledDate != null) {
-                      TimeOfDay? scheduledTime = await showTimePicker(
+                      scheduledTime = await showTimePicker(
                         context: context,
                         initialTime: TimeOfDay.now(),
                       );
-                      if(scheduledTime != null){
-                        handleScheduledIdea(_favorites[index], scheduledDate, scheduledTime);
-                      }
+                    }
+                    if(scheduledTime != null){
+                      handleScheduledIdea(_favorites[index], scheduledDate, scheduledTime);
                     }
                   },
                   icon: Icon(Icons.calendar_month, color: Colors.deepPurple.shade700, size: 30.0,),

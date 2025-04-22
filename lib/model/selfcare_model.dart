@@ -7,6 +7,7 @@ class SelfcareModel{
   String _filterType = "No Filter";
   final ideasDatabaseReference = FirebaseFirestore.instance.collection('Self_Care_Ideas');
   final favoritesDatabaseReference = FirebaseFirestore.instance.collection('Favorite_Ideas');
+  final eventsDatabaseReference = FirebaseFirestore.instance.collection('events');
   int databaseSize = 0;
   int currentIdeaIndex = 0;
   String currentIdea = "";

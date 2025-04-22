@@ -14,6 +14,7 @@ class SelfcarePresenter {
   void updateFavoritesList(){}
   void removeFavorite(String idea){}
   void makeUserFavorite(String idea){}
+  void scheduleIdea(String idea, DateTime date, TimeOfDay time){}
   set selfcareView(SelfcareView value){}
 }
 
@@ -209,5 +210,19 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
 
     _view.updateFavorites(_viewModel.favoritesList);
     updatePage(_viewModel.pageIndex);
+  }
+
+
+  @override
+  void scheduleIdea(String idea, DateTime date, TimeOfDay time){
+    String formattedDate = "${date.year}-${date.month}-${date.day}";
+    Map<String, int> timeData = {'hour': time.hour, 'minute': time.minute};
+
+    _viewModel.eventsDatabaseReference.doc(formattedDate).set({
+      'date': Timestamp.fromDate(date),
+      'events': FieldValue.arrayUnion([
+        {'time': timeData, 'description': idea}
+      ])
+    }, SetOptions(merge: true));
   }
 }
