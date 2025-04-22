@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Attempted to add firebase implementation. Needs fixing.">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/journal_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/journal_model.dart" afterDir="false" />
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Implemented firebase into the journal page.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,7 +258,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745293485456</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Implemented firebase into the journal page.">
+      <option name="closed" value="true" />
+      <created>1745293821683</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1745293821683</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -296,6 +303,7 @@
     <MESSAGE value="Fixed the addEntry call in the view" />
     <MESSAGE value="Added a function that retrieves all entry data from firebase" />
     <MESSAGE value="Attempted to add firebase implementation. Needs fixing." />
-    <option name="LAST_COMMIT_MESSAGE" value="Attempted to add firebase implementation. Needs fixing." />
+    <MESSAGE value="Implemented firebase into the journal page." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented firebase into the journal page." />
   </component>
 </project>
