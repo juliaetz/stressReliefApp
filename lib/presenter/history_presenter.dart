@@ -155,10 +155,8 @@ class BasicHistoryPresenter extends HistoryPresenter{
     return days[weekday];
   }
 
-  //create a new method to get the event counts by day of the week
-  //by using future we can fetch data without freezing the ui
   @override
-  Future<Map<String, int>> getEventCountsByDay() async {
+  Future<Map<String, int>> getEventCountsByDay() async{
     //create a Map<String, int>, where the string is the day of the week, and the int is the number of event occurrences in our firebase
     //we will later be incrementing the int
     Map<String, int> dayCounts = {
@@ -210,4 +208,7 @@ class BasicHistoryPresenter extends HistoryPresenter{
     return dayCounts;
 
   }
+
+  //create a new method to get the event counts by day of the week
+  //by using future we can fetch data without freezing the ui
 }
