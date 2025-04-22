@@ -34,30 +34,27 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
     final colors = [
       Colors.greenAccent[400]!,
       Colors.yellow[600]!,
-      Colors.cyan[700]!,
+      Colors.cyan[500]!,
       Colors.pink[700]!,
     ];
 
     // COUNTS TOTAL MOOD ENTRIES TO CONVERT TO PERCENTAGE
     final total = counts.fold(0, (sum, value) => sum + value);
 
-
+    // USE ASPECT RATIO FOR SPACING AND CHART ANIMATION
     return AspectRatio(
       aspectRatio: 2.0,
       child: Row(
-
         children: <Widget>[
-
-
           Expanded(
             child: AspectRatio(
               aspectRatio: 1,
               child: PieChart(
                 PieChartData(
+                  // PIE CHART ANIMATION
                   pieTouchData: PieTouchData(
                     touchCallback: (event, pieTouchResponse) {
                       setState(() {
-
                         // RESET TOUCH INDEX IF NOTHING IS BEING TOUCHED
                         if (!event.isInterestedForInteractions ||
                             pieTouchResponse == null ||
@@ -65,39 +62,42 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                           touchedIndex = -1;
                           return;
                         }
-                        // SET TOUCHED INDEX TO HIGHLIGHT SECTION
-                        touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                        // SET TOUCHED INDEX TO "HIGHLIGHTED" SECTION
+                        touchedIndex = pieTouchResponse
+                            .touchedSection!.touchedSectionIndex;
                       });
                     },
                   ),
 
-
                   borderData: FlBorderData(show: false),
-                  sectionsSpace: 5,
-                  centerSpaceRadius: 60,
+                  sectionsSpace: 7,
+                  centerSpaceRadius: 50,
 
-                  // BUILD PIE CHART SECTIONS
+                  // PIE CHART SECTIONS
                   sections: List.generate(4, (i) {
                     final isTouched = i == touchedIndex;
-                    final double radius = isTouched ? 70 : 60;
-                    final double fontSize = isTouched ? 18 : 14;
-                    final shadows = [const Shadow(color: Colors.black45, blurRadius: 2)];
-
+                    final double radius = isTouched ? 100 : 80;
+                    final double fontSize = isTouched ? 23 : 17;
+                    final shadows = [
+                      const Shadow(color: Colors.black45, blurRadius: 2)
+                    ];
 
                     // CALCULATE PERCENTAGE FOR EACH SECTION
-                    final percentage = total == 0 ? 0 : ((counts[i] / total) * 100).toStringAsFixed(0);
+                    final percentage = total == 0
+                        ? 0
+                        : ((counts[i] / total) * 100).toStringAsFixed(0);
 
-
-
+                    // FORMAT PIE CHART SECTIONS
                     return PieChartSectionData(
                       color: colors[i],
-                      value: counts[i].toDouble(),  // NUMERIC VALUE
-                      //title: '${moods[i].toUpperCase()}\n$percentage%',   // MOOD LABEL AND % VALUE
-                      title: '$percentage%',    // ONLY SHOW PERCENTAGE
+                      value: counts[i].toDouble(),
+                      // NUMERIC VALUE FORM
+                      title: '$percentage%',
+                      // ONLY SHOW PERCENTAGE
                       radius: radius,
                       titleStyle: TextStyle(
                         fontSize: fontSize,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w500,
                         color: Colors.black,
                         shadows: shadows,
                       ),
@@ -110,7 +110,6 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
 
           const SizedBox(width: 24),
 
-
           // MOOD LEGEND
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +119,6 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Row(
                   children: [
-
                     // THE COLORED CIRCLES FOR LEGEND
                     Container(
                       width: 12,
@@ -140,13 +138,8 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
             }),
           ),
           const SizedBox(width: 13),
-
-
-
-
         ],
       ),
     );
   }
 }
-
