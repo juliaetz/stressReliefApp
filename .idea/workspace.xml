@@ -4,32 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="misc">
-      <change afterPath="$PROJECT_DIR$/lib/auth_gate.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/model/login_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/mood_tracker_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/mood_tracker_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/rewards_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/rewards_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/presenter/mood_tracker_presenter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presenter/mood_tracker_presenter.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/history_component.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/history_component.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/homepage_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/homepage_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_history_summary.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_history_summary.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_chart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_chart.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/mood_tracker_screen/mood_tracker_view.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
-    </list>
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Added the purple background to the Journal page." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +41,7 @@
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "Merging journalFirebaseIntegration",
+    "git-widget-placeholder": "consistentBackground",
     "io.flutter.reload.alreadyRun": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/marti/Downloads",
@@ -289,7 +264,39 @@
       <option name="project" value="LOCAL" />
       <updated>1745293821683</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1745351413049</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1745351413049</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Added the purple background to the home page.">
+      <option name="closed" value="true" />
+      <created>1745351532386</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1745351532387</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Added the purple background to the planner page.">
+      <option name="closed" value="true" />
+      <created>1745351780090</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1745351780090</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Added the purple background to the Journal page.">
+      <option name="closed" value="true" />
+      <created>1745351931042</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1745351931042</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -304,9 +311,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="commit generated plugin (trying to resolving merge conflicts)" />
-    <MESSAGE value="commit generated plugin (trying to resolving merge conflicts x2)" />
-    <MESSAGE value="misc." />
     <MESSAGE value="Created MVP files for the journal" />
     <MESSAGE value="Added functionality to journal_view.dart. Added a button on the home menu to access the journal page" />
     <MESSAGE value="fixed formatting of early journal page. changed the naming scheme of the home page view" />
@@ -328,6 +332,10 @@
     <MESSAGE value="Attempted to add firebase implementation. Needs fixing." />
     <MESSAGE value="Implemented firebase into the journal page." />
     <MESSAGE value="misc" />
-    <option name="LAST_COMMIT_MESSAGE" value="misc" />
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="Added the purple background to the home page." />
+    <MESSAGE value="Added the purple background to the planner page." />
+    <MESSAGE value="Added the purple background to the Journal page." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the purple background to the Journal page." />
   </component>
 </project>
