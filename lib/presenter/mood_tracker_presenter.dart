@@ -7,25 +7,25 @@ class MoodTrackerPresenter {
   MoodTrackerPresenter({required this.firestore});
 
   // SAVE MOOD TO DATABASE
-  Future<void> saveMood(Mood mood) async{
+  Future<void> saveMood(Mood mood) async {
     await firestore.collection('Mood').add(mood.toMap());
   }
 
   // GET ALL MOOD DATA FROM FIRESTORE
-  Stream<List<Mood>> getMoods(){
-    return firestore.collection('Mood').snapshots().map((snapshot){
+  Stream<List<Mood>> getMoods() {
+    return firestore.collection('Mood').snapshots().map((snapshot) {
       return snapshot.docs
-        .map((doc)=>Mood.fromMap(doc.data() as Map<String, dynamic>)).toList();
+          .map((doc) => Mood.fromMap(doc.data() as Map<String, dynamic>))
+          .toList();
     });
   }
 
   // CLEAR ALL MOODS
-  Future<void> clearAllMoods() async{
+  Future<void> clearAllMoods() async {
     var querySnapshot = await firestore.collection('Mood').get();
-    for(var doc in querySnapshot.docs){
+    for (var doc in querySnapshot.docs) {
       await doc.reference.delete();
     }
   }
-
 
 }

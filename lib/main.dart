@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../view/homepage_view.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'auth_gate.dart';
 
 // since we are using the MVP model, the main.dart file should ONLY contain the calls to the
 //functionality in other files, i.e create files with the actual functionality and call them here
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(), // Set HomePage as the start page
+      home: AuthGate(), // Set HomePage as the start page
     );
   }
 }
