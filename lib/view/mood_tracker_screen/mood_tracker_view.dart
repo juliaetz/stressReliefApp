@@ -146,7 +146,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
                       height: 70,
                       color: _selectedMood == MoodType.happy
                           ? Colors.greenAccent[400]
-                          : Colors.blueGrey),
+                          : Colors.blueGrey[700]),
                 ),
                 SizedBox(width: 15),
 
@@ -163,7 +163,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
                       height: 70,
                       color: _selectedMood == MoodType.neutral
                           ? Colors.yellow[600]
-                          : Colors.blueGrey),
+                          : Colors.blueGrey[700]),
                 ),
                 SizedBox(width: 15),
 
@@ -180,7 +180,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
                       height: 70,
                       color: _selectedMood == MoodType.sad
                           ? Colors.cyan[500]
-                          : Colors.blueGrey),
+                          : Colors.blueGrey[700]),
                 ),
                 SizedBox(width: 15),
 
@@ -197,7 +197,7 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
                       height: 77,
                       color: _selectedMood == MoodType.angry
                           ? Colors.pink[700]
-                          : Colors.blueGrey),
+                          : Colors.blueGrey[700]),
                 ),
               ],
             ),
