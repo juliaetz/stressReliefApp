@@ -11,18 +11,18 @@ class SelfcareModel{
   int databaseSize = 0;
   int currentIdeaIndex = 0;
   String currentIdea = "";
-  List<DocumentSnapshot> ideasList = [];
+  List<DocumentSnapshot> ideasList = []; // list of ideas the page can randomly generate
   DocumentSnapshot? mostRecentFave;
-  List<String> favoritesList = [];
-  List<Widget> favoritesListWidgets = [];
+  List<String> favoritesList = []; // strings of favorite ideas, view uses this to display favorites
   IconData _heartIcon = Icons.favorite_border;
 
+  // pageIndex setter and getter
   int get pageIndex => _pageIndex;
   set pageIndex(int setValue){
     _pageIndex = setValue;
   }
 
-  int get value => (_pageIndex == 0)?0 : 1; // returns value. MPG is 0.
+  int get value => (_pageIndex == 0)?0 : 1; // 0 is ideas page
   set value(int value){
     if(value == 0){
       _pageIndex = 0;
@@ -32,12 +32,13 @@ class SelfcareModel{
   }
 
 
+  // filter setter and getter
   String get filterType => _filterType;
   set filterType(String setValue){
     _filterType = setValue;
   }
 
-  int get value1 => (_filterType == "No Filter")?0 : 1; // returns value. MPG is 0.
+  int get value1 => (_filterType == "No Filter")?0 : 1; // 0 is no filter
   set value1(int value){
     if(value == 0){
       _filterType = "No Filter";
@@ -46,12 +47,14 @@ class SelfcareModel{
     }
   }
 
+
+  // heart icon setter and getter
   IconData get heartIcon => _heartIcon;
   set heartIcon(IconData setValue){
     _heartIcon = setValue;
   }
 
-  int get value2 => (_heartIcon == Icons.favorite_border)?0 : 1; // returns value. MPG is 0.
+  int get value2 => (_heartIcon == Icons.favorite_border)?0 : 1; // 0 is unfavorited
   set value2(int value){
     if(value == 0){
       _heartIcon = Icons.favorite_border;
