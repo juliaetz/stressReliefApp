@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:stress_managment_app/model/mood_tracker_model.dart';
 import 'package:stress_managment_app/presenter/journal_presenter.dart';
 import 'package:stress_managment_app/presenter/mood_tracker_presenter.dart';
+import 'package:stress_managment_app/presenter/selfcare_presenter.dart';
 import 'package:stress_managment_app/view/homePage_view.dart';
 import 'package:stress_managment_app/view/journal_view.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_chart.dart';
+import 'package:stress_managment_app/view/rewards_view.dart';
+import 'package:stress_managment_app/view/selfcare_component.dart';
 import '../../presenter/history_presenter.dart';
 import '../history_component.dart';
 
@@ -295,12 +298,33 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
                   color: Colors.indigo[600], size: 25),
               label: Text("VIEW YOUR HISTORY!", style: TextStyle(fontSize: 13)),
             ),
-            SizedBox(height: 100),
+            SizedBox(height: 30),
+
+
+            // BUTTON TO NAVIGATE TO SELF-CARE PAGE
+            ElevatedButton.icon(
+              style: ButtonStyle(),
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SelfcarePage(BasicSelfcarePresenter(), key: const Key('SELFCARE'), title: 'SELFCARE'),
+                  ),
+                );
+              },
+              icon: Icon(Icons.lightbulb, color: Colors.indigo[600], size: 25),
+              label: Text("IMPROVE YOUR MOOD!", style: TextStyle(fontSize: 13)),
+            ),
+
+            SizedBox(height: 70),
+
+
           ],
         ),
       ),
     );
   }
+
 
   FilledButton buildHomeButton() {
     return FilledButton(
@@ -312,7 +336,6 @@ class _MoodTrackerPageState extends State<MoodTrackerView> {
               builder: (context) => HomePage(),
             ));
       },
-
       // "HOME" ICON BUTTON
       child: Icon(Icons.house, color: Colors.white),
       style: FilledButton.styleFrom(
