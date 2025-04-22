@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_history_summary.dart';
+import 'activity_bar.dart';
 import 'history_view.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'homePage_view.dart';
@@ -200,92 +201,39 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
 
   // ACTIVITY GRAPH VIEW
   //going to need to call the getEventsByCoutns() for the map<string, int>
-  @override
-  Widget ActivityGraph() {
-    return FutureBuilder<Map<String, int>>(
-      future: widget.presenter.getEventCountsByDay(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        final data = snapshot.data!;
-        final spots = <FlSpot>[];
-        final xLabels = <String>[];
-        int index = 0;
-
-        for (var entry in data.entries) {
-          spots.add(FlSpot(index.toDouble(), entry.value.toDouble()));
-          xLabels.add(entry.key);
-          index++;
-        }
-
-        return SizedBox(
-          height: 250,
-          width: 330,
-          child: LineChart(
-            LineChartData(
-              minX: 0,
-              maxX: (xLabels.length - 1 ).toDouble(),
-              gridData: FlGridData(show: true),
-              titlesData: FlTitlesData(
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    interval: 1,
-                    getTitlesWidget: (value, meta) {
-                      final index = value.toInt();
-                      if (value % 1 != 0 || index < 0 || index >= xLabels.length) {
-                        return const SizedBox.shrink();
-                      }
-                      return Text(
-                        value.toInt().toString(),
-                        style: const TextStyle(fontSize: 10),
-                      );
-                    }
-
-                  ),
-
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    interval: 1,
-                    getTitlesWidget: (value, meta) {
-                      final index = value.toInt();
-                      if (value % 1 != 0 || index < 0 || index >= xLabels.length) {
-                        return const SizedBox.shrink();
-                      }
-                      return Text(
-                        xLabels[index],
-                        style: const TextStyle(fontSize: 7),
-                      );
-                    },
-                  ),
-                ),
-                rightTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                topTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
+    @override
+    Widget ActivityGraph() {
+      return Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/purple_background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ActivityBarChart(
+                  eventCounts: {
+                    'Mon': 3,
+                    'Tue': 5,
+                    'Wed': 2,
+                    'Thu': 4,
+                    'Fri': 6,
+                    'Sat': 1,
+                    'Sun': 3,
+                  },
                 ),
               ),
-
-              lineBarsData: [
-                LineChartBarData(
-                  spots: spots,
-                  isCurved: true,
-                  color: Colors.blue,
-                  barWidth: 2,
-                ),
-              ],
-              borderData: FlBorderData(show: true),
             ),
-          ),
-        );
-      },
-    );
-  }
+            const Text("Event activity by day"),
+          ],
+        ),
+      );
+    }
+
 
 
   // START OF MISC UI ELEMENTS
