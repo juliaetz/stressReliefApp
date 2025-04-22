@@ -114,7 +114,14 @@ class HomePage extends StatelessWidget {
         title: Text('Home Page'),
         backgroundColor: Colors.deepPurple.shade200,
       ),
-      body: Center(
+      body:Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/purple_background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -155,6 +162,7 @@ class HomePage extends StatelessWidget {
             Button(icon: Icons.star, label: 'Self Care Ideas', pageID: 6),
           ],
         ),
+      ),
       ),
     );
   }
