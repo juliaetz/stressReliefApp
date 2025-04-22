@@ -1,31 +1,39 @@
 import '../model/journal_model.dart';
-import '../view/journal_view.dart';
-
-class JournalPresenter{
-    final List<JournalModel> entries = [];
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
-    //creates a new journal entry
-    void addEntry(String text){
+
+class JournalPresenter {
+    final FirebaseFirestore firestore;
+    final List<Entry> entries = [];
+
+    JournalPresenter({required this.firestore});
+
+
+    Future<void> addEntry(Entry entry) async {
+        await firestore.collection('entries').add(entry.toMap());
+    }
+
+    Stream<List<Entry>> getEntries() {
+        return firestore.collection('entries').snapshots().map((snapshot) {
+            return snapshot.docs.map((doc) =>
+                Entry.fromMap(doc.data() as Map<String, dynamic>)).toList();
+        });
+    }
+
+
+
+
+
+
+//creates a new journal entry
+/*void addEntry(String text){
         //creates a JournalModel object and adds it to the list
-        JournalModel entry = JournalModel(text: text, timestamp: DateTime.now());
+        Entry entry = Entry(text: text, date: DateTime.now().toString());
         entries.add(entry);
 
         //logs the journal entry being added, remove after testing is done
-        print('Journal Entry Saved: ${entry.text} at ${entry.timestamp}');
+        print('Journal Entry Saved: ${entry.text} at ${entry.date}');
 
-    }
-
-    List<JournalModel> getEntries(){
-        return entries;
-    }
-
-    JournalModel getEntry(DateTime timestamp){
-        for(int x = 0; x<entries.length; x++){
-            if(entries[x].timestamp == timestamp){
-                return entries[x];
-            }
-        }
-        return new JournalModel(text: 'No Entries Found', timestamp: timestamp);
-    }
+    }*/
 }

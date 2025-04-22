@@ -1,25 +1,27 @@
-import 'package:flutter/material.dart';
+class Entry{
+    final String text;
+    final String date;
 
-class JournalModel{
-    String text;
-    DateTime timestamp;
-
-    JournalModel ({
+    Entry({
         required this.text,
-        required this.timestamp,
+        required this.date,
     });
 
     Map<String, dynamic> toMap(){
         return{
-            text: 'text',
-            timestamp.toIso8601String(): 'timestamp'
+            'text': text,
+            'date': date,
         };
     }
 
-    static JournalModel fromMap(Map<String, dynamic> map){
-        return JournalModel(
-            text: map['text'],
-            timestamp: DateTime.parse(map['timestamp']),
+    factory Entry.fromMap(Map<String, dynamic> map){
+        if(!map.containsKey('text') || !map.containsKey('date')){
+            throw Exception('Invalid entry map');
+        }
+
+        return Entry(
+            text: map['text']??'',
+            date: map['date']??'',
         );
     }
 
