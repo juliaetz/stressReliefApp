@@ -17,13 +17,14 @@ class JournalView extends StatefulWidget {
 class _JournalViewState extends State<JournalView>{
   final controller = TextEditingController();
 
-  void addEntry(String text){
-    widget.presenter.addEntry(Entry(text: text, date: DateTime.now().toString()));
+  void addEntry(String text) async{
+    Entry entry = Entry(
+        text: text,
+        date: DateTime.now().toString()
+    );
+
+    await widget.presenter.addEntry(entry);
     controller.clear();
-
-    setState(() {
-
-    });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Entry added!')),
     );
@@ -48,16 +49,27 @@ class _JournalViewState extends State<JournalView>{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-                child: ListView.builder(
-                  itemCount: widget.presenter.getEntries().length,
-                    itemBuilder: (context, index){
-                    Entry entry = widget.presenter.getEntries()[index];
-                    return ListTile(
-                      title: Text(entry.text),
-                      subtitle: Text('${entry.date}'.split(' ')[0]),
-                      );
+              child: StreamBuilder<List<Entry>>(
+                stream: widget.presenter.getEntries(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(child: Text('No entries yet!'));
                     }
-                ),
+                    List<Entry> entries = snapshot.data!;
+                    return ListView.builder(
+                        itemCount: entries.length,
+                        itemBuilder: (context, index) {
+                          Entry entry = entries[index];
+                          return ListTile(
+                            title: Text(entry.text),
+                            subtitle: Text('${entry.date}'.split(' ')[0]),
+                          );
+                        }
+                    );
+                  }
+            ),
             ),
             //creates a textbox to enter journal entries into
             SizedBox(

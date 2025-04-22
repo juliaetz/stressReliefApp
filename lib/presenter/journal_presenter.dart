@@ -23,6 +23,9 @@ class JournalPresenter {
 
 
 
+
+
+
 //creates a new journal entry
 /*void addEntry(String text){
         //creates a JournalModel object and adds it to the list
