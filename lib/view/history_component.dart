@@ -232,7 +232,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: SizedBox(
-                    height: 300, //constrains the chart's height, you get an error if you dont
+                    height: 500, //constrains the chart's height, you get an error if you dont
                     child: ActivityBarChart(eventCounts: eventCounts),
                   ),
                 ),
