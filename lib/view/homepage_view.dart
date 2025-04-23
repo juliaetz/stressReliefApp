@@ -126,14 +126,14 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Overworked?',
+              'OVERWORKED?',
               style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              'Ease your stress',
+              'Ease your stress~',
               style: TextStyle(
                 fontSize: 20,
               ),
