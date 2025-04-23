@@ -324,10 +324,6 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         List<dynamic> events = doc['events'];
         //get the length of the event field
         int numEvents = events.length;
-
-        print("$numEvents event(s) on $weekday (${eventDate.toLocal()})");
-
-
         //if 'weekday' is in our map 'dayCount'
         if(dayCounts.containsKey(weekday)) {
           //increment weekday by + 1

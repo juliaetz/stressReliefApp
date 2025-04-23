@@ -43,69 +43,72 @@ class _CalendarViewState extends State<CalendarView> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-        appBar: AppBar(
-            title: Text('Planner'),
-            backgroundColor: Colors.deepPurple.shade200,
+      appBar: AppBar(
+        title: Text('Planner'),
+        backgroundColor: Colors.deepPurple.shade200,
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/purple_background.jpg"),
+            fit: BoxFit.cover,
+          ),
         ),
-        body: Column(
+        child: Column(
           children: [
             TableCalendar(
               focusedDay: _focusedDay,
               firstDay: DateTime.utc(2020, 1, 1),
               lastDay: DateTime.utc(2030, 1, 1),
-
               calendarFormat: _calendarFormat,
               onFormatChanged: (format) {
                 setState(() {
                   _calendarFormat = format;
                 });
               },
-
               selectedDayPredicate: (day) {
                 return isSameDay(_selectedDay, day);
               },
-
               onDaySelected: (selectedDay, focusedDay) {
                 setState(() {
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
                 });
-                _loadEvents(); // Load events when the user selects a new day
+                _loadEvents();
               },
-
               calendarBuilders: CalendarBuilders(
-                  selectedBuilder: (context, date, _) {
-                    return Container(
-                      margin: EdgeInsets.all(4.0),
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        shape: BoxShape.circle,
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '${date.day}',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    );
-                  },
-                  todayBuilder: (context, date, _) {
-                    return Container(
-                      margin: EdgeInsets.all(4.0),
-                      decoration: BoxDecoration(
-                        color: Colors.greenAccent,
-                        shape: BoxShape.circle,
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        '${date.day}',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    );
-                  }),
-
+                selectedBuilder: (context, date, _) {
+                  return Container(
+                    margin: EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      shape: BoxShape.circle,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${date.day}',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
+                },
+                todayBuilder: (context, date, _) {
+                  return Container(
+                    margin: EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent,
+                      shape: BoxShape.circle,
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${date.day}',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  );
+                },
+              ),
             ),
-
             Expanded(
               child: _events.isEmpty
                   ? Center(child: Text("No events for this day"))
@@ -113,21 +116,21 @@ class _CalendarViewState extends State<CalendarView> {
                 itemCount: _events.length,
                 itemBuilder: (context, index) {
                   var event = _events[index];
-
-                  // Convert stored {hour, minute} into TimeOfDay
                   TimeOfDay time = TimeOfDay(
-                      hour: event['time']['hour'], minute: event['time']['minute']);
+                      hour: event['time']['hour'],
+                      minute: event['time']['minute']);
                   String description = event['description'];
 
                   return ListTile(
                     title: Text(description),
-                    subtitle: Text(time.format(context)), // Show event time
+                    subtitle: Text(time.format(context)),
                     trailing: IconButton(
                       icon: Icon(Icons.delete, color: Colors.red),
                       onPressed: () async {
                         if (_selectedDay != null) {
-                          await widget.presenter.deleteEvent(_selectedDay!, description);
-                          _loadEvents(); // Reload events after deletion
+                          await widget.presenter.deleteEvent(
+                              _selectedDay!, description);
+                          _loadEvents();
                         }
                       },
                     ),
@@ -137,14 +140,17 @@ class _CalendarViewState extends State<CalendarView> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            if (_selectedDay != null) {
-              _showAddEventDialog(_selectedDay!);
-            }
-          },
-          child: Icon(Icons.add),
-        ));
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_selectedDay != null) {
+            _showAddEventDialog(_selectedDay!);
+          }
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+    ;
   }
 
   /// Shows a dialog to add an event

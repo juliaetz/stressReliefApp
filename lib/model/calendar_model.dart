@@ -102,7 +102,6 @@ class CalendarModel {
 
       return events;
     } else {
-      print("No document found for date: $formattedDate"); // Debugging print
       return [];
     }
   }

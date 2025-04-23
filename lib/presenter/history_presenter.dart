@@ -188,9 +188,6 @@ class BasicHistoryPresenter extends HistoryPresenter{
         //get the length of the event field
         int numEvents = events.length;
 
-        print("$numEvents event(s) on $weekday (${eventDate.toLocal()})");
-
-
         //if 'weekday' is in our map 'dayCount'
         if(dayCounts.containsKey(weekday)) {
           //increment weekday by + 1
