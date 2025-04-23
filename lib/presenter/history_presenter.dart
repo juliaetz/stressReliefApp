@@ -25,6 +25,7 @@ class BasicHistoryPresenter extends HistoryPresenter{
     _loadUnit();
   }
 
+  // initial values when the history page is loaded, start with the full history display
   void _loadUnit() async {
     _viewModel.historyType = "N/A";
     _viewModel.pageIndex = 0;
@@ -33,7 +34,7 @@ class BasicHistoryPresenter extends HistoryPresenter{
   @override
   set historyView(HistoryView value) {
     _view = value;
-    updatePage(_viewModel.pageIndex);
+    updatePage(_viewModel.pageIndex); // update to the full history view initially
   }
 
   @override
@@ -43,13 +44,30 @@ class BasicHistoryPresenter extends HistoryPresenter{
     }
   }
 
-  // FUNCTIONS RELATED TO DISPLAYING HISTORY DATA
+
+  // METHODS RELATED TO DISPLAYING HISTORY DATA
+  // decides which history (event or mood) to display
+  @override
+  Future<void> updateScreen() async{
+    _viewModel.entries.clear();
+    if(_viewModel.historyType == "Activity History"){
+      await createBlocksActivity();
+      _view.updateEntries(_viewModel.entries);
+    }
+    else if (_viewModel.historyType == "Mood History"){
+      await createBlocksMood();
+      _view.updateEntries(_viewModel.entries);
+    }
+
+    updatePage(_viewModel.pageIndex);
+  }
+
   @override
   Future<void> createBlocksActivity() async{
-    final QuerySnapshot snapshot = await _viewModel.historyDatabaseReference.get();
+    final QuerySnapshot snapshot = await _viewModel.eventDatabaseReference.get();
     final List<DocumentSnapshot> documents = snapshot.docs;
     documents.forEach((document) {
-      var date = DateFormat('yMMMMd').format(document.get('date').toDate());
+      var date = DateFormat('yMd').format(document.get('date').toDate());
       List<dynamic> events = document.get("events");
       events.forEach((map) {
         var activity = map.values.first;
@@ -106,21 +124,6 @@ class BasicHistoryPresenter extends HistoryPresenter{
   }
 
   @override
-  Future<void> updateScreen() async{
-    _viewModel.entries.clear();
-    if(_viewModel.historyType == "Activity History"){
-      await createBlocksActivity();
-      _view.updateEntries(_viewModel.entries);
-    }
-    else if (_viewModel.historyType == "Mood History"){
-      await createBlocksMood();
-      _view.updateEntries(_viewModel.entries);
-    }
-
-    updatePage(_viewModel.pageIndex);
-  }
-
-  @override
   void updatePage(int index){
     int prevIndex = _viewModel.pageIndex;
     if(index != _viewModel.pageIndex){
@@ -130,18 +133,19 @@ class BasicHistoryPresenter extends HistoryPresenter{
 
     Widget page;
     List<Widget> pages = [_view.DailyHistoryPage(), _view.ActivityGraph()];
-    if(_viewModel.pageIndex < 2) {
+    if(_viewModel.pageIndex < 2) { // the new page is either the daily history of activity graph
       page = pages.elementAt(_viewModel.pageIndex);
-    } else {
+    } else { // the page is the mood graph, which is its own page (not widget)
       page = pages.elementAt(prevIndex);
     }
 
     _view.updatePage(page);
   }
-  // END OF FUNCTIONS RELATED TO HISTORY DATA
+  // END OF METHODS RELATED TO HISTORY DATA
 
-//helper function to get the day of the week
-  //
+
+
+  //helper function to get the day of the week
   String _getWeekdayName(int weekday) {
     const days = [
       'Monday',
