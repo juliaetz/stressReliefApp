@@ -74,20 +74,19 @@ class MoodHistorySummary extends StatelessWidget {
           // DISPLAY MESSAGE
           String moodEmoji = moodEmojis[mostFrequentMood] ?? '';
           String moodMessage =
-              "the mood you've been frequently feeling is $moodEmoji ${mostFrequentMood.toUpperCase()}!";
+              "YOUR MOST FREQUENT MOOD: ${mostFrequentMood.toUpperCase()} $moodEmoji";
 
           return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // MOOD MESSAGE
               Padding(
-                padding: const EdgeInsets.all(23.0),
+                padding: const EdgeInsets.all(14.0),
                 child: Text(
                   moodMessage,
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 17,
                     fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple,
+                    color: Colors.deepPurple[900],
                   ),
                 ),
               ),

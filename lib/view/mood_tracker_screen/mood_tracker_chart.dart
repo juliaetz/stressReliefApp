@@ -76,8 +76,8 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
                   // PIE CHART SECTIONS
                   sections: List.generate(4, (i) {
                     final isTouched = i == touchedIndex;
-                    final double radius = isTouched ? 100 : 80;
-                    final double fontSize = isTouched ? 23 : 17;
+                    final double radius = isTouched ? 110 : 90;
+                    final double fontSize = isTouched ? 27 : 17;
                     final shadows = [
                       const Shadow(color: Colors.black45, blurRadius: 2)
                     ];
@@ -107,37 +107,6 @@ class _MoodTrackerChartState extends State<MoodTrackerChart> {
               ),
             ),
           ),
-
-          const SizedBox(width: 24),
-
-          // MOOD LEGEND
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: List.generate(4, (i) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Row(
-                  children: [
-                    // THE COLORED CIRCLES FOR LEGEND
-                    Container(
-                      width: 12,
-                      height: 12,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: colors[i],
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-
-                    // THE MOOD LABELS FOR LEGEND
-                    Text(moods[i]),
-                  ],
-                ),
-              );
-            }),
-          ),
-          const SizedBox(width: 13),
         ],
       ),
     );

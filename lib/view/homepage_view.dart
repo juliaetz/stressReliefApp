@@ -12,6 +12,7 @@ import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
 import 'mood_tracker_screen/mood_tracker_view.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 //class to help create buttons
 class Button extends StatelessWidget {
@@ -56,9 +57,10 @@ class Button extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      JournalView(presenter: JournalPresenter())));
-        } else if (pageID == 5) {
+                builder:(context) =>
+                    JournalView(presenter: JournalPresenter(firestore: FirebaseFirestore.instance),),)
+          );
+        } else if(pageID == 5){
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => RewardsView()));
         } else if (pageID == 6) {
@@ -112,19 +114,26 @@ class HomePage extends StatelessWidget {
         title: Text('Home Page'),
         backgroundColor: Colors.deepPurple.shade200,
       ),
-      body: Center(
+      body:Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/purple_background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Overworked?',
+              'OVERWORKED?',
               style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              'Ease your stress',
+              'Ease your stress~',
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -153,6 +162,7 @@ class HomePage extends StatelessWidget {
             Button(icon: Icons.star, label: 'Self Care Ideas', pageID: 6),
           ],
         ),
+      ),
       ),
     );
   }

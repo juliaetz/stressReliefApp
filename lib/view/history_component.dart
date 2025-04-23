@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_history_summary.dart';
+import 'activity_bar.dart';
 import 'history_view.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'homePage_view.dart';
@@ -200,92 +204,48 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
 
   // ACTIVITY GRAPH VIEW
   //going to need to call the getEventsByCoutns() for the map<string, int>
-  @override
-  Widget ActivityGraph() {
-    return FutureBuilder<Map<String, int>>(
-      future: widget.presenter.getEventCountsByDay(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        final data = snapshot.data!;
-        final spots = <FlSpot>[];
-        final xLabels = <String>[];
-        int index = 0;
-
-        for (var entry in data.entries) {
-          spots.add(FlSpot(index.toDouble(), entry.value.toDouble()));
-          xLabels.add(entry.key);
-          index++;
-        }
-
-        return SizedBox(
-          height: 250,
-          width: 330,
-          child: LineChart(
-            LineChartData(
-              minX: 0,
-              maxX: (xLabels.length - 1 ).toDouble(),
-              gridData: FlGridData(show: true),
-              titlesData: FlTitlesData(
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    interval: 1,
-                    getTitlesWidget: (value, meta) {
-                      final index = value.toInt();
-                      if (value % 1 != 0 || index < 0 || index >= xLabels.length) {
-                        return const SizedBox.shrink();
-                      }
-                      return Text(
-                        value.toInt().toString(),
-                        style: const TextStyle(fontSize: 10),
-                      );
-                    }
-
-                  ),
-
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    interval: 1,
-                    getTitlesWidget: (value, meta) {
-                      final index = value.toInt();
-                      if (value % 1 != 0 || index < 0 || index >= xLabels.length) {
-                        return const SizedBox.shrink();
-                      }
-                      return Text(
-                        xLabels[index],
-                        style: const TextStyle(fontSize: 7),
-                      );
-                    },
-                  ),
-                ),
-                rightTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                topTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-              ),
-
-              lineBarsData: [
-                LineChartBarData(
-                  spots: spots,
-                  isCurved: true,
-                  color: Colors.blue,
-                  barWidth: 2,
-                ),
-              ],
-              borderData: FlBorderData(show: true),
-            ),
+    @override
+    Widget ActivityGraph() {
+      return Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/purple_background.jpg"),
+            fit: BoxFit.cover,
           ),
-        );
-      },
-    );
-  }
+        ),
+        child: FutureBuilder<Map<String, int>>(
+          future: getEventCountsByDay(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            } else if (!snapshot.hasData || snapshot.data!.values.every((count) => count == 0)) {
+              return const Center(child: Text("No events found"));
+            }
+
+            // use the data for the chart
+            final eventCounts = snapshot.data!;
+
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    height: 500, //constrains the chart's height, you get an error if you dont
+                    child: ActivityBarChart(eventCounts: eventCounts),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                const Text("Event activity by day"),
+              ],
+            );
+          },
+        ),
+      );
+    }
+
+
 
 
   // START OF MISC UI ELEMENTS
@@ -317,7 +277,69 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       ),
     );
   }
-  // END OF MISC UI ELEMENTS
 
+
+  String _getWeekdayName(int weekday) {
+    const days = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ];
+    return days[weekday];
+  }
+
+  @override
+  Future<Map<String, int>> getEventCountsByDay() async{
+    //create a Map<String, int>, where the string is the day of the week, and the int is the number of event occurrences in our firebase
+    //we will later be incrementing the int
+    Map<String, int> dayCounts = {
+      'Monday': 0,
+      'Tuesday': 0,
+      'Wednesday': 0,
+      'Thursday': 0,
+      'Friday':0,
+      'Saturday':0,
+      'Sunday':0
+    };
+
+    //come back and change this line so that it fits with the 'event' field in our db
+    final eventDatabaseReference = FirebaseFirestore.instance.collection('events');
+    QuerySnapshot snapshot = await eventDatabaseReference.get();
+
+    //now loop through our fields in snapshot so we can increment the count for each day
+    for (var doc in snapshot.docs) {
+
+      try{
+        //access the data in our 'date' (i dont think we need to format it)
+        //We need to see every day that has an event, and then increment out dayCounts map by 1, based on the day/
+        Timestamp timestamp = doc['date'];
+        DateTime eventDate = timestamp.toDate();
+        //determine day of the week string
+        String weekday = _getWeekdayName(eventDate.weekday);
+
+        List<dynamic> events = doc['events'];
+        //get the length of the event field
+        int numEvents = events.length;
+        //if 'weekday' is in our map 'dayCount'
+        if(dayCounts.containsKey(weekday)) {
+          //increment weekday by + 1
+
+          dayCounts[weekday] = dayCounts[weekday]! + numEvents;
+
+
+        }
+
+      } catch (e) {
+        print('Error with data from doc ${doc.id}: $e');
+      }
+    }
+    //return our incremented map
+    return dayCounts;
+
+  }
 
 }

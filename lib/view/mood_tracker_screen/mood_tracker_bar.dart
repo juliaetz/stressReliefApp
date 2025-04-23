@@ -78,7 +78,7 @@ class MoodTrackerBarChart extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.deepPurple,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w400,
                     ),
                   );
                 } else {
@@ -103,7 +103,7 @@ class MoodTrackerBarChart extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 18,
                         color: Colors.deepPurple,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   );
@@ -120,7 +120,9 @@ class MoodTrackerBarChart extends StatelessWidget {
           ),
         ),
 
+        // SHOW BORDERS, HIDE GRIDLINES
         borderData: FlBorderData(show: true),
+        gridData: FlGridData(show: false),
       ),
     );
   }
