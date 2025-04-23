@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/view/mood_tracker_screen/mood_history_summary.dart';
@@ -7,7 +6,6 @@ import 'activity_bar.dart';
 import 'history_view.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'homePage_view.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class HistoryPage extends StatefulWidget {
   final HistoryPresenter presenter;
@@ -27,14 +25,17 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     super.initState();
     this.widget.presenter.historyView = this;
 
+
+  }
+  // Helper function to format DateTime to a readable string
+  // Helper function to format DateTime to a readable string, handling nulls
+  String _formatDate(DateTime? date) {
+    if (date == null) {
+      return "Date not available"; // Fallback message
+    }
+    return "${date.month}/${date.day}/${date.year}";
   }
 
-  //DELETE THIS BEFORE FINAL MERGE: TEST FUNCTION
-  void fetchEventCounts() async {
-    // Call the function that gets the event counts and logs them to the console
-    Map<String, int> eventCounts = await widget.presenter.getEventCountsByDay();
-    print("Event Counts: $eventCounts");
-  }
 
   String _dropdownValue = 'Activity History';
   List<Widget> _entries = [];
@@ -213,33 +214,57 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
             fit: BoxFit.cover,
           ),
         ),
-        child: FutureBuilder<Map<String, int>>(
+        child: FutureBuilder<Map<String, dynamic>>(
           future: getEventCountsByDay(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text("Error: ${snapshot.error}"));
-            } else if (!snapshot.hasData || snapshot.data!.values.every((count) => count == 0)) {
-              return const Center(child: Text("No events found"));
-            }
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data == null) {
+              return const Center(child: Text("No data available"));
+            } else {
+              final data = snapshot.data!;
+              final Map<String, int> dayCounts = Map<String, int>.from(data['dayCounts']);
+              final DateTime? earliest = data['earliest'];
+              final DateTime? latest = data['latest'];
 
-            // use the data for the chart
-            final eventCounts = snapshot.data!;
+              if (earliest == null || latest == null || dayCounts.isEmpty) {
+                return const Center(child: Text("Insufficient event data."));
+              }
 
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: SizedBox(
-                    height: 500, //constrains the chart's height, you get an error if you dont
-                    child: ActivityBarChart(eventCounts: eventCounts),
+              // Find busiest day
+              final String busiestDay = dayCounts.entries.reduce((a, b) => a.value >= b.value ? a : b).key;
+              final int busiestCount = dayCounts[busiestDay]!;
+
+              // Format the dates
+              String formatDate(DateTime date) {
+                return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+              }
+
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: SizedBox(
+                      height: 500,
+                      child: ActivityBarChart(eventCounts: dayCounts),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 12),
-                const Text("Event activity by day"),
-              ],
-            );
+                  const SizedBox(height: 12),
+                  Text(
+                    "From ${formatDate(earliest)} to ${formatDate(latest)}, your busiest day was $busiestDay with $busiestCount events.",
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 12),
+                  const Text(
+                    "Event activity by day",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              );
+            }
           },
         ),
       );
@@ -289,11 +314,11 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       'Saturday',
       'Sunday'
     ];
-    return days[weekday];
+    return days[weekday - 1 ];
   }
 
   @override
-  Future<Map<String, int>> getEventCountsByDay() async{
+  Future<Map<String, dynamic>> getEventCountsByDay() async{
     //create a Map<String, int>, where the string is the day of the week, and the int is the number of event occurrences in our firebase
     //we will later be incrementing the int
     Map<String, int> dayCounts = {
@@ -305,6 +330,9 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       'Saturday':0,
       'Sunday':0
     };
+
+    DateTime? earliest;
+    DateTime? latest;
 
     //come back and change this line so that it fits with the 'event' field in our db
     final eventDatabaseReference = FirebaseFirestore.instance.collection('events');
@@ -318,6 +346,16 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         //We need to see every day that has an event, and then increment out dayCounts map by 1, based on the day/
         Timestamp timestamp = doc['date'];
         DateTime eventDate = timestamp.toDate();
+
+        // create a range for events taking place
+        // Initialize earliest and latest with the first event's date
+        if (earliest == null || eventDate.isBefore(earliest!)) {
+          earliest = eventDate;
+        }
+        if (latest == null || eventDate.isAfter(latest!)) {
+          latest = eventDate;
+        }
+
         //determine day of the week string
         String weekday = _getWeekdayName(eventDate.weekday);
 
@@ -327,18 +365,33 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         //if 'weekday' is in our map 'dayCount'
         if(dayCounts.containsKey(weekday)) {
           //increment weekday by + 1
-
           dayCounts[weekday] = dayCounts[weekday]! + numEvents;
-
-
         }
 
       } catch (e) {
         print('Error with data from doc ${doc.id}: $e');
       }
     }
+    // Find busiest day
+    String busiestDay = '';
+    int maxCount = 0;
+
+    dayCounts.forEach((day, count) {
+      if (count > maxCount) {
+        maxCount = count;
+        busiestDay = day;
+      }
+    });
+
+
     //return our incremented map
-    return dayCounts;
+    return {
+      'dayCounts': dayCounts,
+      'earliest': earliest,
+      'latest': latest,
+      'busiestDay': busiestDay,
+      'maxCount': maxCount,
+    };
 
   }
 
