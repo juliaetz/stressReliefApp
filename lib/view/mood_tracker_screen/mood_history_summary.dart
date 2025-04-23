@@ -14,7 +14,7 @@ class MoodHistorySummary extends StatefulWidget{
   _MoodHistorySummaryState createState() => _MoodHistorySummaryState();
 }
 class _MoodHistorySummaryState extends State<MoodHistorySummary>{
-  final MoodTrackerPresenter _presenter = MoodTrackerPresenter(firestore: FirebaseFirestore.instance);
+  final MoodTrackerPresenter _presenter = MoodTrackerPresenter();
 
   @override
   Widget build(BuildContext context){
