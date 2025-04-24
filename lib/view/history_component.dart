@@ -124,7 +124,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
             label: 'History',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.stacked_line_chart_outlined),
+            icon: Icon(Icons.bar_chart_sharp),
             label: 'Activity Graph',
           ),
           BottomNavigationBarItem(

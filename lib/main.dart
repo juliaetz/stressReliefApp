@@ -35,15 +35,8 @@ class MyApp extends StatelessWidget {
          - dotGothic16 (looks like a video game if we are interested in that!)
          - amiko
          - averageSans
-         - akshar
-         - contrailOne
-         - aDLaMDisplay
-         - rem
-         - anekBangla
-         - anybody
-         - murecho
          - farro
-         - playpenSans
+         - anekBangla
          */
         textTheme: GoogleFonts.amikoTextTheme(),
 
