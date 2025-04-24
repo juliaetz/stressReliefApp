@@ -130,7 +130,7 @@ class HomePage extends StatelessWidget {
             Text(
               'OVERWORKED?',
               style: TextStyle(
-                fontSize: 48,
+                fontSize: 43,
                 fontWeight: FontWeight.bold,
               ),
             ),
