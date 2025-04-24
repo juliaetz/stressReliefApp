@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:stress_managment_app/firebase_logic.dart';
 
 //this is pretty much a complete overhaul of the previous calendar_model
 //this version removed the previous map<DateTime, map<<Events> <TimeOfDay>>> because we couldnt convert DateTime to
@@ -7,8 +8,6 @@ import 'package:flutter/material.dart';
 
 
 class CalendarModel {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   // Formats DateTime as a string for our 'date' field in
   //you HAVE to store it as a string or it gets really mad
   String _formatDate(DateTime date) {
@@ -26,7 +25,8 @@ class CalendarModel {
 
     //A DocumentReference refers to a document location in our firebase
     //database and can be used to write, read, or listen to the location.
-    DocumentReference docRef = _firestore.collection('events').doc(formattedDate);
+    final userDocRef = await getUserDocument();
+    DocumentReference docRef = userDocRef.collection('events').doc(formattedDate);
 
 
     //set our 'date' field with our date parameter.
@@ -38,9 +38,6 @@ class CalendarModel {
         {'time': timeData, 'description': event}
       ])
     }, SetOptions(merge: true));
-
-    DocumentSnapshot doc = await docRef.get();
-    //print('Updated events: ${doc.data()}');
   }
 
   // Removes an event from Firestore
@@ -49,7 +46,8 @@ class CalendarModel {
     String formattedDate = _formatDate(date);
 
     //specify that we want the to remove the data at our 'formattedDate' which will be inside our 'events' collection
-    DocumentReference docRef = _firestore.collection('events').doc(formattedDate);
+    final userDocRef = await getUserDocument();
+    DocumentReference docRef = userDocRef.collection('events').doc(formattedDate);
 
     //Check that we're removing something that actually exists
     DocumentSnapshot doc = await docRef.get();
@@ -80,7 +78,8 @@ class CalendarModel {
     String formattedDate = _formatDate(date);
     //print("Fetching events for: $formattedDate"); // Debugging print leave for if things break
 
-    DocumentSnapshot doc = await _firestore.collection('events').doc(formattedDate).get();
+    final userDocRef = await getUserDocument();
+    DocumentSnapshot doc = await userDocRef.collection('events').doc(formattedDate).get();
 
     if (doc.exists) {
       //print("Document found: ${doc.data()}"); // Debugging print leave this for if things breaks

@@ -1,21 +1,23 @@
 import '../model/journal_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../firebase_logic.dart';
 
 
 
 class JournalPresenter {
-    final FirebaseFirestore firestore;
     final List<Entry> entries = [];
 
-    JournalPresenter({required this.firestore});
+    JournalPresenter();
 
 
     Future<void> addEntry(Entry entry) async {
-        await firestore.collection('entries').add(entry.toMap());
+        final userDocRef = await getUserDocument();
+        await userDocRef.collection('entries').add(entry.toMap());
     }
 
-    Stream<List<Entry>> getEntries() {
-        return firestore.collection('entries').snapshots().map((snapshot) {
+    Stream<List<Entry>> getEntries() async* {
+        final userDocRef = await getUserDocument();
+        yield* userDocRef.collection('entries').snapshots().map((snapshot) {
             return snapshot.docs.map((doc) =>
                 Entry.fromMap(doc.data() as Map<String, dynamic>)).toList();
         });

@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
 
- abstract class HistoryPresenter {
+abstract class HistoryPresenter {
   set historyView(HistoryView value){}
   void onOptionChanged(String value) {}
   void updateScreen(){}
@@ -170,7 +170,7 @@ class BasicHistoryPresenter extends HistoryPresenter{
     };
 
     //come back and change this line so that it fits with the 'event' field in our db
-    final eventDatabaseReference = FirebaseFirestore.instance.collection('events');
+    final eventDatabaseReference = _viewModel.eventDatabaseReference;
     QuerySnapshot snapshot = await eventDatabaseReference.get();
 
     //now loop through our fields in snapshot so we can increment the count for each day
