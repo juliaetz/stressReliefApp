@@ -99,7 +99,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       appBar: AppBar(
         toolbarHeight: 80,
         leading: buildHomeButton(),
-        title: Text('Daily Activity and Mood History'),
+        title: Text('Daily Activity and Mood History', style: TextStyle(fontSize: 20.0),),
         centerTitle: true,
         backgroundColor: Colors.deepPurple.shade200,
       ),
