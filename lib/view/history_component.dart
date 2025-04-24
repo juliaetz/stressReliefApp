@@ -8,6 +8,7 @@ import 'history_view.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'homePage_view.dart';
 import 'package:fl_chart/fl_chart.dart';
+import '../firebase_logic.dart';
 
 class HistoryPage extends StatefulWidget {
   final HistoryPresenter presenter;
@@ -306,8 +307,8 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       'Sunday':0
     };
 
-    //come back and change this line so that it fits with the 'event' field in our db
-    final eventDatabaseReference = FirebaseFirestore.instance.collection('events');
+    final userDocRef = await getUserDocument();
+    final eventDatabaseReference = userDocRef.collection('events');
     QuerySnapshot snapshot = await eventDatabaseReference.get();
 
     //now loop through our fields in snapshot so we can increment the count for each day

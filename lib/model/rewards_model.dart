@@ -100,8 +100,7 @@ class RewardsModel {
   // Google Gemini created from outline of tasks
   Future<void> updateProgressFromDatabase() async {
     final userDocRef = await getUserDocument();
-    final variableSnapshot =
-        await userDocRef.collection('Persistent_Variables').get();
+    final variableSnapshot = await userDocRef.collection('Persistent_Variables').get();
     int maxStreak = variableSnapshot.docs[0]['maxStreak'];
 
     // Mood Tracking (Altered after Gemini)
