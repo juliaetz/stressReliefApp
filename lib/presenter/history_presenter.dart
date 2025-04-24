@@ -5,9 +5,8 @@ import 'package:stress_managment_app/view/history_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
-import 'package:stress_managment_app/firebase_logic.dart';
 
- abstract class HistoryPresenter {
+abstract class HistoryPresenter {
   set historyView(HistoryView value){}
   void onOptionChanged(String value) {}
   void updateScreen(){}
@@ -47,11 +46,7 @@ class BasicHistoryPresenter extends HistoryPresenter{
   // FUNCTIONS RELATED TO DISPLAYING HISTORY DATA
   @override
   Future<void> createBlocksActivity() async{
-    final userDocRef = await getUserDocument();
-    if (userDocRef == null) {
-      return; // No user is signed in
-    }
-    final QuerySnapshot snapshot = await userDocRef.collection('events').get();
+    final QuerySnapshot snapshot = await _viewModel.historyDatabaseReference.get();
     final List<DocumentSnapshot> documents = snapshot.docs;
     documents.forEach((document) {
       var date = DateFormat('yMMMMd').format(document.get('date').toDate());
@@ -85,11 +80,7 @@ class BasicHistoryPresenter extends HistoryPresenter{
 
   @override
   Future<void> createBlocksMood() async{
-    final userDocRef = await getUserDocument();
-    if (userDocRef == null) {
-      return; // No user is signed in
-    }
-    final QuerySnapshot snapshot = await userDocRef.collection('Mood').get();
+    final QuerySnapshot snapshot = await _viewModel.moodDatabaseReference.get();
     final List<DocumentSnapshot> documents = snapshot.docs;
     documents.forEach((document) {
       var date = document.get("date").toString().substring(0,10);
@@ -180,13 +171,8 @@ class BasicHistoryPresenter extends HistoryPresenter{
       'Sunday':0
     };
 
-    final userDocRef = await getUserDocument();
-    if (userDocRef == null) {
-      return dayCounts; // No user is signed in
-    }
-
     //come back and change this line so that it fits with the 'event' field in our db
-    final eventDatabaseReference = userDocRef.collection('events');
+    final eventDatabaseReference = _viewModel.eventDatabaseReference;
     QuerySnapshot snapshot = await eventDatabaseReference.get();
 
     //now loop through our fields in snapshot so we can increment the count for each day
