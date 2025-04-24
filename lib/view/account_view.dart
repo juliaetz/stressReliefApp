@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:stress_managment_app/auth_gate.dart';
 import 'package:stress_managment_app/firebase_logic.dart' as fire_base_logic;
 
 //Originally created with Google Gemini
@@ -32,7 +33,7 @@ class _AccountViewState extends State<AccountView> {
     try {
       await FirebaseAuth.instance.signOut();
       // Navigate to the sign-in/sign-up screen after sign out.
-      Navigator.of(context).pushReplacementNamed('/auth');
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => AuthGate()));
     } catch (e) {
       // Handle sign out errors.
       print('Error signing out: $e');
@@ -66,14 +67,15 @@ class _AccountViewState extends State<AccountView> {
 
       if (confirmDelete == true) {
         // First, delete the user's data from Firestore.
-       fire_base_logic.deleteUserData(_currentUser!.uid);
+        print(_currentUser!.uid);
+       await fire_base_logic.deleteUserData(_currentUser!.uid);
         // Now, delete the user account.
         try {
           await _currentUser!.delete();
           // User account and data should be deleted.
           print("Account deletion successful");
           // Navigate to the sign-in/sign-up screen after deletion.
-          Navigator.of(context).pushReplacementNamed('/auth');
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AuthGate()));
         } catch (error) {
           print("Error deleting user: $error");
           // Handle the error appropriately, maybe show an error message to the user.

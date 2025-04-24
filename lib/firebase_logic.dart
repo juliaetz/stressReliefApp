@@ -34,7 +34,7 @@ Future<DocumentReference<Map<String, dynamic>>> getUserDocument() async {
   return FirebaseFirestore.instance.collection('users').doc(user.uid);
 }
 
-void deleteUserData(String userUID) async {
+Future<void> deleteUserData(String userUID) async {
   final userDocRef = FirebaseFirestore.instance.collection('users').doc(userUID);
   await userDocRef.delete();
 }
