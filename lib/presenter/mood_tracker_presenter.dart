@@ -9,9 +9,6 @@ class MoodTrackerPresenter {
 
   Future<void> initilizeUserMoodCollection() async {
     final userDocRef = await getUserDocument();
-    if (userDocRef == null) {
-      throw Exception('No user is signed in'); // No user is signed in
-    }
     moodCollection = userDocRef.collection('Mood');
   }
   MoodTrackerPresenter();
