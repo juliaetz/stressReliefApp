@@ -8,7 +8,7 @@ class SelfcareModel{
   String _filterType = "No Filter";
   CollectionReference ideasDatabaseReference = FirebaseFirestore.instance.collection('Self_Care_Ideas');
   late CollectionReference favoritesDatabaseReference;
-  final eventsDatabaseReference = FirebaseFirestore.instance.collection('events');
+  late CollectionReference eventsDatabaseReference;
   int databaseSize = 0;
   int currentIdeaIndex = 0;
   String currentIdea = "";
@@ -67,6 +67,7 @@ class SelfcareModel{
   Future<void> initializeFavIdeasDatabaseRef() async {
     final userDocRef = await getUserDocument();
     favoritesDatabaseReference = userDocRef.collection('Favorite_Ideas');
+    eventsDatabaseReference = userDocRef.collection('events');
   }
   SelfcareModel() {
     initializeFavIdeasDatabaseRef();
