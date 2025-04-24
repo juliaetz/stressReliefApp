@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:stress_managment_app/firebase_logic.dart';
 
 class HistoryModel{
   String _historyType = "Activity History";
   int _pageIndex = 0;
-  final moodDatabaseReference = FirebaseFirestore.instance.collection('Mood');
-  final eventDatabaseReference = FirebaseFirestore.instance.collection('events');
+  late CollectionReference historyDatabaseReference;
+  late CollectionReference moodDatabaseReference;
+  late CollectionReference eventDatabaseReference;
   List<Widget> entries = [];
 
   // history type setter and getters
@@ -39,5 +41,13 @@ class HistoryModel{
     }
   }
 
-  HistoryModel();
+  Future<void> initializeUserDatabaseRefs() async {
+    final userDocRef = await getUserDocument();
+    historyDatabaseReference = userDocRef.collection('events');
+    moodDatabaseReference = userDocRef.collection('Mood');
+    eventDatabaseReference = userDocRef.collection('events');
+  }
+  HistoryModel() {
+    initializeUserDatabaseRefs();
+  }
 }

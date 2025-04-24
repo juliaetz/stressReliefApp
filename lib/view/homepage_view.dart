@@ -8,6 +8,7 @@ import 'package:stress_managment_app/view/history_component.dart';
 import 'package:stress_managment_app/view/rewards_view.dart';
 import 'package:stress_managment_app/view/journal_view.dart';
 import 'package:stress_managment_app/view/selfcare_component.dart';
+import '../auth_gate.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
@@ -58,7 +59,7 @@ class Button extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder:(context) =>
-                    JournalView(presenter: JournalPresenter(firestore: FirebaseFirestore.instance),),)
+                    JournalView(presenter: JournalPresenter(),),)
           );
         } else if(pageID == 5){
           Navigator.push(
@@ -101,6 +102,7 @@ class HomePage extends StatelessWidget {
                     actions: [
                       SignedOutAction((context) {
                         Navigator.of(context).pop();
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => AuthGate()));
                       })
                     ],
                   ),
@@ -128,7 +130,7 @@ class HomePage extends StatelessWidget {
             Text(
               'OVERWORKED?',
               style: TextStyle(
-                fontSize: 48,
+                fontSize: 43,
                 fontWeight: FontWeight.bold,
               ),
             ),
