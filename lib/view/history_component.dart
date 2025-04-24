@@ -29,7 +29,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   }
   // Helper function to format DateTime to a readable string
   // Helper function to format DateTime to a readable string, handling nulls
-  String _formatDate(DateTime? date) {
+  String formatDate(DateTime? date) {
     if (date == null) {
       return "Date not available"; // Fallback message
     }
@@ -233,17 +233,29 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
                 return const Center(child: Text("Insufficient event data."));
               }
 
-              // Find busiest day
               final String busiestDay = dayCounts.entries.reduce((a, b) => a.value >= b.value ? a : b).key;
               final int busiestCount = dayCounts[busiestDay]!;
 
-              // Format the dates
               String formatDate(DateTime date) {
                 return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
               }
 
               return Column(
                 children: [
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Text(
+                      "From ${formatDate(earliest)} to ${formatDate(latest)}, your busiest day was $busiestDay with $busiestCount events.",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SizedBox(
@@ -252,16 +264,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Text(
-                    "From ${formatDate(earliest)} to ${formatDate(latest)}, your busiest day was $busiestDay with $busiestCount events.",
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    "Event activity by day",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+                  const SizedBox(height: 20),
                 ],
               );
             }
@@ -269,6 +272,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         ),
       );
     }
+
 
 
 
