@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:stress_managment_app/firebase_logic.dart';
 
 class SelfcareModel{
   int _pageIndex = 0;
   String _filterType = "No Filter";
-  final ideasDatabaseReference = FirebaseFirestore.instance.collection('Self_Care_Ideas');
-  final favoritesDatabaseReference = FirebaseFirestore.instance.collection('Favorite_Ideas');
+  CollectionReference ideasDatabaseReference = FirebaseFirestore.instance.collection('Self_Care_Ideas');
+  late CollectionReference favoritesDatabaseReference;
   int databaseSize = 0;
   int currentIdeaIndex = 0;
   String currentIdea = "";
@@ -59,5 +60,14 @@ class SelfcareModel{
     }
   }
 
-  SelfcareModel();
+  Future<void> initializeFavIdeasDatabaseRef() async {
+    final userDocRef = await getUserDocument();
+    if (userDocRef == null) {
+      return; // No user is signed in
+    }
+    favoritesDatabaseReference = userDocRef.collection('Favorite_Ideas');
+  }
+  SelfcareModel() {
+    initializeFavIdeasDatabaseRef();
+  }
 }
