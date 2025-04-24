@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'selfcare_view.dart';
 import 'package:stress_managment_app/presenter/selfcare_presenter.dart';
 import 'homePage_view.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 
 class SelfcarePage extends StatefulWidget {
@@ -23,14 +24,17 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
     this.widget.presenter.selfcareView = this;
   }
 
+  // view variables
   int _selectedIndex = 0;
   String _filterValue = "No Filter";
-  Widget _page = HomePage();
+  Widget _page = HomePage(); // home page stays rendered until the self care page is ready to display
   String _currentIdea = "Loading...";
   bool _isLoading = true;
   IconData _heart = Icons.favorite_border;
   List<String> _favorites = [];
+  final controller = TextEditingController();
 
+  // BEGINNING OF UPDATES HANDLED BY PRESENTER
   void handlePageChange(int index){
     this.widget.presenter.updatePage(index);
   }
@@ -51,6 +55,16 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
     this.widget.presenter.removeFavorite(idea!);
   }
 
+  void handleUserFavorite(String? idea){
+    this.widget.presenter.makeUserFavorite(idea!);
+  }
+
+  void handleScheduledIdea(String? idea, DateTime? date, TimeOfDay? time){
+    this.widget.presenter.scheduleIdea(idea!, date!, time!);
+  }
+  // END OF UPDATES HANDLED BY PRESENTER
+
+  // presenter updates view variables
   @override
   void updateSelectedIndex(int index){
     setState(() {
@@ -97,8 +111,8 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
 
   @override
   Widget build(BuildContext Context) {
-    //Widget page;
     return Scaffold(
+      // only load the app bar if the first idea is generated
       appBar: _isLoading ? null : AppBar(
         toolbarHeight: 80,
         leading: buildHomeButton(),
@@ -112,7 +126,7 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
         child: _page,
       ),
 
-
+      // only load the nav bar if the first idea is generated
       bottomNavigationBar: _isLoading ? null : BottomNavigationBar(
         backgroundColor: Colors.deepPurple.shade700,
         iconSize: 30.0,
@@ -146,23 +160,8 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
   }
 
 
-  FilledButton buildHomeButton() {
-    return FilledButton(
-      onPressed: () {
-        Navigator.pop(context);
-      },
-      child: Icon(Icons.house, color:Colors.white),
-      style: FilledButton.styleFrom(
-        shape: CircleBorder(side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
-        padding: EdgeInsets.all(5),
-        backgroundColor: Colors.deepPurple.shade700,
-        foregroundColor: Colors.deepPurple.shade700,
-      ),
-    );
-  }
 
-
-
+  // BEGINNING OF UI ELEMENTS FOR THE IDEAS PAGE
   @override
   Container IdeasPage(){
     return Container(
@@ -174,24 +173,7 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
 
-          DropdownButton<String>(
-            value: _filterValue,
-            icon: const Icon(Icons.keyboard_arrow_down),
-            underline: Container(height: 2, color: Colors.deepPurple.shade700),
-            items: <String>['No Filter', 'Physical', 'Mental', 'Emotional', 'Social'].map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              setState(() {
-                _filterValue = newValue!;
-                handleFilterValueChanged(newValue);
-                //updateScreen();
-              });
-            },
-          ),
+          createFilterDropdown(),
 
           Expanded(
             child: Column(
@@ -208,12 +190,23 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
     );
   }
 
-  BoxDecoration addBackground() {
-    return BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage("assets/purple_background.jpg"),
-        fit: BoxFit.fill,
-      ),
+  DropdownButton<String> createFilterDropdown() {
+    return DropdownButton<String>(
+      value: _filterValue,
+      icon: const Icon(Icons.keyboard_arrow_down),
+      underline: Container(height: 2, color: Colors.deepPurple.shade700),
+      items: <String>['No Filter', 'Physical', 'Mental', 'Emotional', 'Social'].map((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),),
+        );
+      }).toList(),
+      onChanged: (String? newValue) {
+        setState(() {
+          _filterValue = newValue!;
+          handleFilterValueChanged(newValue);
+        });
+        },
     );
   }
 
@@ -225,7 +218,6 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
             padding: const EdgeInsets.all(20.0),
             child: Text(
               _currentIdea,
-              //'RANDOM SELF CARE IDEA HERE',
               style: TextStyle(fontSize: 25.0, color: Colors.white,),
               textAlign: TextAlign.center,
             )
@@ -248,47 +240,138 @@ class _SelfcarePageState extends State<SelfcarePage> implements SelfcareView {
         ElevatedButton(
           onPressed: (){
               handleNext();
-              //handlePageChange(_selectedIndex);
           },
           child: Text('Next', style: TextStyle(fontSize: 18.0)),
         )
       ],
     );
   }
+  // END OF UI ELEMENTS FOR THE IDEAS PAGE
 
+
+
+  // BEGINNING OF UI ELEMENTS FOR THE FAVORITES PAGE
   @override
   Container FavoritesPage(){
     return Container(
       width: double.infinity,
       decoration: addBackground(),
 
-      child: Column(
-        children: List.generate(_favorites.length, (index) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-            Padding(padding: EdgeInsets.all(10.0)),
-              Flexible(
-                fit: FlexFit.tight,
-                flex: 8,
-                child: Text(_favorites[index], style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
-              ),    
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: (){
-                      handleRemoveFavorite(_favorites[index]);
-                    },
-                    icon: Icon(Icons.delete, color: Colors.deepPurple.shade700, size: 30.0,),
-                  ),
-                ],
-              ),
-            ],
-          );
-        }),
+      child: Container(
+        child: Column(
+          children: [
+            createFavorites(),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: createUserIdeaInput(),
+            ),
+          ],
+        ),
       ),
     );
   }
 
+  Expanded createFavorites() {
+    return Expanded(
+      flex: 9,
+      child: SingleChildScrollView(
+        child: Column(
+          children: createFavoritesRows(),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> createFavoritesRows() {
+    return List.generate(_favorites.length, (index) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(padding: EdgeInsets.all(10.0)),
+          Flexible(
+            fit: FlexFit.tight,
+            flex: 8,
+            child: Text(_favorites[index], style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                  onPressed: () async {
+                    TimeOfDay? scheduledTime;
+                    DateTime? scheduledDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(2025),
+                        lastDate: DateTime(2100),
+                    );
+                    if(scheduledDate != null) {
+                      scheduledTime = await showTimePicker(
+                        context: context,
+                        initialTime: TimeOfDay.now(),
+                      );
+                    }
+                    if(scheduledTime != null){
+                      handleScheduledIdea(_favorites[index], scheduledDate, scheduledTime);
+                    }
+                  },
+                  icon: Icon(Icons.calendar_month, color: Colors.deepPurple.shade700, size: 30.0,),
+              ),
+              IconButton(
+                onPressed: (){
+                  handleRemoveFavorite(_favorites[index]);
+                  },
+                icon: Icon(Icons.delete, color: Colors.deepPurple.shade700, size: 30.0,),
+              ),
+            ],
+          ),
+        ],
+      );
+    });
+  }
+
+  TextField createUserIdeaInput() {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        labelText: 'Add your own favorite idea!',
+        labelStyle: TextStyle(fontSize: 25.0, color: Colors.black, fontWeight: FontWeight.bold),
+      ),
+      style: TextStyle(fontSize: 25.0, color: Colors.black),
+      onSubmitted: (String value) async {
+        handleUserFavorite(value);
+        controller.clear();
+      },
+    );
+  }
+  // END OF UI ELEMENTS FOR FAVORITES PAGE
+
+
+
+  // BEGINNING OF MISC UI ELEMENTS
+  FilledButton buildHomeButton() {
+    return FilledButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      child: Icon(Icons.house, color:Colors.white),
+      style: FilledButton.styleFrom(
+        shape: CircleBorder(side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
+        padding: EdgeInsets.all(5),
+        backgroundColor: Colors.deepPurple.shade700,
+        foregroundColor: Colors.deepPurple.shade700,
+      ),
+    );
+  }
+
+  BoxDecoration addBackground() {
+    return BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage("assets/purple_background.jpg"),
+        fit: BoxFit.fill,
+      ),
+    );
+  }
+  // END OF MISC UI ELEMENTS
 }
