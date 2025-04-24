@@ -26,9 +26,6 @@ class CalendarModel {
     //A DocumentReference refers to a document location in our firebase
     //database and can be used to write, read, or listen to the location.
     final userDocRef = await getUserDocument();
-    if (userDocRef == null) {
-      return; // No user is signed in
-    }
     DocumentReference docRef = userDocRef.collection('events').doc(formattedDate);
 
 
@@ -50,9 +47,6 @@ class CalendarModel {
 
     //specify that we want the to remove the data at our 'formattedDate' which will be inside our 'events' collection
     final userDocRef = await getUserDocument();
-    if (userDocRef == null) {
-      return; // No user is signed in
-    }
     DocumentReference docRef = userDocRef.collection('events').doc(formattedDate);
 
     //Check that we're removing something that actually exists
@@ -85,9 +79,6 @@ class CalendarModel {
     //print("Fetching events for: $formattedDate"); // Debugging print leave for if things break
 
     final userDocRef = await getUserDocument();
-    if (userDocRef == null) {
-      return List<Map<String, dynamic>>.empty(); // No user is signed in
-    }
     DocumentSnapshot doc = await userDocRef.collection('events').doc(formattedDate).get();
 
     if (doc.exists) {

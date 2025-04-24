@@ -28,10 +28,10 @@ Future<void> createUserDocument(User? user) async {
     });
   }
 
-Future<DocumentReference<Map<String, dynamic>>?> getUserDocument() async {
+Future<DocumentReference<Map<String, dynamic>>> getUserDocument() async {
   final user = FirebaseAuth.instance.currentUser;
   if (user == null) {
-    return null; // No user is signed in
+    throw Exception('No user is signed in');
   }
   return FirebaseFirestore.instance.collection('users').doc(user.uid);
 }
