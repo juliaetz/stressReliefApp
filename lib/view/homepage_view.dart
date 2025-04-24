@@ -59,7 +59,7 @@ class Button extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder:(context) =>
-                    JournalView(presenter: JournalPresenter(firestore: FirebaseFirestore.instance),),)
+                    JournalView(presenter: JournalPresenter(),),)
           );
         } else if(pageID == 5){
           Navigator.push(
