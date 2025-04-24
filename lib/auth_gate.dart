@@ -15,8 +15,8 @@ class AuthGate extends StatelessWidget {
         if (!snapshot.hasData) {
           return SignInScreen(
             actions: [
-              AuthStateChangeAction<SignedIn>((context, state) {
-                fire_base_logic.createUserDocument(state.user);
+              AuthStateChangeAction<UserCreated>((context, state) {
+                fire_base_logic.createUserDocument(state.credential.user);
               }),
             ],
             providers: [
