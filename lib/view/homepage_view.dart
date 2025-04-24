@@ -14,7 +14,7 @@ import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
 import 'mood_tracker_screen/mood_tracker_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:stress_managment_app/firebase_logic.dart' as fire_base_logic;
+import 'account_view.dart';
 
 
 //class to help create buttons
@@ -94,25 +94,8 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute<ProfileScreen>(
-                  builder: (context) => ProfileScreen(
-                    appBar: AppBar(
-                      title: const Text('Profile'),
-                    ),
-                    actions: [
-                      SignedOutAction((context) {
-                        Navigator.of(context).pop();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => AuthGate()));
-                      }),
-                      AccountDeletedAction((context, user) {
-                        fire_base_logic.deleteUserData(user.uid);
-                      }),
-                    ],
-                  ),
-
-                ),
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const AccountView()),
               );
             },
           )
