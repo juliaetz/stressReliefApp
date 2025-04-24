@@ -62,9 +62,6 @@ class SelfcareModel{
 
   Future<void> initializeFavIdeasDatabaseRef() async {
     final userDocRef = await getUserDocument();
-    if (userDocRef == null) {
-      return; // No user is signed in
-    }
     favoritesDatabaseReference = userDocRef.collection('Favorite_Ideas');
   }
   SelfcareModel() {
