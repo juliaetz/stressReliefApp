@@ -8,6 +8,7 @@ import 'package:stress_managment_app/view/history_component.dart';
 import 'package:stress_managment_app/view/rewards_view.dart';
 import 'package:stress_managment_app/view/journal_view.dart';
 import 'package:stress_managment_app/view/selfcare_component.dart';
+import '../auth_gate.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
@@ -101,6 +102,7 @@ class HomePage extends StatelessWidget {
                     actions: [
                       SignedOutAction((context) {
                         Navigator.of(context).pop();
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => AuthGate()));
                       })
                     ],
                   ),

@@ -5,7 +5,7 @@ import 'package:stress_managment_app/view/mood_tracker_screen/mood_tracker_bar.d
 
 class MoodHistorySummary extends StatelessWidget {
   final MoodTrackerPresenter _presenter =
-      MoodTrackerPresenter(firestore: FirebaseFirestore.instance);
+      MoodTrackerPresenter();
 
   @override
   Widget build(BuildContext context) {

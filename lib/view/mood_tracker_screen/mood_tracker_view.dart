@@ -20,9 +20,9 @@ class MoodTrackerView extends StatefulWidget {
   _MoodTrackerPageState createState() => _MoodTrackerPageState();
 }
 
-class _MoodTrackerPageState extends State<MoodTrackerView> {
-  final MoodTrackerPresenter _presenter =
-      MoodTrackerPresenter(firestore: FirebaseFirestore.instance);
+
+class _MoodTrackerPageState extends State<MoodTrackerView>{
+  final MoodTrackerPresenter _presenter = MoodTrackerPresenter();
 
 
   // START SELECTED MOOD AS NULL
