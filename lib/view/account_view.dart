@@ -28,6 +28,7 @@ class _AccountViewState extends State<AccountView> {
     if (user != null) {
       setState(() {
         _currentUser = user;
+        print("Current user: ${user!.uid}");
       });
     }
   }
