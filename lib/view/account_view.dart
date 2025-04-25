@@ -13,6 +13,9 @@ class AccountView extends StatefulWidget {
 
 class _AccountViewState extends State<AccountView> {
   User? _currentUser;
+  final _oldPasswordController = TextEditingController();
+  final _newPasswordController = TextEditingController();
+  final _deletePasswordController = TextEditingController();
 
   @override
   void initState() {
@@ -45,42 +48,74 @@ class _AccountViewState extends State<AccountView> {
       // Show a confirmation dialog before deleting the account.
       final confirmDelete = await showDialog<bool>(
         context: context,
-        builder: (context) =>
-            AlertDialog(
-              title: const Text('Delete Account'),
-              content: const Text(
+        builder: (context) => AlertDialog(
+          title: const Text('Delete Account'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
                   'Are you sure you want to delete your account? This action cannot be undone.'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  // Cancel deletion.
-                  child: const Text('Cancel'),
+              TextField(
+                controller: _deletePasswordController,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
                 ),
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  // Confirm deletion.
-                  child: const Text('Delete'),
-                ),
-              ],
+                obscureText: true,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () =>
+                  Navigator.of(context).pop(false), // Cancel deletion.
+              child: const Text('Cancel'),
             ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop(true); // Confirm deletion.
+                // Call the deleteAccount with the password
+                await _deleteAccountWithPassword();
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        ),
       );
+    } else {
+      print("No current user to delete");
+    }
+  }
 
-      if (confirmDelete == true) {
-        // First, delete the user's data from Firestore.
-        print(_currentUser!.uid);
-       await fire_base_logic.deleteUserData(_currentUser!.uid);
+  Future<void> _deleteAccountWithPassword() async {
+    if (_currentUser != null) {
+      try {
+        // Re-authenticate the user.
+        final credential = EmailAuthProvider.credential(
+          email: _currentUser!.email!,
+          password: _deletePasswordController.text,
+        );
+        await _currentUser!.reauthenticateWithCredential(credential);
+
+        // Now, delete the user's data from Firestore.
+        await fire_base_logic.deleteUserData(_currentUser!.uid);
         // Now, delete the user account.
-        try {
-          await _currentUser!.delete();
-          // User account and data should be deleted.
-          print("Account deletion successful");
-          // Navigate to the sign-in/sign-up screen after deletion.
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AuthGate()));
-        } catch (error) {
-          print("Error deleting user: $error");
-          // Handle the error appropriately, maybe show an error message to the user.
+        await _currentUser!.delete();
+
+        // Clear the password field.
+        _deletePasswordController.clear();
+
+        // User account and data should be deleted.
+        print("Account deletion successful");
+        // Navigate to the sign-in/sign-up screen after deletion.
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => AuthGate()));
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'wrong-password') {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error deleting account: $error')),
+            const SnackBar(content: Text('Incorrect password.')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error deleting account: ${e.message}')),
           );
         }
       }
@@ -90,18 +125,35 @@ class _AccountViewState extends State<AccountView> {
   }
 
   Future<void> _changePassword() async {
-    if (_currentUser != null && _currentUser!.email != null) {
+    if (_currentUser != null) {
       try {
-        await FirebaseAuth.instance.sendPasswordResetEmail(email: _currentUser!.email!);
+        // Re-authenticate the user with the current password.
+        final credential = EmailAuthProvider.credential(
+          email: _currentUser!.email!,
+          password: _oldPasswordController.text,
+        );
+        await _currentUser!.reauthenticateWithCredential(credential);
+
+        // Update the password.
+        await _currentUser!.updatePassword(_newPasswordController.text);
+
+        // Clear the password fields.
+        _oldPasswordController.clear();
+        _newPasswordController.clear();
+
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Password reset email sent. Check your email.')),
+          const SnackBar(content: Text('Password updated successfully!')),
         );
       } on FirebaseAuthException catch (e) {
-        // Handle password change errors.
-        print('Error sending password reset email: $e');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error sending password reset email: ${e.message}')),
-        );
+        if (e.code == 'wrong-password') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Incorrect old password.')),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error changing password: ${e.message}')),
+          );
+        }
       }
     }
   }
