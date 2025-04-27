@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Planner',
       theme: ThemeData(
+
         textTheme: GoogleFonts.amikoTextTheme(),
+
         primarySwatch: Colors.blue,
       ),
       home: AuthGate(), // Set LOGIN PAGE as the start page

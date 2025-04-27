@@ -14,6 +14,8 @@ import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
 import 'mood_tracker_screen/mood_tracker_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:stress_managment_app/firebase_logic.dart' as fire_base_logic;
+
 
 //class to help create buttons
 class Button extends StatelessWidget {
@@ -103,7 +105,10 @@ class HomePage extends StatelessWidget {
                       SignedOutAction((context) {
                         Navigator.of(context).pop();
                         Navigator.push(context, MaterialPageRoute(builder: (context) => AuthGate()));
-                      })
+                      }),
+                      AccountDeletedAction((context, user) {
+                        fire_base_logic.deleteUserData(user.uid);
+                      }),
                     ],
                   ),
 

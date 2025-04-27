@@ -18,6 +18,7 @@ Future<void> createUserDocument(User? user) async {
 
     //Create user document
     await userDocRef.set({});
+    await userDocRef.set({'User_Email': user.email});
 
     //Create persistent variables
     await userDocRef.collection('Persistent_Variables').doc('Integers').set({
@@ -31,4 +32,9 @@ Future<DocumentReference<Map<String, dynamic>>> getUserDocument() async {
     throw Exception('No user is signed in');
   }
   return FirebaseFirestore.instance.collection('users').doc(user.uid);
+}
+
+void deleteUserData(String userUID) async {
+  final userDocRef = FirebaseFirestore.instance.collection('users').doc(userUID);
+  await userDocRef.delete();
 }
