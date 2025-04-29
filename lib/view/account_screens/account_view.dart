@@ -28,7 +28,7 @@ class _AccountViewState extends State<AccountView> {
     if (user != null) {
       setState(() {
         _currentUser = user;
-        print("Current user: ${user!.uid}");
+        print("Current user: ${user.uid}");
       });
     }
   }
@@ -37,7 +37,10 @@ class _AccountViewState extends State<AccountView> {
     try {
       await FirebaseAuth.instance.signOut();
       // Navigate to the sign-in/sign-up screen after sign out.
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => AuthGate()));
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => AuthGate()),
+          (Route<dynamic> route) => false,
+      );
     } catch (e) {
       // Handle sign out errors.
       print('Error signing out: $e');
@@ -47,7 +50,7 @@ class _AccountViewState extends State<AccountView> {
   Future<void> _deleteAccount() async {
     if (_currentUser != null) {
       // Show a confirmation dialog before deleting the account.
-      final confirmDelete = await showDialog<bool>(
+      await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Delete Account'),

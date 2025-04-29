@@ -1,5 +1,4 @@
 //import 'dart:ffi';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stress_managment_app/presenter/history_presenter.dart';
 import 'package:stress_managment_app/presenter/journal_presenter.dart';
@@ -8,13 +7,11 @@ import 'package:stress_managment_app/view/history_component.dart';
 import 'package:stress_managment_app/view/rewards_view.dart';
 import 'package:stress_managment_app/view/journal_view.dart';
 import 'package:stress_managment_app/view/selfcare_component.dart';
-import '../auth_gate.dart';
 import 'calendar_view.dart';
 import '../model/calendar_model.dart';
 import '../presenter/calendar_presenter.dart';
 import 'mood_tracker_screen/mood_tracker_view.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'account_view.dart';
+import 'account_screens/account_view.dart';
 
 
 //class to help create buttons
