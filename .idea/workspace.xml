@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Removed unused imports" />
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Added the purple background to the Journal page.">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/homepage_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/homepage_view.dart" afterDir="false" />
-    </list>
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="merged with main" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -393,7 +384,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745894914487</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="merged with main">
+      <option name="closed" value="true" />
+      <created>1745896382448</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1745896382448</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -408,7 +407,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Created a function to add journal entries" />
     <MESSAGE value="Fixed the Journal button on the home screen" />
     <MESSAGE value="Added a button that adds the written journal entry (Will be added to the database later)" />
     <MESSAGE value="Created accessors for journal entries" />
@@ -433,7 +431,8 @@
     <MESSAGE value="Removed the shadows on the journal entries boxes, they did not end up looking good." />
     <MESSAGE value="Made the delete icons red" />
     <MESSAGE value="Removed unused imports" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed unused imports" />
+    <MESSAGE value="merged with main" />
+    <option name="LAST_COMMIT_MESSAGE" value="merged with main" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
