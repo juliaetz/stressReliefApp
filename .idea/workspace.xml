@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="misc">
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Added a box around journal entries to help differentiate between them.">
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/journal_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/journal_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/journal_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/journal_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/presenter/journal_presenter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/presenter/journal_presenter.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -331,7 +333,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745524416845</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Added a box around journal entries to help differentiate between them.">
+      <option name="closed" value="true" />
+      <created>1745892517762</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1745892517762</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -346,7 +356,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added functionality to journal_view.dart. Added a button on the home menu to access the journal page" />
     <MESSAGE value="fixed formatting of early journal page. changed the naming scheme of the home page view" />
     <MESSAGE value="Added basic components for the journal" />
     <MESSAGE value="Created the skeleton for a few methods" />
@@ -371,7 +380,8 @@
     <MESSAGE value="Added the purple background to the Journal page." />
     <MESSAGE value="initial commit" />
     <MESSAGE value="Fixed a problem that would not let you run the app." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed a problem that would not let you run the app." />
+    <MESSAGE value="Added a box around journal entries to help differentiate between them." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a box around journal entries to help differentiate between them." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
