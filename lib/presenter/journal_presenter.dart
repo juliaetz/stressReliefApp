@@ -18,7 +18,7 @@ class JournalPresenter {
         final userDocRef = await getUserDocument();
         yield* userDocRef.collection('entries').snapshots().map((snapshot) {
             return snapshot.docs.map((doc) =>
-                Entry.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
+                Entry.fromMap(doc.data(), doc.id)).toList();
         });
     }
 

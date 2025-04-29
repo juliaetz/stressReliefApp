@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Removed the shadows on the journal entries boxes, they did not end up looking good." />
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Removed unused imports" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -368,7 +368,23 @@
       <option name="project" value="LOCAL" />
       <updated>1745894598475</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Made the delete icons red">
+      <option name="closed" value="true" />
+      <created>1745894852692</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1745894852692</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Removed unused imports">
+      <option name="closed" value="true" />
+      <created>1745894914487</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1745894914487</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -383,8 +399,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reworked the Journal Model" />
-    <MESSAGE value="Added a function to convert Maps into JournalModel Objects" />
     <MESSAGE value="Created a function to add journal entries" />
     <MESSAGE value="Fixed the Journal button on the home screen" />
     <MESSAGE value="Added a button that adds the written journal entry (Will be added to the database later)" />
@@ -408,7 +422,9 @@
     <MESSAGE value="Added the deletion function to the presenter" />
     <MESSAGE value="Implemented the deletion function to the app" />
     <MESSAGE value="Removed the shadows on the journal entries boxes, they did not end up looking good." />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed the shadows on the journal entries boxes, they did not end up looking good." />
+    <MESSAGE value="Made the delete icons red" />
+    <MESSAGE value="Removed unused imports" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed unused imports" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
