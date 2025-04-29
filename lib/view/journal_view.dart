@@ -85,6 +85,40 @@ class _JournalViewState extends State<JournalView>{
                               child: ListTile(
                                 title: Text(entry.text),
                                 subtitle: Text('${entry.date}'.split(' ')[0]),
+                                trailing: IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () async {
+                                    bool? confirm = await showDialog<bool>(
+                                      context: context,
+                                      builder: (BuildContext context){
+                                        return AlertDialog(
+                                          title: Text('Confirm Entry Deletion'),
+                                          content: Text('Are you sure you want to delete this entry?'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                child: Text('Cancel'),
+                                                onPressed: (){
+                                                  Navigator.of(context).pop(false);
+                                                },
+                                            ),
+                                            TextButton(
+                                              child: Text('Delete'),
+                                              onPressed: (){
+                                                Navigator.of(context).pop(true);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                    if(confirm == true){
+                                      await widget.presenter.deleteEntry(entry.id!);
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Entry deleted!')),
+                                      );
+                                    }
+                                  }
+                                ),
                               )
                             );
                           }
