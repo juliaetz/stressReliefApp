@@ -203,78 +203,77 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   // END OF FUNCTIONS RELATED TO HISTORY VIEW
 
 
-  // ACTIVITY GRAPH VIEW
+// ACTIVITY GRAPH VIEW
   //going to need to call the getEventsByCoutns() for the map<string, int>
   //test comment for merge
-    @override
-    Widget ActivityGraph() {
-      return Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/purple_background.jpg"),
-            fit: BoxFit.cover,
-          ),
+  @override
+  Widget ActivityGraph() {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/purple_background.jpg"),
+          fit: BoxFit.cover,
         ),
-        child: FutureBuilder<Map<String, dynamic>>(
-          future: getEventCountsByDay(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data == null) {
-              return const Center(child: Text("No data available"));
-            } else {
-              final data = snapshot.data!;
-              final Map<String, int> dayCounts = Map<String, int>.from(data['dayCounts']);
-              final DateTime? earliest = data['earliest'];
-              final DateTime? latest = data['latest'];
+      ),
+      child: FutureBuilder<Map<String, dynamic>>(
+        future: getEventCountsByDay(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data == null) {
+            return const Center(child: Text("No data available"));
+          } else {
+            final data = snapshot.data!;
+            final Map<String, int> dayCounts = Map<String, int>.from(data['dayCounts']);
+            final DateTime? earliest = data['earliest'];
+            final DateTime? latest = data['latest'];
 
-              if (earliest == null || latest == null || dayCounts.isEmpty) {
-                return const Center(child: Text("Insufficient event data."));
-              }
-
-              final String busiestDay = dayCounts.entries.reduce((a, b) => a.value >= b.value ? a : b).key;
-              final int busiestCount = dayCounts[busiestDay]!;
-
-              String formatDate(DateTime date) {
-                return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
-              }
-
-              return Column(
-                children: [
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      "From ${formatDate(earliest)} to ${formatDate(latest)}, your busiest day was $busiestDay with $busiestCount events.",
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: SizedBox(
-                      height: 500,
-                      child: ActivityBarChart(eventCounts: dayCounts),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  const SizedBox(height: 20),
-                  //test 
-                ],
-              );
+            if (earliest == null || latest == null || dayCounts.isEmpty) {
+              return const Center(child: Text("Insufficient event data."));
             }
-          },
-        ),
-      );
-    }
 
+            final String busiestDay = dayCounts.entries.reduce((a, b) => a.value >= b.value ? a : b).key;
+            final int busiestCount = dayCounts[busiestDay]!;
+
+            String formatDate(DateTime date) {
+              return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+            }
+
+            return Column(
+              children: [
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    "From ${formatDate(earliest)} to ${formatDate(latest)}, your busiest day was $busiestDay with $busiestCount events.",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    height: 500,
+                    child: ActivityBarChart(eventCounts: dayCounts),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                const SizedBox(height: 20),
+                //test
+              ],
+            );
+          }
+        },
+      ),
+    );
+  }
 
 
 
