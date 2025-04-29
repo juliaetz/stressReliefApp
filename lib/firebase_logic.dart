@@ -17,7 +17,7 @@ Future<void> createUserDocument(User? user) async {
     }
 
     //Create user document
-    await userDocRef.set({});
+    await userDocRef.set({'User_Email': user.email});
 
     //Create persistent variables
     await userDocRef.collection('Persistent_Variables').doc('Integers').set({
@@ -31,4 +31,36 @@ Future<DocumentReference<Map<String, dynamic>>> getUserDocument() async {
     throw Exception('No user is signed in');
   }
   return FirebaseFirestore.instance.collection('users').doc(user.uid);
+}
+
+Future<void> deleteUserData(String userUID) async {
+  final userDocRef = FirebaseFirestore.instance.collection('users').doc(userUID);
+
+  // Delete all persistent variables
+  await userDocRef.collection('Persistent_Variables').get().then((querySnapshot) {
+    for (final doc in querySnapshot.docs) {
+      doc.reference.delete();
+    }
+  });
+  await userDocRef.collection('Favorite_Ideas').get().then((querySnapshot) {
+    for (final doc in querySnapshot.docs) {
+      doc.reference.delete();
+    }
+  });
+  await userDocRef.collection('Mood').get().then((querySnapshot) {
+    for (final doc in querySnapshot.docs) {
+      doc.reference.delete();
+    }
+  });
+  await userDocRef.collection('entries').get().then((querySnapshot) {
+    for (final doc in querySnapshot.docs) {
+      doc.reference.delete();
+    }
+  });
+  await userDocRef.collection('events').get().then((querySnapshot) {
+    for (final doc in querySnapshot.docs) {
+      doc.reference.delete();
+    }
+  });
+  await userDocRef.delete();
 }

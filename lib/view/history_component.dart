@@ -37,13 +37,14 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     print("Event Counts: $eventCounts");
   }
 
+  // view variables
   String _dropdownValue = 'Activity History';
   List<Widget> _entries = [];
   int _selectedIndex = 0;
   Widget _page = Placeholder();
 
 
-
+  // BEGINNING OF UPDATES HANDLED BY PRESENTER
   void handleHistoryValueChanged(String? value){
     this.widget.presenter.onOptionChanged(value!);
   }
@@ -51,24 +52,25 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   void updateScreen(){
     this.widget.presenter.updateScreen();
   }
+  // END OF UPDATES HANDLED BY PRESENTER
 
 
+  // presenter updates view variables
   void handlePageChange(int index){
     setState((){
       _selectedIndex = index;
 
-      if(index == 0){
+      if(index == 0){ // these pages were in the history page build context as widgets
         _page = DailyHistoryPage();
       }
       else if (index == 1){
         _page = ActivityGraph();
       }
       else if (index == 2){
-        _page = MoodHistorySummary();
+        _page = MoodHistorySummary(); // this page is seperate on the mood tracker
       }
     });
   }
-
 
   @override
   void updateEntries(List<Widget> entries){
@@ -98,7 +100,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       appBar: AppBar(
         toolbarHeight: 80,
         leading: buildHomeButton(),
-        title: Text('Daily Activity and Mood History'),
+        title: Text('Daily Activity and Mood History', style: TextStyle(fontSize: 20.0),),
         centerTitle: true,
         backgroundColor: Colors.deepPurple.shade200,
       ),
@@ -125,7 +127,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
             label: 'History',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.stacked_line_chart_outlined),
+            icon: Icon(Icons.bar_chart_sharp),
             label: 'Activity Graph',
           ),
           BottomNavigationBarItem(
@@ -203,7 +205,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   // END OF FUNCTIONS RELATED TO HISTORY VIEW
 
 
-  // ACTIVITY GRAPH VIEW
+  // START OF METHODS RELATED TO ACTIVITY GRAPH VIEW
   //going to need to call the getEventsByCoutns() for the map<string, int>
     @override
     Widget ActivityGraph() {
@@ -245,40 +247,6 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
         ),
       );
     }
-
-
-
-
-  // START OF MISC UI ELEMENTS
-  FilledButton buildHomeButton() {
-    return FilledButton(
-      // HOME BUTTON TO RETURN TO HOME PAGE
-      onPressed: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(builder:(context) => HomePage(),)
-        );
-      },
-
-      child: Icon(Icons.house, color:Colors.white),
-      style: FilledButton.styleFrom(
-        shape: CircleBorder(side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
-        padding: EdgeInsets.all(5),
-        backgroundColor: Colors.deepPurple.shade700,
-        foregroundColor: Colors.deepPurple.shade700,
-      ),
-    );
-  }
-
-  BoxDecoration addBackground() {
-    return BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage("assets/purple_background.jpg"),
-        fit: BoxFit.fill,
-      ),
-    );
-  }
-
 
   String _getWeekdayName(int weekday) {
     const days = [
@@ -340,7 +308,39 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
     }
     //return our incremented map
     return dayCounts;
-
   }
+  // END OF METHODS RELATED TO ACTIVITY GRAPH VIEW
+
+
+  // START OF MISC UI ELEMENTS
+  FilledButton buildHomeButton() {
+    return FilledButton(
+      // HOME BUTTON TO RETURN TO HOME PAGE
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder:(context) => HomePage(),)
+        );
+      },
+
+      child: Icon(Icons.house, color:Colors.white),
+      style: FilledButton.styleFrom(
+        shape: CircleBorder(side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
+        padding: EdgeInsets.all(5),
+        backgroundColor: Colors.deepPurple.shade700,
+        foregroundColor: Colors.deepPurple.shade700,
+      ),
+    );
+  }
+
+  BoxDecoration addBackground() {
+    return BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage("assets/purple_background.jpg"),
+        fit: BoxFit.fill,
+      ),
+    );
+  }
+  // END OF MISC UI ELEMENTS
 
 }

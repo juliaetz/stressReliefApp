@@ -6,6 +6,6 @@ abstract class HistoryView{
   Widget ActivityGraph(){return Container();}
   void updateSelectedIndex(int index){}
   void updatePage(Widget page){}
-  Future<Map<String, int>> getEventCountsByDay();
+  Future<Map<String, dynamic>> getEventCountsByDay();
 
 }
