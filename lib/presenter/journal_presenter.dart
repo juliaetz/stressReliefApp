@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import '../model/journal_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../firebase_logic.dart';
 
 
