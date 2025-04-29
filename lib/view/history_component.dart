@@ -205,6 +205,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
 
   // ACTIVITY GRAPH VIEW
   //going to need to call the getEventsByCoutns() for the map<string, int>
+  //test comment for merge
     @override
     Widget ActivityGraph() {
       return Container(
