@@ -25,5 +25,10 @@ class JournalPresenter {
         });
     }
 
+    Future<void> deleteEntry(String entryId) async {
+        final userDocRef = await getUserDocument();
+        await userDocRef.collection('entries').doc(entryId).delete();
+    }
+
 
 }
