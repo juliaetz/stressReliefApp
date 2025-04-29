@@ -80,6 +80,7 @@ class _JournalViewState extends State<JournalView>{
                                 subtitle: Text('${entry.date}'.split(' ')[0]),
                                 trailing: IconButton(
                                   icon: Icon(Icons.delete),
+                                  color: Colors.red,
                                   onPressed: () async {
                                     bool? confirm = await showDialog<bool>(
                                       context: context,

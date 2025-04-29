@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Added the deletion function to the presenter">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/view/journal_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/journal_view.dart" afterDir="false" />
-    </list>
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Removed the shadows on the journal entries boxes, they did not end up looking good." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -356,7 +352,23 @@
       <option name="project" value="LOCAL" />
       <updated>1745893448791</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Implemented the deletion function to the app">
+      <option name="closed" value="true" />
+      <created>1745894268035</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1745894268035</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Removed the shadows on the journal entries boxes, they did not end up looking good.">
+      <option name="closed" value="true" />
+      <created>1745894598475</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1745894598475</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -371,8 +383,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Created the skeleton for a few methods" />
-    <MESSAGE value="Added a textbox used to enter journal entries." />
     <MESSAGE value="Reworked the Journal Model" />
     <MESSAGE value="Added a function to convert Maps into JournalModel Objects" />
     <MESSAGE value="Created a function to add journal entries" />
@@ -396,7 +406,9 @@
     <MESSAGE value="Added a box around journal entries to help differentiate between them." />
     <MESSAGE value="Added an Id field to the Journal model to assist in the delete function." />
     <MESSAGE value="Added the deletion function to the presenter" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added the deletion function to the presenter" />
+    <MESSAGE value="Implemented the deletion function to the app" />
+    <MESSAGE value="Removed the shadows on the journal entries boxes, they did not end up looking good." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed the shadows on the journal entries boxes, they did not end up looking good." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
