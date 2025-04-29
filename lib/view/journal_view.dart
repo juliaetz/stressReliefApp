@@ -74,13 +74,6 @@ class _JournalViewState extends State<JournalView>{
                               decoration: BoxDecoration(
                                 color: Colors.deepPurple.shade100,
                                 borderRadius: BorderRadius.circular(15),
-                                boxShadow:[
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    spreadRadius: 5,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
                               ),
                               child: ListTile(
                                 title: Text(entry.text),
