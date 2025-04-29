@@ -296,7 +296,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       'Saturday',
       'Sunday'
     ];
-    return days[weekday];
+    return days[weekday -1 ];
   }
 
   @override
