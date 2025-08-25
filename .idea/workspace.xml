@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="Added the purple background to the Journal page.">
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/view/homepage_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/view/homepage_view.dart" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;dange084&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.umn.edu/ponto038/under_staffed.git&quot;,
+    &quot;accountId&quot;: &quot;9a815ca1-c044-42a4-910f-d24dd46fd744&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2uYpxzgETURZcgOWDUzYpk9cmFJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flutter.main.dart.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ScreenRecorder.SavePath": "C:\\Users\\marti\\Downloads",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "io.flutter.reload.alreadyRun": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/marti/Downloads",
+    "settings.editor.selected.configurable": "AndroidSdkUpdater",
+    "show.migrate.to.gradle.popup": "false"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="82b3e1a3-fdbb-4adb-91bc-75b6df2c03c1" name="Changes" comment="" />
+      <created>1742435612162</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1742435612162</updated>
+    </task>
+    <task id="LOCAL-00001" summary="commit generated plugin (trying to resolving merge conflicts)">
+      <option name="closed" value="true" />
+      <created>1743103449435</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1743103449436</updated>
+    </task>
+    <task id="LOCAL-00002" summary="commit generated plugin (trying to resolving merge conflicts x2)">
+      <option name="closed" value="true" />
+      <created>1743103532224</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1743103532225</updated>
+    </task>
+    <task id="LOCAL-00003" summary="misc.">
+      <option name="closed" value="true" />
+      <created>1743470758029</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1743470758029</updated>
+    </task>
+    <task id="LOCAL-00004" summary="misc.">
+      <option name="closed" value="true" />
+      <created>1743472039573</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1743472039573</updated>
+    </task>
+    <task id="LOCAL-00005" summary="misc.">
+      <option name="closed" value="true" />
+      <created>1743707120598</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1743707120598</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Created MVP files for the journal">
+      <option name="closed" value="true" />
+      <created>1743707671053</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1743707671053</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added functionality to journal_view.dart. Added a button on the home menu to access the journal page">
+      <option name="closed" value="true" />
+      <created>1743708799756</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1743708799757</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fixed formatting of early journal page. changed the naming scheme of the home page view">
+      <option name="closed" value="true" />
+      <created>1743709125651</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1743709125651</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added basic components for the journal">
+      <option name="closed" value="true" />
+      <created>1743709785317</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1743709785317</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Created the skeleton for a few methods">
+      <option name="closed" value="true" />
+      <created>1743710549248</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1743710549248</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Added a textbox used to enter journal entries.">
+      <option name="closed" value="true" />
+      <created>1744141067215</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1744141067216</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Reworked the Journal Model">
+      <option name="closed" value="true" />
+      <created>1744234530843</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1744234530843</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added a function to convert Maps into JournalModel Objects">
+      <option name="closed" value="true" />
+      <created>1744235223906</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1744235223906</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Created a function to add journal entries">
+      <option name="closed" value="true" />
+      <created>1744236228201</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1744236228201</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Fixed the Journal button on the home screen">
+      <option name="closed" value="true" />
+      <created>1744313293557</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1744313293557</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added a button that adds the written journal entry (Will be added to the database later)">
+      <option name="closed" value="true" />
+      <created>1744313343250</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1744313343250</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Created accessors for journal entries">
+      <option name="closed" value="true" />
+      <created>1744313949944</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1744313949944</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Final Commit for the day">
+      <option name="closed" value="true" />
+      <created>1744315097385</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1744315097385</updated>
+    </task>
+    <task id="LOCAL-00019" summary="initial commit">
+      <option name="closed" value="true" />
+      <created>1744841867768</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1744841867768</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Began refactoring the journal MVP files to better allow for Firebase integation">
+      <option name="closed" value="true" />
+      <created>1744918695155</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1744918695155</updated>
+    </task>
+    <task id="LOCAL-00021" summary="created a function that adds entries to firebase">
+      <option name="closed" value="true" />
+      <created>1744919964905</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1744919964905</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Fixed the addEntry call in the view">
+      <option name="closed" value="true" />
+      <created>1744920010975</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1744920010975</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added a function that retrieves all entry data from firebase">
+      <option name="closed" value="true" />
+      <created>1745292042175</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1745292042175</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Attempted to add firebase implementation. Needs fixing.">
+      <option name="closed" value="true" />
+      <created>1745293485456</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1745293485456</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Implemented firebase into the journal page.">
+      <option name="closed" value="true" />
+      <created>1745293821683</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1745293821683</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1745351413049</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1745351413049</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Added the purple background to the home page.">
+      <option name="closed" value="true" />
+      <created>1745351532386</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1745351532387</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Added the purple background to the planner page.">
+      <option name="closed" value="true" />
+      <created>1745351780090</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1745351780090</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Added the purple background to the Journal page.">
+      <option name="closed" value="true" />
+      <created>1745351931042</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1745351931042</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Created MVP files for the journal" />
+    <MESSAGE value="Added functionality to journal_view.dart. Added a button on the home menu to access the journal page" />
+    <MESSAGE value="fixed formatting of early journal page. changed the naming scheme of the home page view" />
+    <MESSAGE value="Added basic components for the journal" />
+    <MESSAGE value="Created the skeleton for a few methods" />
+    <MESSAGE value="Added a textbox used to enter journal entries." />
+    <MESSAGE value="Reworked the Journal Model" />
+    <MESSAGE value="Added a function to convert Maps into JournalModel Objects" />
+    <MESSAGE value="Created a function to add journal entries" />
+    <MESSAGE value="Fixed the Journal button on the home screen" />
+    <MESSAGE value="Added a button that adds the written journal entry (Will be added to the database later)" />
+    <MESSAGE value="Created accessors for journal entries" />
+    <MESSAGE value="Final Commit for the day" />
+    <MESSAGE value="initial commit" />
+    <MESSAGE value="Began refactoring the journal MVP files to better allow for Firebase integation" />
+    <MESSAGE value="created a function that adds entries to firebase" />
+    <MESSAGE value="Fixed the addEntry call in the view" />
+    <MESSAGE value="Added a function that retrieves all entry data from firebase" />
+    <MESSAGE value="Attempted to add firebase implementation. Needs fixing." />
+    <MESSAGE value="Implemented firebase into the journal page." />
+    <MESSAGE value="misc" />
+    <MESSAGE value="Initial commit" />
+    <MESSAGE value="Added the purple background to the home page." />
+    <MESSAGE value="Added the purple background to the planner page." />
+    <MESSAGE value="Added the purple background to the Journal page." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the purple background to the Journal page." />
+  </component>
+</project>

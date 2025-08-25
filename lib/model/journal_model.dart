@@ -1,0 +1,30 @@
+class Entry{
+    final String text;
+    final String date;
+
+    Entry({
+        required this.text,
+        required this.date,
+    });
+
+    Map<String, dynamic> toMap(){
+        return{
+            'text': text,
+            'date': date,
+        };
+    }
+
+    factory Entry.fromMap(Map<String, dynamic> map){
+        if(!map.containsKey('text') || !map.containsKey('date')){
+            throw Exception('Invalid entry map');
+        }
+
+        return Entry(
+            text: map['text']??'',
+            date: map['date']??'',
+        );
+    }
+
+
+
+}
