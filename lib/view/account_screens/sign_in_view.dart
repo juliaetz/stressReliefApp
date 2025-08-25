@@ -115,7 +115,7 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              const SizedBox(height: 70),
+              const SizedBox(height: 30),
               Text(
                 'OVERWORKED?',
                 style: TextStyle(
@@ -129,6 +129,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   fontSize: 20,
                 ),
               ),
+              const SizedBox(height: 30),
               Expanded(
                 child: Center(
                   child: Container(
@@ -137,92 +138,105 @@ class _SignInScreenState extends State<SignInScreen> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Sign in to continue',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.deepPurple.shade200,
+                    child: Scrollbar(
+                      thumbVisibility: true,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Sign in to continue',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.deepPurple.shade200,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                  '/signup',
-                                      (Route<dynamic> route) => false,
-                                );
-                              },
-                              style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                              ),
-                              child: Text("Don't have an account? Sign up"),
-                            )
-                        ),
-                        const SizedBox(height: 20),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextFormField(
-                                controller: _emailController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Email',
-                                  border: OutlineInputBorder(),
-                                ),
-                                keyboardType: TextInputType.emailAddress,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your email';
-                                  }
-                                  if (!value.contains('@')) {
-                                    return 'Please enter a valid email';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              const SizedBox(height: 20),
-                              TextFormField(
-                                controller: _passwordController,
-                                decoration: InputDecoration(
-                                  labelText: 'Password',
-                                  border: const OutlineInputBorder(),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(_obscurePassword
-                                        ? Icons.visibility_off
-                                        : Icons.visibility),
-                                    onPressed: _togglePasswordVisibility,
+                            Align(
+                              alignment: Alignment.centerLeft,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pushNamedAndRemoveUntil(
+                                      '/signup',
+                                          (Route<dynamic> route) => false,
+                                    );
+                                  },
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
                                   ),
-                                ),
-                                obscureText: _obscurePassword,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your password';
-                                  }
-                                  return null;
-                                },
+                                  child: Text(
+                                    "Don't have an account? Sign up",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                )
+                            ),
+                            const SizedBox(height: 20),
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextFormField(
+                                    controller: _emailController,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Email',
+                                      border: OutlineInputBorder(),
+                                    ),
+                                    keyboardType: TextInputType.emailAddress,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your email';
+                                      }
+                                      if (!value.contains('@')) {
+                                        return 'Please enter a valid email';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(height: 20),
+                                  TextFormField(
+                                    controller: _passwordController,
+                                    decoration: InputDecoration(
+                                      labelText: 'Password',
+                                      border: const OutlineInputBorder(),
+                                      suffixIcon: IconButton(
+                                        icon: Icon(_obscurePassword
+                                            ? Icons.visibility_off
+                                            : Icons.visibility),
+                                        onPressed: _togglePasswordVisibility,
+                                      ),
+                                    ),
+                                    obscureText: _obscurePassword,
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return 'Please enter your password';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  const SizedBox(height: 20),
+                                  ElevatedButton(
+                                    onPressed: _signInWithEmailAndPassword,
+                                    child: const Text('Sign In'),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  TextButton(
+                                    onPressed: _resetPassword,
+                                    child: const Text('Forgot Password?',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                    ),),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 20),
-                              ElevatedButton(
-                                onPressed: _signInWithEmailAndPassword,
-                                child: const Text('Sign In'),
-                              ),
-                              const SizedBox(height: 10),
-                              TextButton(
-                                onPressed: _resetPassword,
-                                child: const Text('Forgot Password?'),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

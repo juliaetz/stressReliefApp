@@ -122,7 +122,7 @@ class MoodTrackerBarChart extends StatelessWidget {
 
         // SHOW BORDERS, HIDE GRIDLINES
         borderData: FlBorderData(show: true),
-        gridData: FlGridData(show: false),
+        gridData: FlGridData(show: true),
       ),
     );
   }

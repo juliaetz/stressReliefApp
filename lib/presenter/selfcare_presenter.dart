@@ -220,7 +220,10 @@ class BasicSelfcarePresenter extends SelfcarePresenter{
     String? id = currDoc?.id;
 
     // adds idea back to the ideas collection, removes from favorites list
-    swapFaveAndIdea(id, currDoc, _viewModel.ideasDatabaseReference, _viewModel.favoritesDatabaseReference);
+    if(currDoc?.get("Filter") != "User made") {
+      swapFaveAndIdea(id, currDoc, _viewModel.ideasDatabaseReference,
+          _viewModel.favoritesDatabaseReference);
+    }
     _viewModel.favoritesList.remove(idea);
 
     // if the deleted favorite is the current generated idea, update the heart icon

@@ -27,7 +27,6 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
   void initState() {
     super.initState();
     this.widget.presenter.historyView = this;
-
   }
 
   //DELETE THIS BEFORE FINAL MERGE: TEST FUNCTION
@@ -45,53 +44,56 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
 
 
   // BEGINNING OF UPDATES HANDLED BY PRESENTER
-  void handleHistoryValueChanged(String? value){
+  void handleHistoryValueChanged(String? value) {
     this.widget.presenter.onOptionChanged(value!);
   }
 
-  void updateScreen(){
+  void updateScreen() {
     this.widget.presenter.updateScreen();
   }
+
   // END OF UPDATES HANDLED BY PRESENTER
 
 
   // presenter updates view variables
-  void handlePageChange(int index){
-    setState((){
+  void handlePageChange(int index) {
+    setState(() {
       _selectedIndex = index;
 
-      if(index == 0){ // these pages were in the history page build context as widgets
+      if (index ==
+          0) { // these pages were in the history page build context as widgets
         _page = DailyHistoryPage();
       }
-      else if (index == 1){
+      else if (index == 1) {
         _page = ActivityGraph();
       }
-      else if (index == 2){
-        _page = MoodHistorySummary(); // this page is seperate on the mood tracker
+      else if (index == 2) {
+        _page =
+            MoodHistorySummary(); // this page is seperate on the mood tracker
       }
     });
   }
 
   @override
-  void updateEntries(List<Widget> entries){
+  void updateEntries(List<Widget> entries) {
     setState(() {
       _entries = entries;
     });
   }
 
   @override
-  void updateSelectedIndex(int index){
+  void updateSelectedIndex(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
-    @override
-    void updatePage(Widget page){
-      setState(() {
-        _page = page;
-      });
-    }
+  @override
+  void updatePage(Widget page) {
+    setState(() {
+      _page = page;
+    });
+  }
 
 
   @override
@@ -100,7 +102,8 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       appBar: AppBar(
         toolbarHeight: 80,
         leading: buildHomeButton(),
-        title: Text('Daily Activity and Mood History', style: TextStyle(fontSize: 20.0),),
+        title: Text(
+          'Daily Activity and Mood History', style: TextStyle(fontSize: 20.0),),
         centerTitle: true,
         backgroundColor: Colors.deepPurple.shade200,
       ),
@@ -127,18 +130,18 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
             label: 'History',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.stacked_line_chart_outlined),
+            icon: Icon(Icons.bar_chart_sharp),
             label: 'Activity Graph',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart_rounded),
-            label: 'Mood Graph'
+              icon: Icon(Icons.bar_chart_rounded),
+              label: 'Mood Graph'
           )
         ],
 
 
         currentIndex: _selectedIndex,
-        onTap: (int index){
+        onTap: (int index) {
           setState(() {
             handlePageChange(index);
           });
@@ -149,7 +152,7 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
 
   // START OF FUNCTIONS RELATED TO HISTORY VIEW
   @override
-  Container DailyHistoryPage(){
+  Container DailyHistoryPage() {
     return Container(
       width: double.infinity,
       decoration: addBackground(),
@@ -169,15 +172,18 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(padding: EdgeInsets.all(8)),
-        Text('Daily History:  ', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+        Text('Daily History:  ',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
         DropdownButton<String>(
           value: _dropdownValue,
           icon: const Icon(Icons.keyboard_arrow_down),
           underline: Container(height: 2, color: Colors.deepPurple.shade700),
-          items: <String>['Activity History', 'Mood History'].map((String value) {
+          items: <String>['Activity History', 'Mood History'].map((
+              String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value, style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),),
+              child: Text(value,
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.normal),),
             );
           }).toList(),
           onChanged: (String? newValue) {
@@ -202,51 +208,83 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       ),
     );
   }
+
   // END OF FUNCTIONS RELATED TO HISTORY VIEW
 
-
-  // START OF METHODS RELATED TO ACTIVITY GRAPH VIEW
-  //going to need to call the getEventsByCoutns() for the map<string, int>
-    @override
-    Widget ActivityGraph() {
-      return Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/purple_background.jpg"),
-            fit: BoxFit.cover,
-          ),
+  @override
+  Widget ActivityGraph() {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/purple_background.jpg"),
+          fit: BoxFit.cover,
         ),
-        child: FutureBuilder<Map<String, int>>(
-          future: getEventCountsByDay(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text("Error: ${snapshot.error}"));
-            } else if (!snapshot.hasData || snapshot.data!.values.every((count) => count == 0)) {
-              return const Center(child: Text("No events found"));
+      ),
+      child: FutureBuilder<Map<String, dynamic>>(
+        future: getEventCountsByDay(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data == null) {
+            return const Center(child: Text("No data available"));
+          } else {
+            final data = snapshot.data!;
+            final Map<String, int> dayCounts = Map<String, int>.from(
+                data['dayCounts']);
+            final DateTime? earliest = data['earliest'];
+            final DateTime? latest = data['latest'];
+
+            if (earliest == null || latest == null || dayCounts.isEmpty) {
+              return const Center(child: Text("Insufficient event data."));
             }
 
-            // use the data for the chart
-            final eventCounts = snapshot.data!;
+            final String busiestDay = dayCounts.entries
+                .reduce((a, b) => a.value >= b.value ? a : b)
+                .key;
+            final int busiestCount = dayCounts[busiestDay]!;
+
+            String formatDate(DateTime date) {
+              return "${date.year}-${date.month.toString().padLeft(
+                  2, '0')}-${date.day.toString().padLeft(2, '0')}";
+            }
 
             return Column(
               children: [
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    "From ${formatDate(earliest)} to ${formatDate(
+                        latest)}, your busiest day was $busiestDay with $busiestCount events.",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 16),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: SizedBox(
-                    height: 500, //constrains the chart's height, you get an error if you dont
-                    child: ActivityBarChart(eventCounts: eventCounts),
+                    height: 500,
+                    child: ActivityBarChart(eventCounts: dayCounts),
                   ),
                 ),
                 const SizedBox(height: 12),
-                const Text("Event activity by day"),
+                const SizedBox(height: 20),
+                //test
               ],
             );
-          },
-        ),
-      );
-    }
+          }
+        },
+      ),
+    );
+  }
+
 
   String _getWeekdayName(int weekday) {
     const days = [
@@ -258,11 +296,11 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       'Saturday',
       'Sunday'
     ];
-    return days[weekday];
+    return days[weekday -1 ];
   }
 
   @override
-  Future<Map<String, int>> getEventCountsByDay() async{
+  Future<Map<String, dynamic>> getEventCountsByDay() async {
     //create a Map<String, int>, where the string is the day of the week, and the int is the number of event occurrences in our firebase
     //we will later be incrementing the int
     Map<String, int> dayCounts = {
@@ -270,45 +308,81 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       'Tuesday': 0,
       'Wednesday': 0,
       'Thursday': 0,
-      'Friday':0,
-      'Saturday':0,
-      'Sunday':0
+      'Friday': 0,
+      'Saturday': 0,
+      'Sunday': 0
     };
 
-    final userDocRef = await getUserDocument();
-    final eventDatabaseReference = userDocRef.collection('events');
+
+    DateTime? earliest;
+    DateTime? latest;
+
+
+    //come back and change this line so that it fits with the 'event' field in our db
+    final eventDatabaseReference = FirebaseFirestore.instance.collection(
+        'events');
     QuerySnapshot snapshot = await eventDatabaseReference.get();
+
 
     //now loop through our fields in snapshot so we can increment the count for each day
     for (var doc in snapshot.docs) {
-
-      try{
+      try {
         //access the data in our 'date' (i dont think we need to format it)
         //We need to see every day that has an event, and then increment out dayCounts map by 1, based on the day/
         Timestamp timestamp = doc['date'];
         DateTime eventDate = timestamp.toDate();
+
+
+        // create a range for events taking place
+        // Initialize earliest and latest with the first event's date
+        if (earliest == null || eventDate.isBefore(earliest!)) {
+          earliest = eventDate;
+        }
+        if (latest == null || eventDate.isAfter(latest!)) {
+          latest = eventDate;
+        }
+
+
         //determine day of the week string
         String weekday = _getWeekdayName(eventDate.weekday);
+
 
         List<dynamic> events = doc['events'];
         //get the length of the event field
         int numEvents = events.length;
         //if 'weekday' is in our map 'dayCount'
-        if(dayCounts.containsKey(weekday)) {
+        if (dayCounts.containsKey(weekday)) {
           //increment weekday by + 1
-
           dayCounts[weekday] = dayCounts[weekday]! + numEvents;
-
-
         }
-
       } catch (e) {
         print('Error with data from doc ${doc.id}: $e');
       }
     }
+    // Find busiest day
+    String busiestDay = '';
+    int maxCount = 0;
+
+
+    dayCounts.forEach((day, count) {
+      if (count > maxCount) {
+        maxCount = count;
+        busiestDay = day;
+      }
+    });
+
+
     //return our incremented map
-    return dayCounts;
+    return {
+      'dayCounts': dayCounts,
+      'earliest': earliest,
+      'latest': latest,
+      'busiestDay': busiestDay,
+      'maxCount': maxCount,
+    };
   }
+
+
   // END OF METHODS RELATED TO ACTIVITY GRAPH VIEW
 
 
@@ -319,13 +393,14 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       onPressed: () {
         Navigator.push(
             context,
-            MaterialPageRoute(builder:(context) => HomePage(),)
+            MaterialPageRoute(builder: (context) => HomePage(),)
         );
       },
 
-      child: Icon(Icons.house, color:Colors.white),
+      child: Icon(Icons.house, color: Colors.white),
       style: FilledButton.styleFrom(
-        shape: CircleBorder(side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
+        shape: CircleBorder(
+            side: BorderSide(color: Colors.deepPurple.shade200, width: 8)),
         padding: EdgeInsets.all(5),
         backgroundColor: Colors.deepPurple.shade700,
         foregroundColor: Colors.deepPurple.shade700,
@@ -341,6 +416,6 @@ class _HistoryPageState extends State<HistoryPage> implements HistoryView {
       ),
     );
   }
-  // END OF MISC UI ELEMENTS
+// END OF MISC UI ELEMENTS
 
 }

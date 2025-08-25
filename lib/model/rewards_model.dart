@@ -101,7 +101,12 @@ class RewardsModel {
   Future<void> updateProgressFromDatabase() async {
     final userDocRef = await getUserDocument();
     final variableSnapshot = await userDocRef.collection('Persistent_Variables').get();
-    int maxStreak = variableSnapshot.docs[0]['maxStreak'];
+    int maxStreak;
+    if (variableSnapshot.docs.isEmpty) {
+      await userDocRef.collection('Persistent_Variables').doc('Integers').set({'maxStreak': 0});
+    }
+    maxStreak = variableSnapshot.docs[0]['maxStreak'];
+
 
     // Mood Tracking (Altered after Gemini)
     List<DateTime> trackedDates = [];
@@ -140,14 +145,14 @@ class RewardsModel {
     } else {
       streakCounter = 0;
     }
-      if (streakCounter > maxStreak) {
-        maxStreak = streakCounter;
-        await variableSnapshot.docs[0].reference
-            .update({'maxStreak': maxStreak});
-      }
-      for (int i = 0; i <= 3; i++) {
-        rewards[i].setCurrentProgress(maxStreak);
-      }
+    if (streakCounter > maxStreak) {
+      maxStreak = streakCounter;
+      await variableSnapshot.docs[0].reference
+          .update({'maxStreak': maxStreak});
+    }
+    for (int i = 0; i <= 3; i++) {
+      rewards[i].setCurrentProgress(maxStreak);
+    }
 
     // Activity Logging
     int eventCounter = 0;
